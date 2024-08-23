@@ -6,79 +6,71 @@ import shuffle from "./Shuffle";
 // import sold from "./Sold";
 // import { Deck } from "../assets/data/Deck";
 
-const runGame = ({
+const initialShuffleFlipDeal = ({
   deck,
   setDeck,
   player,
   setPlayer,
   opponent,
   setOpponent,
-  table,
-  setTable,
   activePlayer,
   setActivePlayer,
   inactivePlayer,
   setInactivePlayer,
 }) => {
   console.log("runGame function called");
-  console.log("Current table:", table);
 
   // Shuffle and set deck
   const playingDeck = shuffle(deck);
   setDeck(playingDeck);
-  console.log("Current deck:", playingDeck);
+  // console.log("Current deck:", playingDeck);
 
-  // Determine active and inactive players
-  const newActivePlayer = flipCoin() === "player" ? player : opponent;
-  const newInactivePlayer = newActivePlayer === player ? opponent : player;
-  setActivePlayer(newActivePlayer);
-  setInactivePlayer(newInactivePlayer);
-  console.log("Active player:", newActivePlayer);
-  console.log("Inactive player:", newInactivePlayer);
-
+  // Determine active and inactive players. Active player goes first.
+  let currentActivePlayer = flipCoin() === "player" ? player : opponent;
+  let currentInactivePlayer =
+    currentActivePlayer === player ? opponent : player;
+  setActivePlayer(currentActivePlayer);
+  setInactivePlayer(currentInactivePlayer);
   // Guard clauses to handle null values
-  if (!newActivePlayer || !newInactivePlayer) {
+  if (!currentActivePlayer || !currentInactivePlayer) {
     console.error("Active or inactive player is not set.");
     return;
   }
 
-  // Deal cards to active and inactive players
-  const { player: updatedPlayer, shuffledDeck: deckAfterPlayerDeal } = deal(
-    newActivePlayer,
+  // Deal cards to players
+  const { player: updatedActivePlayer, shuffledDeck: deckAfterOneDeal } = deal(
+    currentActivePlayer,
     playingDeck
   );
-  const { player: updatedOpponent, shuffledDeck: deckAfterOpponentDeal } = deal(
-    newInactivePlayer,
-    deckAfterPlayerDeal
-  );
-
-  setPlayer(updatedPlayer);
-  setOpponent(updatedOpponent);
-
+  const { player: updatedInactivePlayer, shuffledDeck: deckAfterTwoDeals } =
+    deal(currentInactivePlayer, deckAfterOneDeal);
   // Update deck with remaining cards
-  setDeck(deckAfterOpponentDeal);
-
-  console.log("Updated player:", updatedPlayer);
-  console.log("Updated opponent:", updatedOpponent);
+  setDeck(deckAfterTwoDeals);
   console.log(
-    `Deck length after dealing to both players: ${deckAfterOpponentDeal.length} cards`
+    "Updated active player's hand after dealing:",
+    updatedActivePlayer.hand
+  );
+  console.log(
+    "Updated inactive player's hand after dealig:",
+    updatedInactivePlayer.hand
+  );
+  console.log(
+    `Deck length after dealing to both players: ${deckAfterTwoDeals.length} cards`
   );
 
-  // Example of simple operations
-  if (deckAfterOpponentDeal.length > 0) {
-    console.log(`Deck has ${deckAfterOpponentDeal.length} cards`);
+  // Finally pass back updatedActivePlayer back to state
+  if (updatedActivePlayer.id === "Player") {
+    setPlayer(updatedActivePlayer);
   } else {
-    console.log("Deck is empty");
+    setOpponent(updatedActivePlayer);
+  }
+  if (updatedActivePlayer.id === "Opponent") {
+    setOpponent(updatedActivePlayer);
+  } else {
+    setPlayer(updatedActivePlayer);
   }
 
-  // Update the table state (mock example)
-  const newTable = [...table];
-  setTable(newTable);
-  console.log("Updated table:", newTable);
-
-  // Log active and inactive players after switch
-  console.log("Switched players. New active player ID:", newActivePlayer.id);
-  console.log("New inactive player ID:", newInactivePlayer.id);
+  console.log("Game loop completed.");
 };
 
-export default runGame;
+export default initialShuffleFlipDeal;

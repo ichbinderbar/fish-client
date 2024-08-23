@@ -4,9 +4,9 @@ export default function deal(player, shuffledDeck) {
     return { player, shuffledDeck }; // Return both player and deck unchanged
   }
 
-  console.log(
-    `Dealing cards. Deck length before dealing: ${shuffledDeck.length}`
-  );
+  // console.log(
+  //   `Dealing cards. Deck length before dealing: ${shuffledDeck.length}`
+  // );
 
   let newHand;
 
@@ -17,8 +17,8 @@ export default function deal(player, shuffledDeck) {
     newHand = shuffledDeck.splice(0);
   }
 
-  console.log(`${player.id} has been dealt ${newHand.length} cards.`);
-  console.log(`Deck length after dealing: ${shuffledDeck.length} cards`);
+  // console.log(`${player.id} has been dealt ${newHand.length} cards.`);
+  // console.log(`Deck length after dealing: ${shuffledDeck.length} cards`);
 
   return {
     player: { ...player, hand: newHand },

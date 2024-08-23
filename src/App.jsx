@@ -6,7 +6,7 @@
 // - The return statement with JSX rendering the components.
 
 import "./App.scss";
-import runGame from "./game/GameLogic";
+import initialShuffleFlipDeal from "./game/GameLogic";
 import deal from "./game/Deal";
 import PlayerArea from "./components/PlayerArea/PlayerArea";
 import Table from "./components/Table/Table";
@@ -18,6 +18,7 @@ import {
 import { useState, useEffect } from "react";
 
 function App() {
+  // initialize state variables to manage game logic
   const [deck, setDeck] = useState(Deck);
   const [table, setTable] = useState([]);
   const [player, setPlayer] = useState(playerInState);
@@ -27,15 +28,13 @@ function App() {
   const [inactivePlayer, setInactivePlayer] = useState(null);
 
   useEffect(() => {
-    runGame({
+    initialShuffleFlipDeal({
       deck,
       setDeck,
       player,
       setPlayer,
       opponent,
       setOpponent,
-      table,
-      setTable,
       activePlayer,
       setActivePlayer,
       inactivePlayer,
