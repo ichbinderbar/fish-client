@@ -21,13 +21,12 @@ const runGame = ({
   setInactivePlayer,
 }) => {
   console.log("runGame function called");
+  console.log("Current table:", table);
 
   // Shuffle and set deck
   const playingDeck = shuffle(deck);
   setDeck(playingDeck);
   console.log("Current deck:", playingDeck);
-
-  console.log("Current table:", table);
 
   // Determine active and inactive players
   const newActivePlayer = flipCoin() === "player" ? player : opponent;
@@ -44,16 +43,30 @@ const runGame = ({
   }
 
   // Deal cards to active and inactive players
-  const updatedPlayer = deal(newActivePlayer, playingDeck);
-  const updatedOpponent = deal(newInactivePlayer, playingDeck);
+  const { player: updatedPlayer, shuffledDeck: deckAfterPlayerDeal } = deal(
+    newActivePlayer,
+    playingDeck
+  );
+  const { player: updatedOpponent, shuffledDeck: deckAfterOpponentDeal } = deal(
+    newInactivePlayer,
+    deckAfterPlayerDeal
+  );
+
   setPlayer(updatedPlayer);
   setOpponent(updatedOpponent);
+
+  // Update deck with remaining cards
+  setDeck(deckAfterOpponentDeal);
+
   console.log("Updated player:", updatedPlayer);
   console.log("Updated opponent:", updatedOpponent);
+  console.log(
+    `Deck length after dealing to both players: ${deckAfterOpponentDeal.length} cards`
+  );
 
   // Example of simple operations
-  if (playingDeck.length > 0) {
-    console.log(`Deck has ${playingDeck.length} cards`);
+  if (deckAfterOpponentDeal.length > 0) {
+    console.log(`Deck has ${deckAfterOpponentDeal.length} cards`);
   } else {
     console.log("Deck is empty");
   }
