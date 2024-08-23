@@ -1,0 +1,69 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/globals" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.card {
+  text-shadow: 0 3px rgba(155, 5, 200, 0.8);
+  border: 2px solid gold;
+  color: gold;
+  display: flex;
+  min-width: 4rem;
+  width: 3rem;
+  height: 6rem;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  cursor: pointer;
+  @include tablet {
+    width: 6rem;
+    height: 9rem;
+    font-size: 5rem;
+  }
+  // &__hook {
+  //   transform: scale(1.2);
+  //   border: 2px solid gold;
+  //   box-shadow: 0 0 10px rgb(0, 255, 247);
+  //   bottom: 0;
+  //   z-index: 100;
+  //   transition: 0.2s;
+  //   color: gold;
+  // }
+  &__blue {
+    background-color: blue;
+    &--selected {
+      @include selected-card;
+    }
+  }
+  &__yellow {
+    background-color: yellow;
+    &--selected {
+      @include selected-card;
+    }
+  }
+  &__green {
+    background-color: green;
+    &--selected {
+      @include selected-card;
+    }
+  }
+  &__red {
+    background-color: red;
+    &--selected {
+      @include selected-card;
+    }
+  }
+  &:hover {
+    @include hover-card;
+  }
+  &:active {
+    @include active-card;
+  }
+  &--inactive {
+    @include inactive-card;
+  }
+  &--selected {
+    @include selected-card;
+  }
+}

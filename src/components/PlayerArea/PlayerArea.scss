@@ -1,0 +1,70 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/globals" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.player-area {
+  display: flex;
+  flex-direction: column;
+  min-width: 24rem;
+  height: 30vh;
+  overflow: hidden;
+  background-image: $wood;
+  @include tablet {
+    flex-direction: row;
+  }
+  &__stat-container {
+    display: flex;
+    justify-content: space-evenly;
+    // border: solid 2px black;
+    gap: 1rem;
+    padding: auto;
+    flex: 1;
+  }
+  &__cards-collected {
+    display: flex;
+    height: 3rem;
+    width: 3rem;
+    margin: auto;
+    border-radius: 5%;
+    background-image: $purple-stars;
+    border: solid 2px goldenrod;
+    align-content: center;
+    justify-content: space-around;
+    text-align: center;
+    animation: pulsate 2s ease-in-out infinite;
+    filter: sepia(40%);
+    &:hover {
+      border: 3px solid gold;
+      box-shadow: 0 0 10px rgba(255, 0, 255, 1);
+      animation: none;
+      filter: none;
+    }
+    &:active {
+      border: 3px solid rgb(0, 255, 0);
+      transition: border-color 0.2s;
+      box-shadow: 0 0 10px rgba(255, 255, 0, 1.5);
+      color: rgb(0, 255, 0);
+    }
+    @include tablet {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+  &__coins-earned {
+    display: flex;
+    height: 3rem;
+    width: 3rem;
+    margin: auto;
+    border-radius: 5%;
+    background-image: $red-stars;
+    border: solid 2px goldenrod;
+    align-content: center;
+    justify-content: space-around;
+    text-align: center;
+    @include tablet {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+}

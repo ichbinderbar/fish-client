@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="svg2" viewBox="0 0 500 670" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <desc>Source: openclipart.org/detail/209545</desc>
+  <defs>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="366.229" cy="481.237" r="76.323" id="gradient-8" gradientTransform="matrix(-0.000562, 1.019642, -0.837621, -0.000592, 524.924253, -10.651425)">
+      <stop offset="0" style="stop-color: rgb(255, 233, 0);"/>
+      <stop offset="1" style="stop-color: rgb(255, 171, 0);"/>
+    </radialGradient>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="338.204" cy="321.792" r="76.323" id="gradient-9" gradientTransform="matrix(-2.128925, -0.042499, 0.016315, -1.046172, 956.726703, 712.346992)">
+      <stop offset="0" style="stop-color: rgb(255, 228, 0);"/>
+      <stop offset="1" style="stop-color: rgb(249, 200, 0);"/>
+    </radialGradient>
+    <filter id="drop-shadow-filter-0" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="drop-shadow 1 0 10 0 0.13 rgba(0,0,0,0.3)">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0"/>
+      <feOffset dx="0" dy="10"/>
+      <feComponentTransfer result="offsetblur">
+        <feFuncA id="spread-ctrl" type="linear" slope="0.26"/>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.3)"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="366.229" cy="481.237" r="76.323" id="gradient-2" gradientTransform="matrix(-0.000562, 1.019642, -0.837621, -0.000592, 524.9244, -10.651524)">
+      <stop offset="0" style="stop-color: rgb(255, 233, 0);"/>
+      <stop offset="1" style="stop-color: rgb(255, 171, 0);"/>
+    </radialGradient>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="338.204" cy="321.792" r="76.323" id="gradient-3" gradientTransform="matrix(-2.128925, -0.042499, 0.016315, -1.046172, 956.72685, 712.346898)">
+      <stop offset="0" style="stop-color: rgb(255, 228, 0);"/>
+      <stop offset="1" style="stop-color: rgb(249, 200, 0);"/>
+    </radialGradient>
+    <filter id="filter-1" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="drop-shadow 1 0 10 0 0.13 rgba(0,0,0,0.3)">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0"/>
+      <feOffset dx="0" dy="10"/>
+      <feComponentTransfer result="offsetblur">
+        <feFuncA id="feFuncA-1" type="linear" slope="0.26"/>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.3)"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="366.229" cy="481.237" r="76.323" id="gradient-4" gradientTransform="matrix(-0.000562, 1.019642, -0.837621, -0.000592, 524.924279, -10.651511)">
+      <stop offset="0" style="stop-color: rgb(255, 233, 0);"/>
+      <stop offset="1" style="stop-color: rgb(255, 171, 0);"/>
+    </radialGradient>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="338.204" cy="321.792" r="76.323" id="gradient-5" gradientTransform="matrix(-2.128925, -0.042499, 0.016315, -1.046172, 956.726728, 712.346838)">
+      <stop offset="0" style="stop-color: rgb(255, 228, 0);"/>
+      <stop offset="1" style="stop-color: rgb(249, 200, 0);"/>
+    </radialGradient>
+    <filter id="filter-2" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="drop-shadow 1 0 10 0 0.13 rgba(0,0,0,0.3)">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0"/>
+      <feOffset dx="0" dy="10"/>
+      <feComponentTransfer result="offsetblur">
+        <feFuncA id="feFuncA-2" type="linear" slope="0.26"/>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.3)"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="366.229" cy="481.237" r="76.323" id="gradient-6" gradientTransform="matrix(-0.000562, 1.019642, -0.837621, -0.000592, 524.924277, -10.651516)">
+      <stop offset="0" style="stop-color: rgb(255, 233, 0);"/>
+      <stop offset="1" style="stop-color: rgb(255, 171, 0);"/>
+    </radialGradient>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="338.204" cy="321.792" r="76.323" id="gradient-7" gradientTransform="matrix(-2.128925, -0.042499, 0.016315, -1.046172, 956.726666, 712.346834)">
+      <stop offset="0" style="stop-color: rgb(255, 228, 0);"/>
+      <stop offset="1" style="stop-color: rgb(249, 200, 0);"/>
+    </radialGradient>
+    <filter id="filter-3" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="drop-shadow 1 0 10 0 0.13 rgba(0,0,0,0.3)">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0"/>
+      <feOffset dx="0" dy="10"/>
+      <feComponentTransfer result="offsetblur">
+        <feFuncA id="feFuncA-3" type="linear" slope="0.26"/>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.3)"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="366.229" cy="481.237" r="76.323" id="gradient-1" gradientTransform="matrix(-0.000562, 1.019642, -0.837621, -0.000592, 524.924388, -10.651524)">
+      <stop offset="0" style="stop-color: rgb(255, 233, 0);"/>
+      <stop offset="1" style="stop-color: rgb(255, 171, 0);"/>
+    </radialGradient>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="338.204" cy="321.792" r="76.323" id="gradient-10" gradientTransform="matrix(-2.128925, -0.042499, 0.016315, -1.046172, 956.726838, 712.346908)">
+      <stop offset="0" style="stop-color: rgb(255, 228, 0);"/>
+      <stop offset="1" style="stop-color: rgb(249, 200, 0);"/>
+    </radialGradient>
+    <filter id="filter-4" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="drop-shadow 1 0 10 0 0.13 rgba(0,0,0,0.3)">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0"/>
+      <feOffset dx="0" dy="10"/>
+      <feComponentTransfer result="offsetblur">
+        <feFuncA id="feFuncA-4" type="linear" slope="0.26"/>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.3)"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="366.229" cy="481.237" r="76.323" id="gradient-11" gradientTransform="matrix(-0.000562, 1.019642, -0.837621, -0.000592, 524.924402, -10.651509)">
+      <stop offset="0" style="stop-color: rgb(255, 233, 0);"/>
+      <stop offset="1" style="stop-color: rgb(255, 171, 0);"/>
+    </radialGradient>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="338.204" cy="321.792" r="76.323" id="gradient-12" gradientTransform="matrix(-2.128925, -0.042499, 0.016315, -1.046172, 956.726974, 712.346841)">
+      <stop offset="0" style="stop-color: rgb(255, 228, 0);"/>
+      <stop offset="1" style="stop-color: rgb(249, 200, 0);"/>
+    </radialGradient>
+    <filter id="filter-5" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="drop-shadow 1 0 10 0 0.13 rgba(0,0,0,0.3)">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0"/>
+      <feOffset dx="0" dy="10"/>
+      <feComponentTransfer result="offsetblur">
+        <feFuncA id="feFuncA-5" type="linear" slope="0.26"/>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.3)"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <ellipse style="fill: url('#gradient-8'); stroke: url('#gradient-9'); filter: url('#drop-shadow-filter-0'); transform-box: fill-box; transform-origin: 50% 50%;" cx="183.336" cy="363.069" rx="82.006" ry="59.778" transform="matrix(0.917591, 0.397525, -0.397525, 0.917591, 29.068217, 92.884715)"/>
+  <ellipse style="fill: url('#gradient-2'); stroke: url('#gradient-3'); filter: url('#filter-1'); transform-origin: 183.336px 363.069px;" cx="183.336" cy="363.069" rx="82.006" ry="59.778" transform="matrix(0.917591, 0.397525, -0.397525, 0.917591, 46.798409, -1.4979)"/>
+  <ellipse style="fill: url('#gradient-4'); stroke: url('#gradient-5'); filter: url('#filter-2'); transform-origin: 183.336px 363.069px;" cx="183.336" cy="363.069" rx="82.006" ry="59.778" transform="matrix(0.917591, 0.397525, -0.397525, 0.917591, 63.167306, -28.131403)"/>
+  <ellipse style="fill: url('#gradient-6'); stroke: url('#gradient-7'); filter: url('#filter-3'); transform-origin: 183.336px 363.069px;" cx="183.336" cy="363.069" rx="82.006" ry="59.778" transform="matrix(0.917591, 0.397525, -0.397525, 0.917591, 67.47561, -55.124606)"/>
+  <ellipse style="fill: url('#gradient-1'); stroke: url('#gradient-10'); filter: url('#filter-4'); transform-origin: 183.336px 363.069px;" cx="183.336" cy="363.069" rx="82.006" ry="59.778" transform="matrix(0.917591, 0.397525, -0.397525, 0.917591, 121.838542, -68.844484)"/>
+  <ellipse style="fill: url('#gradient-11'); stroke: url('#gradient-12'); filter: url('#filter-5'); transform-origin: 183.336px 363.069px;" cx="183.336" cy="363.069" rx="82.006" ry="59.778" transform="matrix(0.917591, 0.397525, -0.397525, 0.917591, 67.049874, -168.084279)"/>
+</svg>
