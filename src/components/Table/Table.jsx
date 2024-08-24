@@ -7,7 +7,6 @@ export default function Table({ cards, handleTableCardSelection }) {
       {cards.map((card, index) => (
         <Card
           className={`card card__${card.color}
-          ${card.hook ? "card__hook" : ""}
           ${card.selected ? `card__${card.color}--selected` : ""}`}
           onClick={() => handleTableCardSelection(card)}
           key={index}

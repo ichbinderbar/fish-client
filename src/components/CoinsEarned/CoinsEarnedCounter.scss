@@ -4,27 +4,9 @@
 @use "../../styles/partials/variables" as *;
 
 .player-area {
-  display: flex;
-  flex-direction: column;
-  min-width: 24rem;
-  height: 30vh;
-  overflow: hidden;
-  background-image: $wood;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.65);
-  @include tablet {
-    flex-direction: row;
-  }
-  &__stat-container {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 1rem;
-    padding: auto;
-    flex: 1;
-    max-width: 20rem;
-    margin: auto;
-  }
   &__coins-earned {
     display: flex;
+    position: relative;
     height: 3rem;
     width: 3rem;
     margin: auto;
@@ -38,5 +20,19 @@
       width: 5rem;
       height: 5rem;
     }
+  }
+  &__coins-earned-counter {
+    display: flex;
+    position: absolute;
+    height: 2rem;
+    width: 2rem;
+    margin: auto;
+    border-radius: 5%;
+    background-image: $yellow-cardboard;
+    border: solid 3px goldenrod;
+    align-content: center;
+    justify-content: space-around;
+    top: -1rem;
+    right: -1rem;
   }
 }
