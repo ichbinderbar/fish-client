@@ -1,77 +1,47 @@
 import deal from "./Deal";
 import flipCoin from "./FlipCoin";
 import shuffle from "./Shuffle";
-// import replenish from "./Replenish";
-// import sell from "./Sell";
-// import sold from "./Sold";
-// import { Deck } from "../assets/data/Deck";
 
-const initialShuffleFlipDeal = ({
+const initialShuffleDealFlip = ({
   deck,
   setDeck,
   player,
   setPlayer,
   opponent,
   setOpponent,
-  activePlayer,
-  setActivePlayer,
-  inactivePlayer,
-  setInactivePlayer,
 }) => {
   console.log("initialShuffleFlipDeal called on mount");
 
   // Shuffle and set deck
   const playingDeck = shuffle(deck);
   setDeck(playingDeck);
-  // console.log("Current deck:", playingDeck);
 
-  // Determine active and inactive players. Active player goes first.
-  let currentActivePlayer = flipCoin() === "player" ? player : opponent;
-  let currentInactivePlayer =
-    currentActivePlayer === player ? opponent : player;
-  setActivePlayer(currentActivePlayer);
-  setInactivePlayer(currentInactivePlayer);
-  // Guard clauses to handle null values
-  if (!currentActivePlayer || !currentInactivePlayer) {
-    console.error("Active or inactive player is not set.");
-    return;
-  }
-
-  // Deal cards to players
-  const { player: updatedActivePlayer, shuffledDeck: deckAfterOneDeal } = deal(
-    currentActivePlayer,
+  // Deal cards to both players first
+  const { player: playerAfterDeal, shuffledDeck: deckAfterPlayerDeal } = deal(
+    player,
     playingDeck
   );
-  const { player: updatedInactivePlayer, shuffledDeck: deckAfterTwoDeals } =
-    deal(currentInactivePlayer, deckAfterOneDeal);
-  // Update deck with remaining cards
-  setDeck(deckAfterTwoDeals);
-  // console.log(
-  //   "Updated active player's hand after dealing:",
-  //   updatedActivePlayer.hand
-  // );
-  // console.log(
-  //   "Updated inactive player's hand after dealig:",
-  //   updatedInactivePlayer.hand
-  // );
-  // console.log(
-  //   `Deck length after dealing to both players: ${deckAfterTwoDeals.length} cards`
-  // );
+  const { player: opponentAfterDeal, shuffledDeck: finalDeck } = deal(
+    opponent,
+    deckAfterPlayerDeal
+  );
 
-  // Update the active and inactive players in the state
-  if (updatedActivePlayer.id === player.id) {
-    setPlayer(updatedActivePlayer);
-  } else {
-    setOpponent(updatedActivePlayer);
-  }
+  // Update the deck and player states after dealing
+  setDeck(finalDeck);
+  setPlayer(playerAfterDeal);
+  setOpponent(opponentAfterDeal);
 
-  if (updatedInactivePlayer.id === opponent.id) {
-    setOpponent(updatedInactivePlayer);
-  } else {
-    setPlayer(updatedInactivePlayer);
-  }
+  // Now determine who goes first by flipping a coin
+  const isPlayerFirst = flipCoin() === "player";
 
-  console.log("Game set up completed");
+  // Update players' active status based on the coin flip
+  setPlayer((prevPlayer) => ({ ...prevPlayer, isActive: isPlayerFirst }));
+  setOpponent((prevOpponent) => ({
+    ...prevOpponent,
+    isActive: !isPlayerFirst,
+  }));
+
+  console.log("Game setup completed. Player goes first:", isPlayerFirst);
 };
 
-export default initialShuffleFlipDeal;
+export default initialShuffleDealFlip;

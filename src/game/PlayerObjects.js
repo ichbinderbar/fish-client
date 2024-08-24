@@ -1,5 +1,6 @@
 export const player = {
   id: "Player",
+  isActive: false,
   hand: [],
   coins: 0,
   fishedCards: 0,
@@ -8,6 +9,7 @@ export const player = {
 
 export const opponent = {
   id: "Opponent",
+  isActive: false,
   hand: [],
   coins: 0,
   fishedCards: 0,

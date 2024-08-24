@@ -6,7 +6,7 @@
 // - The return statement with JSX rendering the components.
 
 import "./App.scss";
-import initialShuffleFlipDeal from "./game/GameLogic";
+import initialShuffleDealFlip from "./game/GameLogic";
 import deal from "./game/Deal";
 import PlayerArea from "./components/PlayerArea/PlayerArea";
 import Table from "./components/Table/Table";
@@ -24,26 +24,20 @@ function App() {
   const [player, setPlayer] = useState(playerInState);
   const [opponent, setOpponent] = useState(opponentInState);
   const [selectedTableCards, setSelectedTableCards] = useState([]);
-  const [activePlayer, setActivePlayer] = useState(null);
-  const [inactivePlayer, setInactivePlayer] = useState(null);
 
-  // set initial game state at mount
+  // set up game and state variables on mount
   useEffect(() => {
-    initialShuffleFlipDeal({
+    initialShuffleDealFlip({
       deck,
       setDeck,
       player,
       setPlayer,
       opponent,
       setOpponent,
-      activePlayer,
-      setActivePlayer,
-      inactivePlayer,
-      setInactivePlayer,
     });
   }, []);
 
-  console.log("Table in state:", table);
+  // console.log("Deck in state:", deck);
   console.log("Player's hand in state:", player.hand);
   console.log("Opponent's hand in state:", opponent.hand);
 
