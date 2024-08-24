@@ -6,11 +6,13 @@
 // - The return statement with JSX rendering the components.
 
 import "./App.scss";
-import { initialShuffleDealFlip, switchActivePlayer } from "./game/GameLogic";
+import { initialShuffleDealFlip } from "./game/InitialShuffleDealFlip";
+import { switchActivePlayer } from "./game/SwitchActivePlayer";
 import opponentFishBot from "./game/OpponentFishBot";
 // import deal from "./game/Deal";
 import PlayerArea from "./components/PlayerArea/PlayerArea";
 import Table from "./components/Table/Table";
+import { Schools } from "./assets/data/Schools";
 import { Deck } from "./assets/data/Deck";
 import {
   player as playerInState,
@@ -46,10 +48,11 @@ function App() {
   useEffect(() => {
     if (opponent.isActive) {
       opponentFishBot(opponent, setOpponent, table, setTable);
-      switchActivePlayer({ player, setPlayer, opponent, setOpponent });
+      switchActivePlayer({ setPlayer, setOpponent });
     }
   }, [opponent.isActive]);
 
+  // Handle player's card selection from hand
   const handleHandCardSelection = (card) => {
     // Only allow selection if the player is active
     if (!player.isActive) {
@@ -57,19 +60,69 @@ function App() {
       return;
     }
 
-    // Update player's hand and table
-    const updatedHand = player.hand.filter((c) => c !== card);
-    const updatedTable = [...table, card];
+    // Check if there are any selected table cards
+    if (selectedTableCards.length > 0) {
+      // Move the selected card to the selectedTableCards array
+      const updatedSelectedCards = [...selectedTableCards, card];
 
-    // Update state
-    setPlayer((prevPlayer) => ({
-      ...prevPlayer,
-      hand: updatedHand,
-    }));
-    setTable(updatedTable);
+      // Extract the number values from the selected cards and sort them
+      const selectedNumbers = updatedSelectedCards
+        .map((c) => c.number)
+        .sort((a, b) => a - b);
 
+      // Simulate finding a valid combination
+      const isValidCombination = true;
+
+      if (isValidCombination) {
+        console.log("Valid combination selected:", selectedNumbers);
+
+        // Remove the selected cards from the table
+        const updatedTable = table.filter(
+          (tableCard) => !updatedSelectedCards.includes(tableCard)
+        );
+
+        // Remove the selected card from the player's hand
+        const updatedHand = player.hand.filter((c) => c !== card);
+
+        // Update the state
+        setTable(updatedTable); // Update the table state to remove the selected cards
+        setPlayer((prevPlayer) => ({
+          ...prevPlayer,
+          hand: updatedHand, // Update the hand state to remove the selected card
+        }));
+        setSelectedTableCards([]); // Clear the selectedTableCards array
+      } else {
+        console.log("Invalid combination selected:", selectedNumbers);
+
+        // Move the last selected card (current `card`) to the table
+        const updatedHand = player.hand.filter((c) => c !== card);
+        const updatedTable = [...table, card];
+
+        // Update the state with the card moved to the table
+        setTable(updatedTable);
+        setPlayer((prevPlayer) => ({
+          ...prevPlayer,
+          hand: updatedHand,
+        }));
+
+        // Clear selectedTableCards array
+        setSelectedTableCards([]);
+        return;
+      }
+    } else {
+      // Update player's hand and table
+      const updatedHand = player.hand.filter((c) => c !== card);
+      const updatedTable = [...table, card];
+
+      // Update state
+      setPlayer((prevPlayer) => ({
+        ...prevPlayer,
+        hand: updatedHand,
+      }));
+      setTable(updatedTable);
+    }
     console.log("Card selected:", card);
-    switchActivePlayer({ player, setPlayer, opponent, setOpponent });
+    switchActivePlayer({ setPlayer, setOpponent });
   };
 
   useEffect(() => {

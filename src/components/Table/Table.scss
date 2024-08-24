@@ -6,6 +6,7 @@
 .table {
   background-image: $table-cloth;
   border: 0.5rem solid rgba(201, 83, 10, 0.912);
+  box-shadow: inset 0 0 10px rgba(175, 255, 62, 0.758);
   gap: 1.5rem;
   padding: 1rem;
   align-items: center;

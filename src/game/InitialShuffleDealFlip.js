@@ -43,19 +43,3 @@ export const initialShuffleDealFlip = ({
 
   console.log("Game setup completed. Player goes first:", isPlayerFirst);
 };
-
-export const switchActivePlayer = ({
-  player,
-  setPlayer,
-  opponent,
-  setOpponent,
-}) => {
-  setPlayer((prevPlayer) => ({
-    ...prevPlayer,
-    isActive: !prevPlayer.isActive,
-  }));
-  setOpponent((prevOpponent) => ({
-    ...prevOpponent,
-    isActive: !prevOpponent.isActive,
-  }));
-};

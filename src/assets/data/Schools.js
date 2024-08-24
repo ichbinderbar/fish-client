@@ -1,4 +1,4 @@
-const schools = [
+export const Schools = [
   {
     totalCards: 11,
     hook: 1,
