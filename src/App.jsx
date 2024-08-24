@@ -127,10 +127,6 @@ function App() {
     switchActivePlayer({ setPlayer, setOpponent });
   };
 
-  useEffect(() => {
-    console.log("Player's fishedCards updated:", player.fishedCards);
-  }, [player]);
-
   // useEffect(() => {
   //   console.log("Cards in selection:", selectedTableCards);
   // }, [selectedTableCards]);
@@ -156,6 +152,7 @@ function App() {
         handleTableCardSelection={handleTableCardSelection}
       />
       <PlayerArea
+        fishedCards={player.fishedCards}
         player={player}
         handleHandCardSelection={handleHandCardSelection}
       />
