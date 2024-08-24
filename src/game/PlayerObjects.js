@@ -19,17 +19,21 @@ export const opponent = {
 function fish() {
   if (this.hand.length > 0) {
     const fishedCard = this.hand.pop();
-    console.log(`${this.id} fished a card: ${JSON.stringify(fishedCard)}.`);
+    console.log(`${this.id} fished a card: ${JSON.stringify(fishedCard)}`);
+    return fishedCard;
   } else {
-    console.log(`${this.id} has no cards to fish.`);
+    console.log(`${this.id} has no cards to fish with`);
+    return null;
   }
 }
 
 function fishBot() {
   if (this.hand.length > 0) {
     const fishedCard = this.hand.pop();
-    console.log(`${this.id} fished a card: ${fishedCard}.`);
+    console.log(`${this.id} fished a card: ${JSON.stringify(fishedCard)}`);
+    return fishedCard;
   } else {
-    console.log(`${this.id} has no cards to fish.`);
+    console.log(`${this.id} has no cards to fish with`);
+    return null;
   }
 }

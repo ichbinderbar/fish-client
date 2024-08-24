@@ -6,8 +6,9 @@
 // - The return statement with JSX rendering the components.
 
 import "./App.scss";
-import initialShuffleDealFlip from "./game/GameLogic";
-import deal from "./game/Deal";
+import { initialShuffleDealFlip, switchActivePlayer } from "./game/GameLogic";
+import opponentFishBot from "./game/OpponentFishBot";
+// import deal from "./game/Deal";
 import PlayerArea from "./components/PlayerArea/PlayerArea";
 import Table from "./components/Table/Table";
 import { Deck } from "./assets/data/Deck";
@@ -41,14 +42,34 @@ function App() {
   console.log("Player's hand in state:", player.hand);
   console.log("Opponent's hand in state:", opponent.hand);
 
+  // Check if it's the opponent's turn and handle auto-play
+  useEffect(() => {
+    if (opponent.isActive) {
+      opponentFishBot(opponent, setOpponent, table, setTable);
+      switchActivePlayer({ player, setPlayer, opponent, setOpponent });
+    }
+  }, [opponent.isActive]);
+
   const handleHandCardSelection = (card) => {
+    // Only allow selection if the player is active
+    if (!player.isActive) {
+      console.log("Cannot select a card. The player is not active.");
+      return;
+    }
+
+    // Update player's hand and table
     const updatedHand = player.hand.filter((c) => c !== card);
-    const updatedTable = [...table, { ...card, hook: true }];
+    const updatedTable = [...table, card];
+
+    // Update state
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       hand: updatedHand,
     }));
     setTable(updatedTable);
+
+    console.log("Card selected:", card);
+    switchActivePlayer({ player, setPlayer, opponent, setOpponent });
   };
 
   useEffect(() => {
