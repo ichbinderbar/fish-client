@@ -41,8 +41,8 @@ function App() {
   }, []);
 
   // console.log("Deck in state:", deck);
-  console.log("Player's hand in state:", player.hand);
-  console.log("Opponent's hand in state:", opponent.hand);
+  // console.log("Player's hand in state:", player.hand);
+  // console.log("Opponent's hand in state:", opponent.hand);
 
   // Check if it's the opponent's turn and handle auto-play
   useEffect(() => {
@@ -76,6 +76,8 @@ function App() {
       if (isValidCombination) {
         console.log("Valid combination selected:", selectedNumbers);
 
+        const fishedCardsCount = updatedSelectedCards.length;
+
         // Remove the selected cards from the table
         const updatedTable = table.filter(
           (tableCard) => !updatedSelectedCards.includes(tableCard)
@@ -89,6 +91,7 @@ function App() {
         setPlayer((prevPlayer) => ({
           ...prevPlayer,
           hand: updatedHand, // Update the hand state to remove the selected card
+          fishedCards: prevPlayer.fishedCards + fishedCardsCount,
         }));
         setSelectedTableCards([]); // Clear the selectedTableCards array
       } else {
@@ -121,13 +124,16 @@ function App() {
       }));
       setTable(updatedTable);
     }
-    console.log("Card selected:", card);
     switchActivePlayer({ setPlayer, setOpponent });
   };
 
   useEffect(() => {
-    console.log("Cards in selection:", selectedTableCards);
-  }, [selectedTableCards]);
+    console.log("Player's fishedCards updated:", player.fishedCards);
+  }, [player]);
+
+  // useEffect(() => {
+  //   console.log("Cards in selection:", selectedTableCards);
+  // }, [selectedTableCards]);
 
   const handleTableCardSelection = (card) => {
     if (card.selected) {

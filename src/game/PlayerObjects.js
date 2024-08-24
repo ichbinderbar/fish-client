@@ -30,7 +30,7 @@ function fish() {
 function fishBot() {
   if (this.hand.length > 0) {
     const fishingCard = this.hand.pop();
-    console.log(`${this.id} played: ${JSON.stringify(fishingCard)}`);
+    console.log(`${this.id} played:`, fishingCard);
     return fishingCard;
   } else {
     console.log(`${this.id} has no cards to play with`);
