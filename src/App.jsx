@@ -27,6 +27,7 @@ function App() {
   const [activePlayer, setActivePlayer] = useState(null);
   const [inactivePlayer, setInactivePlayer] = useState(null);
 
+  // set initial game state at mount
   useEffect(() => {
     initialShuffleFlipDeal({
       deck,
@@ -41,6 +42,10 @@ function App() {
       setInactivePlayer,
     });
   }, []);
+
+  console.log("Table in state:", table);
+  console.log("Player's hand in state:", player.hand);
+  console.log("Opponent's hand in state:", opponent.hand);
 
   const handleHandCardSelection = (card) => {
     const updatedHand = player.hand.filter((c) => c !== card);

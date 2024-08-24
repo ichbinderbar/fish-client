@@ -18,7 +18,7 @@ const initialShuffleFlipDeal = ({
   inactivePlayer,
   setInactivePlayer,
 }) => {
-  console.log("runGame function called");
+  console.log("initialShuffleFlipDeal called on mount");
 
   // Shuffle and set deck
   const playingDeck = shuffle(deck);
@@ -46,31 +46,32 @@ const initialShuffleFlipDeal = ({
     deal(currentInactivePlayer, deckAfterOneDeal);
   // Update deck with remaining cards
   setDeck(deckAfterTwoDeals);
-  console.log(
-    "Updated active player's hand after dealing:",
-    updatedActivePlayer.hand
-  );
-  console.log(
-    "Updated inactive player's hand after dealig:",
-    updatedInactivePlayer.hand
-  );
-  console.log(
-    `Deck length after dealing to both players: ${deckAfterTwoDeals.length} cards`
-  );
+  // console.log(
+  //   "Updated active player's hand after dealing:",
+  //   updatedActivePlayer.hand
+  // );
+  // console.log(
+  //   "Updated inactive player's hand after dealig:",
+  //   updatedInactivePlayer.hand
+  // );
+  // console.log(
+  //   `Deck length after dealing to both players: ${deckAfterTwoDeals.length} cards`
+  // );
 
-  // Finally pass back updatedActivePlayer back to state
-  if (updatedActivePlayer.id === "Player") {
+  // Update the active and inactive players in the state
+  if (updatedActivePlayer.id === player.id) {
     setPlayer(updatedActivePlayer);
   } else {
     setOpponent(updatedActivePlayer);
   }
-  if (updatedActivePlayer.id === "Opponent") {
-    setOpponent(updatedActivePlayer);
+
+  if (updatedInactivePlayer.id === opponent.id) {
+    setOpponent(updatedInactivePlayer);
   } else {
-    setPlayer(updatedActivePlayer);
+    setPlayer(updatedInactivePlayer);
   }
 
-  console.log("Game loop completed.");
+  console.log("Game set up completed");
 };
 
 export default initialShuffleFlipDeal;
