@@ -16,6 +16,12 @@
   min-width: 24rem;
   overflow: hidden;
   flex-wrap: wrap;
+  overflow: scroll;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For IE and Edge */
+  &:-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
   @include tablet {
   }
 }

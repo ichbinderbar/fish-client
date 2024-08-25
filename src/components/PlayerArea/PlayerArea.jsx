@@ -7,6 +7,7 @@ export default function PlayerArea({
   player,
   handleHandCardSelection,
   fishedCards,
+  coins,
 }) {
   return (
     <div className="player-area">
@@ -15,7 +16,7 @@ export default function PlayerArea({
         <CardsCollectedCounter
           fishedCards={fishedCards}
         ></CardsCollectedCounter>
-        <CoinsEarnedCounter></CoinsEarnedCounter>
+        <CoinsEarnedCounter coins={coins}></CoinsEarnedCounter>
       </div>
     </div>
   );

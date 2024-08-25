@@ -9,7 +9,7 @@ import "./App.scss";
 import { initialShuffleDealFlip } from "./game/InitialShuffleDealFlip";
 import { switchActivePlayer } from "./game/SwitchActivePlayer";
 import opponentFishBot from "./game/OpponentFishBot";
-// import deal from "./game/Deal";
+import deal from "./game/Deal";
 import PlayerArea from "./components/PlayerArea/PlayerArea";
 import Table from "./components/Table/Table";
 import { Schools } from "./assets/data/Schools";
@@ -20,6 +20,8 @@ import {
 } from "./game/PlayerObjects";
 import { useState, useEffect } from "react";
 import checkMatch from "./game/CheckMatch";
+import shuffle from "./game/Shuffle";
+import sell from "./game/Sell";
 
 function App() {
   // initialize state variables to manage game logic
@@ -28,8 +30,9 @@ function App() {
   const [player, setPlayer] = useState(playerInState);
   const [opponent, setOpponent] = useState(opponentInState);
   const [selectedTableCards, setSelectedTableCards] = useState([]);
+  const [gameInitialized, setGameInitialized] = useState(false);
 
-  // set up game and state variables on mount
+  // set up game state variables on mount
   useEffect(() => {
     initialShuffleDealFlip({
       deck,
@@ -39,9 +42,10 @@ function App() {
       opponent,
       setOpponent,
     });
+    setGameInitialized(true);
   }, []);
 
-  // Check if it's the opponent's turn and handle auto-play
+  // check if it's the opponent's turn and handle auto-play with a timeout
   useEffect(() => {
     if (opponent.isActive) {
       setTimeout(() => {
@@ -51,7 +55,62 @@ function App() {
     }
   }, [opponent.isActive]);
 
-  // Handle player's card selection from hand
+  useEffect(() => {
+    if (gameInitialized) {
+      // Check if both hands are empty and deal new cards
+      if (player.hand.length === 0 && opponent.hand.length === 0) {
+        const { player: newPlayerHand, shuffledDeck: deckAfterPlayerDeal } =
+          deal(player, deck);
+        const { player: newOpponentHand, shuffledDeck: finalDeck } = deal(
+          opponent,
+          deckAfterPlayerDeal
+        );
+
+        setDeck(finalDeck);
+        setPlayer(newPlayerHand);
+        setOpponent(newOpponentHand);
+      }
+
+      // Check if the deck is empty
+      if (deck.length === 0) {
+        console.log("Deck is empty. Checking for winner.");
+
+        // Calculate coins earned
+        const playerCoins = (player.coins += sell(player.fishedCards));
+        const opponentCoins = (opponent.coins += sell(opponent.fishedCards));
+
+        setPlayer((prevPlayer) => ({
+          ...prevPlayer,
+          coins: prevPlayer.coins + playerCoins,
+          fishedCards: 0,
+        }));
+
+        setOpponent((prevOpponent) => ({
+          ...prevOpponent,
+          coins: prevOpponent.coins + opponentCoins,
+          fishedCards: 0,
+        }));
+
+        // Check for game over conditions
+        if (player.coins >= 20) {
+          console.log(`Game Over: Player wins with ${player.coins} coins!`);
+          // Optionally, you might want to reset or end the game here
+          return;
+        }
+        if (opponent.coins >= 20) {
+          console.log(`Game Over: Opponent wins with ${opponent.coins} coins!`);
+          // Optionally, you might want to reset or end the game here
+          return;
+        }
+        console.log("The game goes on.");
+        // Shuffle a new deck and update state
+        const newDeck = shuffle(Deck);
+        setDeck(newDeck);
+      }
+    }
+  }, [gameInitialized, player.hand.length, opponent.hand.length, deck]);
+
+  // handle player's card selection from hand
   const handleHandCardSelection = (card) => {
     // Only allow selection if the player is active
     if (!player.isActive) {
@@ -69,7 +128,7 @@ function App() {
         .map((c) => c.number)
         .sort((a, b) => a - b);
 
-      // Simulate finding a valid combination
+      // Check for a valid combination
       const match = checkMatch(Schools, selectedNumbers);
 
       if (match.match) {
@@ -98,7 +157,11 @@ function App() {
 
         // Move the last selected card (current `card`) to the table
         const updatedHand = player.hand.filter((c) => c !== card);
-        const updatedTable = [...table, card];
+        // Update table with the new card and set selected property to false for all cards
+        const updatedTable = [...table, card].map((tableCard) => ({
+          ...tableCard,
+          selected: false,
+        }));
 
         // Update the state with the card moved to the table
         setTable(updatedTable);
@@ -112,17 +175,21 @@ function App() {
         return;
       }
     } else {
-      // Update player's hand and table
+      // update player's hand
       const updatedHand = player.hand.filter((c) => c !== card);
-      const updatedTable = [...table, card];
-
-      // Update state
+      // Update table with the new card and set selected property to false for all cards
+      const updatedTable = [...table, card].map((tableCard) => ({
+        ...tableCard,
+        selected: false,
+      }));
+      // update state
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
         hand: updatedHand,
       }));
       setTable(updatedTable);
     }
+
     switchActivePlayer({ setPlayer, setOpponent });
   };
 
@@ -149,6 +216,7 @@ function App() {
         handleTableCardSelection={handleTableCardSelection}
       />
       <PlayerArea
+        coins={player.coins}
         fishedCards={player.fishedCards}
         player={player}
         handleHandCardSelection={handleHandCardSelection}
