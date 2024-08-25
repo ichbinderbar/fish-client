@@ -10,8 +10,6 @@ export const initialShuffleDealFlip = ({
   opponent,
   setOpponent,
 }) => {
-  console.log("initialShuffleFlipDeal called on mount");
-
   // Shuffle and set deck
   const playingDeck = shuffle(deck);
   setDeck(playingDeck);
@@ -41,5 +39,9 @@ export const initialShuffleDealFlip = ({
     isActive: !isPlayerFirst,
   }));
 
-  console.log("Game setup completed. Player goes first:", isPlayerFirst);
+  if (isPlayerFirst) {
+    console.log("Player starts the game");
+  } else {
+    console.log("Opponent starts the game");
+  }
 };

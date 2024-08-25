@@ -141,8 +141,6 @@ function App() {
       card.selected = true;
       setSelectedTableCards((prevSelected) => [...prevSelected, card]);
     }
-    console.log("Last clicked:", card);
-    console.log("Table:", table);
   };
 
   return (
