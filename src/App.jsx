@@ -19,6 +19,7 @@ import {
   opponent as opponentInState,
 } from "./game/PlayerObjects";
 import { useState, useEffect } from "react";
+import checkMatch from "./game/CheckMatch";
 
 function App() {
   // initialize state variables to manage game logic
@@ -40,15 +41,13 @@ function App() {
     });
   }, []);
 
-  // console.log("Deck in state:", deck);
-  // console.log("Player's hand in state:", player.hand);
-  // console.log("Opponent's hand in state:", opponent.hand);
-
   // Check if it's the opponent's turn and handle auto-play
   useEffect(() => {
     if (opponent.isActive) {
-      opponentFishBot(opponent, setOpponent, table, setTable);
-      switchActivePlayer({ setPlayer, setOpponent });
+      setTimeout(() => {
+        opponentFishBot(opponent, setOpponent, table, setTable);
+        switchActivePlayer({ setPlayer, setOpponent });
+      }, 500);
     }
   }, [opponent.isActive]);
 
@@ -56,7 +55,7 @@ function App() {
   const handleHandCardSelection = (card) => {
     // Only allow selection if the player is active
     if (!player.isActive) {
-      console.log("Cannot select a card. The player is not active.");
+      console.log("Cannot select a card. It is not your turn.");
       return;
     }
 
@@ -71,9 +70,9 @@ function App() {
         .sort((a, b) => a - b);
 
       // Simulate finding a valid combination
-      const isValidCombination = true;
+      const match = checkMatch(Schools, selectedNumbers);
 
-      if (isValidCombination) {
+      if (match.match) {
         console.log("Valid combination selected:", selectedNumbers);
 
         const fishedCardsCount = updatedSelectedCards.length;
