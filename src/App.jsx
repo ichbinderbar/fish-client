@@ -26,7 +26,8 @@ function App() {
   const [gameInitialized, setGameInitialized] = useState(false);
   const [paused, setPaused] = useState(false);
   const [lastPlacedCard, setLastPlacedCard] = useState(null);
-  const [tableUpdateCount, setTableUpdateCount] = useState(0);
+  const [isDeckFinished, setIsDeckFinished] = useState(false);
+  const [tableCount, setTableCount] = useState(0);
 
   // set up game state variables on mount
   useEffect(() => {
@@ -42,10 +43,19 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Increment counter whenever table state changes
-    setTableUpdateCount((prevCount) => prevCount + 1);
-    console.log("Update number:", tableUpdateCount);
-  }, [table]);
+    if (gameInitialized) {
+      setTableCount((prevTableUpdateCount) => {
+        const tableUpdateCount = prevTableUpdateCount + 1;
+        console.log("Update number:", tableUpdateCount);
+        // Check if the new count is divisible by 40
+        if (tableUpdateCount % 40 === 0) {
+          console.log("Triggering game over condition check.");
+          setIsDeckFinished(true); // Trigger game over condition
+        }
+        return tableUpdateCount;
+      });
+    }
+  }, [gameInitialized, table]);
 
   // check if it's the opponent's turn and handle auto-play with a timeout
   useEffect(() => {
@@ -80,7 +90,7 @@ function App() {
       }
 
       // Check if the deck is empty, exchange cards for coins and check for winner
-      if (deck.length === 0 && tableUpdateCount === 41) {
+      if (deck.length === 0 && isDeckFinished === true) {
         console.log("Deck is empty and all cards have been played.");
 
         // Calculate coins earned
