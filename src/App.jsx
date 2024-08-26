@@ -1,7 +1,6 @@
 import "./App.scss";
 import { initialShuffleDealFlip } from "./game/InitialShuffleDealFlip";
 import { switchActivePlayer } from "./game/SwitchActivePlayer";
-import opponentFishBot from "./game/OpponentFishBot";
 import deal from "./game/Deal";
 import PlayerArea from "./components/PlayerArea/PlayerArea";
 import Table from "./components/Table/Table";
@@ -62,13 +61,7 @@ function App() {
   useEffect(() => {
     if (opponent.isActive) {
       setTimeout(() => {
-        opponentFishBot(
-          opponent,
-          setOpponent,
-          table,
-          setTable,
-          setLastPlacedCard
-        );
+        opponent.fishBot(setOpponent, table, setTable, setLastPlacedCard);
         switchActivePlayer({ setPlayer, setOpponent });
       }, 500);
     }
