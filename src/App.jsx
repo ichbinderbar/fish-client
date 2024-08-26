@@ -29,7 +29,7 @@ function App() {
   const [isDeckFinished, setIsDeckFinished] = useState(false);
   const [tableCount, setTableCount] = useState(0);
 
-  // set up game state variables on mount
+  // set up game on mount
   useEffect(() => {
     initialShuffleDealFlip({
       deck,
@@ -42,15 +42,15 @@ function App() {
     setGameInitialized(true);
   }, []);
 
+  // keep track of table updates to trigger game over condition checks after every 40 table updates
   useEffect(() => {
     if (gameInitialized) {
       setTableCount((prevTableUpdateCount) => {
         const tableUpdateCount = prevTableUpdateCount + 1;
-        console.log("Update number:", tableUpdateCount);
-        // Check if the new count is divisible by 40
+        console.log("Table update number:", tableUpdateCount);
         if (tableUpdateCount % 40 === 0) {
           console.log("Triggering game over condition check.");
-          setIsDeckFinished(true); // Trigger game over condition
+          setIsDeckFinished(true);
         }
         return tableUpdateCount;
       });
@@ -75,7 +75,7 @@ function App() {
 
   useEffect(() => {
     if (gameInitialized) {
-      // Check if both hands are empty and deal new cards
+      // check if both hands are empty and deal new cards
       if (player.hand.length === 0 && opponent.hand.length === 0) {
         const { player: newPlayerHand, shuffledDeck: deckAfterPlayerDeal } =
           deal(player, deck);
@@ -89,20 +89,18 @@ function App() {
         setOpponent(newOpponentHand);
       }
 
-      // Check if the deck is empty, exchange cards for coins and check for winner
+      // check if the deck is empty and all cards from deck had been played
       if (deck.length === 0 && isDeckFinished === true) {
         console.log("Deck is empty and all cards have been played.");
 
-        // Calculate coins earned
+        // Calculate coins earned and update state
         const playerCoins = (player.coins += sell(player.fishedCards));
         const opponentCoins = (opponent.coins += sell(opponent.fishedCards));
-
         setPlayer((prevPlayer) => ({
           ...prevPlayer,
           coins: prevPlayer.coins + playerCoins,
           fishedCards: 0,
         }));
-
         setOpponent((prevOpponent) => ({
           ...prevOpponent,
           coins: prevOpponent.coins + opponentCoins,
@@ -116,13 +114,15 @@ function App() {
             player.coins >= 20 ? player.coins : opponent.coins;
           console.log(`Game Over: ${winner} wins with ${winnerCoins} coins!`);
           setPaused(true);
+          setPlayer((prevPlayer) => ({ ...prevPlayer, hand: [] }));
+          setTable([]);
           return;
         }
 
-        console.log("The game goes on.");
         // Shuffle a new deck and update state
         const newDeck = shuffle(Deck);
         setDeck(newDeck);
+        console.log("No winner. The game goes on.");
       }
     }
   }, [gameInitialized, player.hand.length, opponent.hand.length, deck]);
@@ -134,23 +134,23 @@ function App() {
       return;
     }
 
-    // Only allow selection if the player is active
+    // only allow selection if the player is active
     if (!player.isActive) {
       console.log("Cannot select a card. It is not your turn.");
       return;
     }
 
-    // Check if there are any selected table cards
+    // check if there are any selected table cards
     if (selectedTableCards.length > 0) {
-      // Move the selected card to the selectedTableCards array
+      // move the selected card to the selectedTableCards array
       const updatedSelectedCards = [...selectedTableCards, card];
 
-      // Extract the number values from the selected cards and sort them
+      // extract the number values from the selected cards and sort them
       const selectedNumbers = updatedSelectedCards
         .map((c) => c.number)
         .sort((a, b) => a - b);
 
-      // Check for a valid combination
+      // check for a valid combination
       const match = checkMatch(Schools, selectedNumbers);
 
       if (match.match) {
@@ -238,10 +238,6 @@ function App() {
 
     switchActivePlayer({ setPlayer, setOpponent });
   };
-
-  // useEffect(() => {
-  //   console.log("Cards in selection:", selectedTableCards);
-  // }, [selectedTableCards]);
 
   const handleTableCardSelection = (card) => {
     if (card.selected) {

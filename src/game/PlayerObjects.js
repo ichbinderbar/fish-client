@@ -27,6 +27,12 @@ function fish() {
   }
 }
 
+// To-Do: Smart fishBot V1 preffers collecting cards than earning coins from last card match
+// to determine best play the fishBot:
+////// - compares its hand array to the table card array number values and finds the longest combination in table that is also in schools
+////// - and returns first card that matches longest combination in schools
+
+// this fishBot simply pops a card from hand and hopes for the best
 function fishBot() {
   if (this.hand.length > 0) {
     const fishingCard = this.hand.pop();

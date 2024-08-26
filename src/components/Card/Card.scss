@@ -24,24 +24,41 @@
   }
   &__blue {
     background-color: blue;
+    // background-image: $blue-net;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 20px;
     &--selected {
       @include selected-card;
     }
   }
-  &__yellow {
-    background-color: yellow;
+  &__purple {
+    background-color: purple;
+    // background-image: $yellow-net;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 10px;
+    color: yellow;
     &--selected {
       @include selected-card;
     }
   }
   &__green {
     background-color: green;
+    // background-image: $green-net;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 20px;
     &--selected {
       @include selected-card;
     }
   }
   &__red {
     background-color: red;
+    // background-image: $red-net;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 20px;
     &--selected {
       @include selected-card;
     }

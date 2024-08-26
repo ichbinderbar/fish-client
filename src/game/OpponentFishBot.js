@@ -13,14 +13,14 @@ const opponentFishBot = (
   const fishedCard = opponent.fish();
 
   if (fishedCard) {
-    // Move the fished card to the table
+    // move the fished card to the table
     const updatedTable = [...table, fishedCard];
     setTable(updatedTable);
 
     // update last card played
     setLastPlacedCard(fishedCard);
 
-    // Update opponent's hand in the state
+    // update opponent's hand in the state
     setOpponent((prevOpponent) => ({
       ...prevOpponent,
       hand: [...prevOpponent.hand],
