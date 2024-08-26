@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 import checkMatch from "./game/CheckMatch";
 import shuffle from "./game/Shuffle";
 import sell from "./game/Sell";
+import { checkGameOver } from "./game/CheckGameOver";
 
 function App() {
   // initialize state variables to manage game logic
@@ -49,7 +50,7 @@ function App() {
         const tableUpdateCount = prevTableUpdateCount + 1;
         console.log("Table update number:", tableUpdateCount);
         if (tableUpdateCount % 40 === 0) {
-          console.log("Triggering game over condition check.");
+          console.log("Table has been updated 40 times.");
           setIsDeckFinished(true);
         }
         return tableUpdateCount;
@@ -73,6 +74,22 @@ function App() {
     }
   }, [opponent.isActive]);
 
+  // check for winner and end the game
+  useEffect(() => {
+    if (
+      checkGameOver(
+        player,
+        setPlayer,
+        opponent,
+        setOpponent,
+        setPaused,
+        setTable
+      )
+    ) {
+      return;
+    }
+  }, [player.coins, opponent.coins]);
+
   useEffect(() => {
     if (gameInitialized) {
       // check if both hands are empty and deal new cards
@@ -93,7 +110,7 @@ function App() {
       if (deck.length === 0 && isDeckFinished === true) {
         console.log("Deck is empty and all cards have been played.");
 
-        // Calculate coins earned and update state
+        // calculate coins earned and update state
         const playerCoins = (player.coins += sell(player.fishedCards));
         const opponentCoins = (opponent.coins += sell(opponent.fishedCards));
         setPlayer((prevPlayer) => ({
@@ -106,18 +123,6 @@ function App() {
           coins: prevOpponent.coins + opponentCoins,
           fishedCards: 0,
         }));
-
-        // Check for game over conditions and reset if true
-        if (player.coins >= 20 || opponent.coins >= 20) {
-          const winner = player.coins >= 20 ? "Player" : "Opponent";
-          const winnerCoins =
-            player.coins >= 20 ? player.coins : opponent.coins;
-          console.log(`Game Over: ${winner} wins with ${winnerCoins} coins!`);
-          setPaused(true);
-          setPlayer((prevPlayer) => ({ ...prevPlayer, hand: [] }));
-          setTable([]);
-          return;
-        }
 
         // Shuffle a new deck and update state
         const newDeck = shuffle(Deck);

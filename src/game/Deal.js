@@ -4,10 +4,6 @@ export default function deal(player, shuffledDeck) {
     return { player, shuffledDeck }; // Return both player and deck unchanged
   }
 
-  // console.log(
-  //   `Dealing cards. Deck length before dealing: ${shuffledDeck.length}`
-  // );
-
   let newHand;
 
   if (shuffledDeck.length > 5) {
@@ -16,9 +12,6 @@ export default function deal(player, shuffledDeck) {
     // console.log(`Not enough cards to deal to ${player.id}.`);
     newHand = shuffledDeck.splice(0);
   }
-
-  // console.log(`${player.id} has been dealt ${newHand.length} cards.`);
-  // console.log(`Deck length after dealing: ${shuffledDeck.length} cards`);
 
   return {
     player: { ...player, hand: newHand },
