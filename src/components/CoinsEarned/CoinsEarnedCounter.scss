@@ -16,25 +16,30 @@
     align-content: center;
     justify-content: space-around;
     text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     @include tablet {
-      width: 5rem;
+      width: 5.2rem;
       height: 5rem;
     }
   }
   &__coins-earned-counter {
     display: flex;
     position: absolute;
-    height: 2rem;
+    height: 2.2rem;
     width: 2rem;
     margin: auto;
     border-radius: 5%;
-    background-image: $yellow-cardboard;
-    border: solid 3px goldenrod;
+    // background-image: $yellow-cardboard;
+    border: solid 2px goldenrod;
     align-content: center;
     justify-content: space-around;
     top: -1rem;
     left: -1rem;
     align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: rgb(121, 4, 134);
+    color: gold;
   }
   &__coins-img {
     width: 100%;
