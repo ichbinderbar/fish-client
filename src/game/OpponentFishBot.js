@@ -6,7 +6,6 @@ const opponentFishBot = (
   setLastPlacedCard
 ) => {
   if (opponent.hand.length === 0) {
-    console.log("Opponent has no cards to play.");
     return;
   }
 

@@ -39,7 +39,9 @@ function fishBot() {
     // console.log(`${this.id} played:`, fishingCard);
     return fishingCard;
   } else {
-    console.log(`${this.id} has no cards to play with`);
+    console.log(
+      `${this.id}'s fishBot invoked but ${this.id} has no cards to play with`
+    );
     return null;
   }
 }

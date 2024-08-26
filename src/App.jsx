@@ -43,12 +43,12 @@ function App() {
     setGameInitialized(true);
   }, []);
 
-  // keep track of table updates to trigger game over condition checks after every 40 table updates
+  // keep track of table updates to trigger new deck shuffle, card counting and awards after 40 table updates
   useEffect(() => {
     if (gameInitialized) {
       setTableCount((prevTableUpdateCount) => {
         const tableUpdateCount = prevTableUpdateCount + 1;
-        console.log("Table update number:", tableUpdateCount);
+        // console.log("Table update number:", tableUpdateCount);
         if (tableUpdateCount % 40 === 0) {
           console.log("Table has been updated 40 times.");
           setIsDeckFinished(true);
@@ -76,19 +76,21 @@ function App() {
 
   // check for winner and end the game
   useEffect(() => {
-    if (
-      checkGameOver(
-        player,
-        setPlayer,
-        opponent,
-        setOpponent,
-        setPaused,
-        setTable
-      )
-    ) {
-      return;
+    if (gameInitialized) {
+      if (
+        checkGameOver(
+          player,
+          setPlayer,
+          opponent,
+          setOpponent,
+          setPaused,
+          setTable
+        )
+      ) {
+        return;
+      }
     }
-  }, [player.coins, opponent.coins]);
+  }, [gameInitialized, player.coins, opponent.coins]);
 
   useEffect(() => {
     if (gameInitialized) {
@@ -127,7 +129,6 @@ function App() {
         // Shuffle a new deck and update state
         const newDeck = shuffle(Deck);
         setDeck(newDeck);
-        console.log("No winner. The game goes on.");
       }
     }
   }, [gameInitialized, player.hand.length, opponent.hand.length, deck]);

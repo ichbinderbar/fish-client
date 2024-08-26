@@ -19,6 +19,5 @@ export const checkGameOver = (
 
     return true;
   }
-  console.log("No winner yet.");
   return false;
 };
