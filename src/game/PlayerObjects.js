@@ -44,7 +44,7 @@ function fishBot(setOpponent, table, setTable, setLastPlacedCard) {
       }));
     }
   } else {
-    console.log(`FishBot invoked but ${this.id} has no cards to play with`);
+    console.log(`FishBot invoked but ${this.id} has no cards to play`);
   }
 }
 

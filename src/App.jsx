@@ -29,6 +29,16 @@ function App() {
   const [isDeckFinished, setIsDeckFinished] = useState(false);
   const [tableCount, setTableCount] = useState(0);
 
+  // debbuger logs
+  useEffect(() => {
+    if (player.isActive) {
+      console.log("Player is active");
+    }
+    if (opponent.isActive) {
+      console.log("Opponent is active");
+    }
+  }, [player.isActive, opponent.isActive]);
+
   // set up game on mount
   useEffect(() => {
     initialShuffleDealFlip({
@@ -47,7 +57,7 @@ function App() {
     if (gameInitialized) {
       setTableCount((prevTableUpdateCount) => {
         const tableUpdateCount = prevTableUpdateCount + 1;
-        // console.log("Table update number:", tableUpdateCount);
+        console.log("Table update number:", tableUpdateCount);
         if (tableUpdateCount % 40 === 0) {
           console.log("Table has been updated 40 times.");
           setIsDeckFinished(true);
@@ -59,7 +69,7 @@ function App() {
 
   // check if it's the opponent's turn and handle auto-play with a timeout
   useEffect(() => {
-    if (opponent.isActive) {
+    if (opponent.isActive /*&& opponent.hand.length > 0*/) {
       setTimeout(() => {
         opponent.fishBot(setOpponent, table, setTable, setLastPlacedCard);
         switchActivePlayer({ setPlayer, setOpponent });
