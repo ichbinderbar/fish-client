@@ -32,6 +32,7 @@ function App() {
   const [selectedTableCards, setSelectedTableCards] = useState([]);
   const [gameInitialized, setGameInitialized] = useState(false);
   const [paused, setPaused] = useState(false);
+  const [lastPlacedCard, setLastPlacedCard] = useState(null);
 
   // set up game state variables on mount
   useEffect(() => {
@@ -50,7 +51,13 @@ function App() {
   useEffect(() => {
     if (opponent.isActive) {
       setTimeout(() => {
-        opponentFishBot(opponent, setOpponent, table, setTable);
+        opponentFishBot(
+          opponent,
+          setOpponent,
+          table,
+          setTable,
+          setLastPlacedCard
+        );
         switchActivePlayer({ setPlayer, setOpponent });
       }, 500);
     }
@@ -72,9 +79,9 @@ function App() {
         setOpponent(newOpponentHand);
       }
 
-      // Check if the deck is empty
+      // Check if the deck is empty, exchange cards for coins and check for winner
       if (deck.length === 0) {
-        console.log("Deck is empty. Checking for winner.");
+        console.log("Deck is empty.");
 
         // Calculate coins earned
         const playerCoins = (player.coins += sell(player.fishedCards));
@@ -149,6 +156,15 @@ function App() {
         // Remove the selected card from the player's hand
         const updatedHand = player.hand.filter((c) => c !== card);
 
+        // Award a coin if the selected card matches the last placed card
+        if (lastPlacedCard && lastPlacedCard.number === card.number) {
+          setPlayer((prevPlayer) => ({
+            ...prevPlayer,
+            coins: prevPlayer.coins + 1,
+          }));
+          console.log("Match with the last placed card! Awarded 1 coin.");
+        }
+
         // Update the state
         setTable(updatedTable); // Update the table state to remove the selected cards
         setPlayer((prevPlayer) => ({
@@ -157,6 +173,15 @@ function App() {
           fishedCards: prevPlayer.fishedCards + fishedCardsCount,
         }));
         setSelectedTableCards([]); // Clear the selectedTableCards array
+
+        // Check if the table is now empty after a successful match
+        if (updatedTable.length === 0) {
+          setPlayer((prevPlayer) => ({
+            ...prevPlayer,
+            coins: prevPlayer.coins + 1,
+          }));
+          console.log("Emptied table! Awarded 1 coin.");
+        }
       } else {
         console.log("Invalid combination selected:", selectedNumbers);
 
@@ -175,6 +200,9 @@ function App() {
           hand: updatedHand,
         }));
 
+        // update last card played
+        setLastPlacedCard(card);
+
         // Clear selectedTableCards array
         setSelectedTableCards([]);
         return;
@@ -192,6 +220,10 @@ function App() {
         ...prevPlayer,
         hand: updatedHand,
       }));
+
+      // update last card played
+      setLastPlacedCard(card);
+
       setTable(updatedTable);
     }
 

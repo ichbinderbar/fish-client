@@ -11,7 +11,9 @@
     width: 3rem;
     margin: auto;
     border-radius: 5%;
-    background-image: $purple-stars;
+    background-image: $purple-flowers;
+    background-repeat: repeat;
+    background-size: 45px;
     border: solid 2px goldenrod;
     align-content: center;
     justify-content: space-around;
@@ -20,6 +22,7 @@
     @include tablet {
       width: 5.2rem;
       height: 5rem;
+      background-size: 20px;
     }
   }
   &__cards-collected-counter {
@@ -28,16 +31,15 @@
     width: 2rem;
     margin: auto;
     border-radius: 5%;
-    // background-image: $yellow-cardboard;
-    border: solid 2px goldenrod;
     align-content: center;
     justify-content: space-around;
     align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
-    background-color: rgb(121, 4, 134);
     color: gold;
     @include tablet {
+      border: solid 2px goldenrod;
+      background-color: rgb(121, 4, 134);
       position: absolute;
       bottom: -1rem;
       right: -1rem;

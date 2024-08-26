@@ -1,4 +1,10 @@
-const opponentFishBot = (opponent, setOpponent, table, setTable) => {
+const opponentFishBot = (
+  opponent,
+  setOpponent,
+  table,
+  setTable,
+  setLastPlacedCard
+) => {
   if (opponent.hand.length === 0) {
     console.log("Opponent has no cards to play.");
     return;
@@ -10,6 +16,9 @@ const opponentFishBot = (opponent, setOpponent, table, setTable) => {
     // Move the fished card to the table
     const updatedTable = [...table, fishedCard];
     setTable(updatedTable);
+
+    // update last card played
+    setLastPlacedCard(fishedCard);
 
     // Update opponent's hand in the state
     setOpponent((prevOpponent) => ({
