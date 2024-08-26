@@ -215,7 +215,6 @@ function App() {
 
         // Clear selectedTableCards array
         setSelectedTableCards([]);
-        return;
       }
     } else {
       // update player's hand
