@@ -13,7 +13,7 @@ export default function deal(player, shuffledDeck) {
   if (shuffledDeck.length > 5) {
     newHand = shuffledDeck.splice(0, 5);
   } else {
-    console.log(`Not enough cards to deal to ${player.id}.`);
+    // console.log(`Not enough cards to deal to ${player.id}.`);
     newHand = shuffledDeck.splice(0);
   }
 

@@ -1,10 +1,3 @@
-// What to include in this file:
-// - Import statements related to components and assets used in the App component.
-// - State definitions and related logic.
-// - useEffect hooks related to component lifecycle and initial data setup.
-// - Event handler functions for interacting with the game state.
-// - The return statement with JSX rendering the components.
-
 import "./App.scss";
 import { initialShuffleDealFlip } from "./game/InitialShuffleDealFlip";
 import { switchActivePlayer } from "./game/SwitchActivePlayer";
@@ -33,6 +26,7 @@ function App() {
   const [gameInitialized, setGameInitialized] = useState(false);
   const [paused, setPaused] = useState(false);
   const [lastPlacedCard, setLastPlacedCard] = useState(null);
+  const [tableUpdateCount, setTableUpdateCount] = useState(0);
 
   // set up game state variables on mount
   useEffect(() => {
@@ -46,6 +40,12 @@ function App() {
     });
     setGameInitialized(true);
   }, []);
+
+  useEffect(() => {
+    // Increment counter whenever table state changes
+    setTableUpdateCount((prevCount) => prevCount + 1);
+    console.log("Update number:", tableUpdateCount);
+  }, [table]);
 
   // check if it's the opponent's turn and handle auto-play with a timeout
   useEffect(() => {
@@ -80,8 +80,8 @@ function App() {
       }
 
       // Check if the deck is empty, exchange cards for coins and check for winner
-      if (deck.length === 0) {
-        console.log("Deck is empty.");
+      if (deck.length === 0 && tableUpdateCount === 41) {
+        console.log("Deck is empty and all cards have been played.");
 
         // Calculate coins earned
         const playerCoins = (player.coins += sell(player.fishedCards));
