@@ -31,6 +31,7 @@ function App() {
   const [opponent, setOpponent] = useState(opponentInState);
   const [selectedTableCards, setSelectedTableCards] = useState([]);
   const [gameInitialized, setGameInitialized] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   // set up game state variables on mount
   useEffect(() => {
@@ -91,17 +92,16 @@ function App() {
           fishedCards: 0,
         }));
 
-        // Check for game over conditions
-        if (player.coins >= 20) {
-          console.log(`Game Over: Player wins with ${player.coins} coins!`);
-          // Optionally, you might want to reset or end the game here
+        // Check for game over conditions and reset if true
+        if (player.coins >= 20 || opponent.coins >= 20) {
+          const winner = player.coins >= 20 ? "Player" : "Opponent";
+          const winnerCoins =
+            player.coins >= 20 ? player.coins : opponent.coins;
+          console.log(`Game Over: ${winner} wins with ${winnerCoins} coins!`);
+          setPaused(true);
           return;
         }
-        if (opponent.coins >= 20) {
-          console.log(`Game Over: Opponent wins with ${opponent.coins} coins!`);
-          // Optionally, you might want to reset or end the game here
-          return;
-        }
+
         console.log("The game goes on.");
         // Shuffle a new deck and update state
         const newDeck = shuffle(Deck);
@@ -112,6 +112,11 @@ function App() {
 
   // handle player's card selection from hand
   const handleHandCardSelection = (card) => {
+    if (paused) {
+      console.log("Game is paused. No actions can be taken.");
+      return;
+    }
+
     // Only allow selection if the player is active
     if (!player.isActive) {
       console.log("Cannot select a card. It is not your turn.");

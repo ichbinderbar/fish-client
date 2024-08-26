@@ -24,8 +24,7 @@
   }
   &__cards-collected-counter {
     display: flex;
-    position: absolute;
-    height: 2.2rem;
+    height: 2rem;
     width: 2rem;
     margin: auto;
     border-radius: 5%;
@@ -33,17 +32,26 @@
     border: solid 2px goldenrod;
     align-content: center;
     justify-content: space-around;
-    top: -1rem;
-    left: -1rem;
     align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
     background-color: rgb(121, 4, 134);
     color: gold;
+    @include tablet {
+      position: absolute;
+      bottom: -1rem;
+      right: -1rem;
+      height: 2.2rem;
+      width: 2rem;
+    }
   }
   &__cards-img {
+    display: none;
     width: 100%;
     height: 100%;
     animation: breathe 3s ease-in-out infinite;
+    @include tablet {
+      display: flex;
+    }
   }
 }
