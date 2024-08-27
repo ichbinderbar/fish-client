@@ -17,7 +17,8 @@ import sell from "./game/Sell";
 import { checkGameOver } from "./game/CheckGameOver";
 
 // To-Dos:
-// - fix turn switch bug caused by first deal to opponent when opponent beggins
+// - fix turn switch logic to flip alternation of turns when deck is reshuffled
+// - figure out where the first table update is comming from and if it is a problem
 // - build fishBots with the strategies described at the end of the players object file
 
 function App() {
@@ -76,7 +77,7 @@ function App() {
     if (opponent.isActive /*&& opponent.hand.length > 0*/) {
       setTimeout(() => {
         opponent.fishBot(setOpponent, table, setTable, setLastPlacedCard);
-        switchActivePlayer({ setPlayer, setOpponent });
+        switchActivePlayer({ setPlayer, setOpponent, player, opponent });
       }, 500);
     }
   }, [opponent.isActive]);
@@ -101,8 +102,8 @@ function App() {
 
   useEffect(() => {
     if (gameInitialized) {
-      // check if both hands are empty and deal new cards
-      if (player.hand.length === 0 && opponent.hand.length === 0) {
+      // check if a hand is empty to deal new cards to and allow for continuous turn switching
+      if (player.hand.length === 0 || opponent.hand.length === 0) {
         const { player: newPlayerHand, shuffledDeck: deckAfterPlayerDeal } =
           deal(player, deck);
         const { player: newOpponentHand, shuffledDeck: finalDeck } = deal(
@@ -113,7 +114,7 @@ function App() {
         setDeck(finalDeck);
         setPlayer(newPlayerHand);
         setOpponent(newOpponentHand);
-        console.log("Cards dealt to players.");
+        console.log("Cards dealt.");
       }
 
       // check if the deck is empty and all cards from deck had been played
@@ -137,7 +138,8 @@ function App() {
         // Shuffle a new deck and update state
         const newDeck = shuffle(Deck);
         setDeck(newDeck);
-        console.log("New deck ready.");
+        setTable([]);
+        console.log("Shuffled deck ready. Table set.");
       }
     }
   }, [gameInitialized, player.hand.length, opponent.hand.length, deck]);
@@ -251,7 +253,7 @@ function App() {
       setTable(updatedTable);
     }
 
-    switchActivePlayer({ setPlayer, setOpponent });
+    switchActivePlayer({ setPlayer, setOpponent, player, opponent });
   };
 
   const handleTableCardSelection = (card) => {

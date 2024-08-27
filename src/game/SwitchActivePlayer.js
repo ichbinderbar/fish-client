@@ -1,4 +1,9 @@
-export const switchActivePlayer = ({ setPlayer, setOpponent }) => {
+export const switchActivePlayer = ({
+  setPlayer,
+  setOpponent,
+  player,
+  opponent,
+}) => {
   setPlayer((prevPlayer) => ({
     ...prevPlayer,
     isActive: !prevPlayer.isActive,
@@ -7,4 +12,10 @@ export const switchActivePlayer = ({ setPlayer, setOpponent }) => {
     ...prevOpponent,
     isActive: !prevOpponent.isActive,
   }));
+  if (player.hand.length === 0 || opponent.hand.length === 0) {
+    console.log(
+      `Player hand: ${JSON.stringify(player.hand)}
+Opponent hand: ${JSON.stringify(opponent.hand)}`
+    );
+  }
 };

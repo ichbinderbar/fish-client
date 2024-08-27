@@ -1,6 +1,8 @@
 export default function deal(player, shuffledDeck) {
   if (player.hand.length > 0) {
-    console.log(`Cannot deal. ${player.id} already has cards in hand.`);
+    console.log(
+      `Cannot deal to ${player.id}. ${player.id} already has cards in hand.`
+    );
     return { player, shuffledDeck }; // Return both player and deck unchanged
   }
 
