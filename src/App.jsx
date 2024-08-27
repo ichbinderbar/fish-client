@@ -16,6 +16,10 @@ import shuffle from "./game/Shuffle";
 import sell from "./game/Sell";
 import { checkGameOver } from "./game/CheckGameOver";
 
+// To-Dos:
+// - fix turn switch bug caused by first deal to opponent when opponent beggins
+// - build fishBots with the strategies described at the end of the players object file
+
 function App() {
   // initialize state variables to manage game logic
   const [deck, setDeck] = useState(Deck);
@@ -109,6 +113,7 @@ function App() {
         setDeck(finalDeck);
         setPlayer(newPlayerHand);
         setOpponent(newOpponentHand);
+        console.log("Cards dealt to players.");
       }
 
       // check if the deck is empty and all cards from deck had been played
@@ -132,6 +137,7 @@ function App() {
         // Shuffle a new deck and update state
         const newDeck = shuffle(Deck);
         setDeck(newDeck);
+        console.log("New deck ready.");
       }
     }
   }, [gameInitialized, player.hand.length, opponent.hand.length, deck]);
