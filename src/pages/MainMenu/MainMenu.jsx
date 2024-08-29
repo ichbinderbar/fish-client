@@ -3,24 +3,27 @@ import { Link } from "react-router-dom";
 
 export default function MainMenu() {
   return (
-    <>
-      <div className="main-menu__top-container">
+    <div className="main-menu__main-container">
+      <Link to={"/scores"}>
         <div className="main-menu__button main-menu__button--scores">
           Scores
         </div>
-        <Link to={"/game"}>
-          <div className="main-menu__button main-menu__button--new-game">
-            Start New Game
-          </div>
-        </Link>
+      </Link>
+      <Link to={"/game"}>
+        <div className="main-menu__button main-menu__button--new-game">
+          Start New Game
+        </div>
+      </Link>
+      <Link to={"/"}>
         <div className="main-menu__button main-menu__button--instructions">
           How To Play
         </div>
+      </Link>
+      <Link to={"/user-profile"}>
         <div className="main-menu__button main-menu__button--profile">
           My Profile
         </div>
-      </div>
-      <div className="main-menu__bottom-container"></div>
-    </>
+      </Link>
+    </div>
   );
 }

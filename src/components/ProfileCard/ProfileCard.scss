@@ -1,0 +1,47 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/globals" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.profile-card {
+  &__main-container {
+    justify-content: center;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 24rem;
+    height: 50vh;
+    overflow: hidden;
+    background-image: $wood;
+  }
+  &__subcontainer {
+    color: rgba(255, 98, 0, 0.925);
+    text-shadow: 0 1px rgba(0, 0, 0, 0.797);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-image: $wood;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.65);
+  }
+  &__title {
+    display: flex;
+    margin-bottom: 1rem;
+    // color: rgb(255, 217, 0);
+    color: rgba(94, 255, 40, 0.925);
+    text-shadow: 0 1px rgba(0, 0, 0, 0.797);
+    text-transform: uppercase;
+  }
+  &__content {
+    display: flex;
+  }
+  &__player-dp {
+    display: flex;
+    height: auto;
+    width: 8rem;
+    border: solid rgb(75, 37, 2) 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  }
+}

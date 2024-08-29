@@ -17,6 +17,9 @@ import sell from "./game/Sell";
 import { checkGameOver } from "./game/CheckGameOver";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainMenu from "./pages/MainMenu/MainMenu";
+import InstructionsBoard from "./components/InstructionsBoard/InstructionsBoard";
+import Leaderboard from "./components/Leaderboard/Leaderboard";
+import ProfileCard from "./components/ProfileCard/ProfileCard";
 
 // To-Dos:
 // - keepping track of table updates is not working find a better aproach maybe with sum of players hands counter
@@ -295,7 +298,33 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainMenu />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <MainMenu />
+              <InstructionsBoard />
+            </>
+          }
+        />
+        <Route
+          path="/scores"
+          element={
+            <>
+              <MainMenu />
+              <Leaderboard />
+            </>
+          }
+        />
+        <Route
+          path="/user-profile"
+          element={
+            <>
+              <MainMenu />
+              <ProfileCard></ProfileCard>
+            </>
+          }
+        />
         <Route
           path="/game"
           element={
