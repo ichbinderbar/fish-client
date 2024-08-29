@@ -32,9 +32,9 @@ export default function PlayerArea({
   }, []);
 
   return (
-    <div onClick={handleClick} className={`player-area player-area--${theme}`}>
+    <div className={`player-area player-area--${theme}`}>
       <Hand player={player} handleHandCardSelection={handleHandCardSelection} />
-      <div className="player-area__stat-container">
+      <div onClick={handleClick} className="player-area__stat-container">
         <CardsCollectedCounter
           fishedCards={fishedCards}
         ></CardsCollectedCounter>

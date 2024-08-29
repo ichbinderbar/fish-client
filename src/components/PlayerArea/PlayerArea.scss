@@ -24,8 +24,8 @@
     margin: auto;
   }
   &--dark {
-    background-size: 90px;
+    background-size: 85px;
     background-image: $dark-wood;
-    box-shadow: inset 0 0 10px rgba(60, 10, 73, 0.623);
+    box-shadow: inset 0 0 10px rgb(0, 0, 0);
   }
 }
