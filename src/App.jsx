@@ -163,6 +163,7 @@ function App() {
         // Shuffle a new deck and update state
         const newDeck = shuffle(Deck);
         setDeck(newDeck);
+        setTableCount(0);
         setTable([]);
         setIsDeckFinished(false);
         console.log("Shuffled deck ready. Table set.");
