@@ -1,8 +1,10 @@
 import Card from "../Card/Card";
 import { useState, useEffect } from "react";
 import "./Table.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function Table({ cards, handleTableCardSelection }) {
+  const navigate = useNavigate();
   const [theme, setTheme] = useState("light");
 
   const handleClick = () => {
@@ -13,6 +15,10 @@ export default function Table({ cards, handleTableCardSelection }) {
     }
     setTheme("dark");
     localStorage.setItem("theme", "dark");
+  };
+
+  const handleGoToHomePage = () => {
+    navigate("/");
   };
 
   useEffect(() => {
@@ -28,6 +34,9 @@ export default function Table({ cards, handleTableCardSelection }) {
     <div className={`table table--${theme}`}>
       <div className="table__theme-button" onClick={handleClick}>
         {theme === "light" ? "🌑" : "☀️"}
+      </div>
+      <div className="table__home-button" onClick={handleGoToHomePage}>
+        Home
       </div>
       {cards.map((card, index) => (
         <Card

@@ -15,7 +15,7 @@ import checkMatch from "./game/CheckMatch";
 import shuffle from "./game/Shuffle";
 import sell from "./game/Sell";
 import { checkGameOver } from "./game/CheckGameOver";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import MainMenu from "./pages/MainMenu/MainMenu";
 import InstructionsBoard from "./components/InstructionsBoard/InstructionsBoard";
 import Leaderboard from "./components/Leaderboard/Leaderboard";
@@ -41,6 +41,8 @@ function App() {
   const [tableCount, setTableCount] = useState(0);
   const [playerHandCounter, setPlayerHandCounter] = useState(0);
   const [opponentHandCounter, setOpponentHandCounter] = useState(0);
+  const [gameOver, setGameOver] = useState(true);
+  // const navigate = useNavigate();
 
   // debbuger logs
   useEffect(() => {
@@ -61,10 +63,10 @@ function App() {
   // debbuger logs
   useEffect(() => {
     if (player.isActive) {
-      console.log("Player is active");
+      console.log("Player's turn activated");
     }
     if (opponent.isActive) {
-      console.log("Opponent is active");
+      console.log("Opponent's turn activated");
     }
   }, [player.isActive, opponent.isActive]);
 
@@ -87,9 +89,7 @@ function App() {
     if (gameInitialized) {
       setTableCount((prevTableUpdateCount) => {
         const tableUpdateCount = prevTableUpdateCount + 1;
-        console.log("Table update number:", tableUpdateCount);
         if (tableUpdateCount % 40 === 0) {
-          console.log("Table has been updated 40 times.");
           setIsDeckFinished(true);
         }
         return tableUpdateCount;
@@ -166,6 +166,7 @@ function App() {
         setTableCount(0);
         setTable([]);
         setIsDeckFinished(false);
+        switchActivePlayer({ setPlayer, setOpponent, player, opponent });
         console.log("Shuffled deck ready. Table set.");
       }
     }
@@ -300,6 +301,15 @@ function App() {
       <Routes>
         <Route
           path="/"
+          element={
+            <>
+              <MainMenu />
+              <Leaderboard />
+            </>
+          }
+        />
+        <Route
+          path="/instructions"
           element={
             <>
               <MainMenu />

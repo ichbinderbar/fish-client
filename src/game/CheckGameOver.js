@@ -16,7 +16,6 @@ export const checkGameOver = (
     setPlayer((prevPlayer) => ({ ...prevPlayer, hand: [] }));
     setOpponent((prevOpponent) => ({ ...prevOpponent, hand: [] }));
     setTable([]);
-
     return true;
   }
   return false;

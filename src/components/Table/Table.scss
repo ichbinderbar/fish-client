@@ -32,6 +32,14 @@
   }
   @include tablet {
   }
+  &__home-button {
+    display: flex;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    background-color: white;
+  }
   &--dark {
     background-size: 15px;
     background-image: $purple-flowers-cloth;
