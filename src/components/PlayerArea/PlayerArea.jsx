@@ -33,8 +33,11 @@ export default function PlayerArea({
 
   return (
     <div className={`player-area player-area--${theme}`}>
+      <div className="player-area__theme-button" onClick={handleClick}>
+        {theme === "light" ? "🌑" : "☀️"}
+      </div>
       <Hand player={player} handleHandCardSelection={handleHandCardSelection} />
-      <div onClick={handleClick} className="player-area__stat-container">
+      <div className="player-area__stat-container">
         <CardsCollectedCounter
           fishedCards={fishedCards}
         ></CardsCollectedCounter>

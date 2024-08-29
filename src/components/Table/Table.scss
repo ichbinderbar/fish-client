@@ -4,6 +4,7 @@
 @use "../../styles/partials/variables" as *;
 
 .table {
+  position: relative;
   background-image: $table-cloth;
   border: 0.5rem solid rgba(201, 83, 10, 0.912);
   box-shadow: inset 0 0 10px rgba(175, 255, 62, 0.758);
@@ -22,11 +23,18 @@
   &:-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Opera */
   }
+  &__theme-button {
+    display: flex;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    cursor: pointer;
+  }
   @include tablet {
   }
   &--dark {
-    background-size: 25px;
-    background-image: $dark-purple-cloth;
+    background-size: 15px;
+    background-image: $purple-flowers-cloth;
     box-shadow: inset 0 0 10px rgba(161, 51, 189, 0.623);
     border: 0.5rem solid rgba(72, 29, 1, 0.912);
   }

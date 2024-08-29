@@ -5,6 +5,7 @@
 
 .player-area {
   display: flex;
+  position: relative;
   flex-direction: column;
   min-width: 24rem;
   height: 30vh;
@@ -27,5 +28,12 @@
     background-size: 85px;
     background-image: $dark-wood;
     box-shadow: inset 0 0 10px rgb(0, 0, 0);
+  }
+  &__theme-button {
+    display: flex;
+    position: absolute;
+    bottom: 1rem;
+    right: 1.5rem;
+    cursor: pointer;
   }
 }

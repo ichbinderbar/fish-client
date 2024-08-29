@@ -25,7 +25,10 @@ export default function Table({ cards, handleTableCardSelection }) {
   }, []);
 
   return (
-    <div className={`table table--${theme}`} onClick={handleClick}>
+    <div className={`table table--${theme}`}>
+      <div className="table__theme-button" onClick={handleClick}>
+        {theme === "light" ? "🌑" : "☀️"}
+      </div>
       {cards.map((card, index) => (
         <Card
           className={`card card__${card.color}

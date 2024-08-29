@@ -46,7 +46,6 @@ function App() {
   useEffect(() => {
     setPlayerHandCounter((prevCounter) => {
       const newCounter = prevCounter + 1;
-      console.log("Player hand update number:", newCounter);
       return newCounter;
     });
   }, [player.hand]);
@@ -55,7 +54,6 @@ function App() {
   useEffect(() => {
     setOpponentHandCounter((prevCounter) => {
       const newCounter = prevCounter + 1;
-      console.log("Opponent hand update number:", newCounter);
       return newCounter;
     });
   }, [opponent.hand]);
@@ -166,6 +164,7 @@ function App() {
         const newDeck = shuffle(Deck);
         setDeck(newDeck);
         setTable([]);
+        setIsDeckFinished(false);
         console.log("Shuffled deck ready. Table set.");
       }
     }
