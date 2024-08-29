@@ -1,9 +1,31 @@
 import Card from "../Card/Card";
+import { useState, useEffect } from "react";
 import "./Table.scss";
 
 export default function Table({ cards, handleTableCardSelection }) {
+  const [theme, setTheme] = useState("light");
+
+  const handleClick = () => {
+    if (theme === "dark") {
+      setTheme("light");
+      localStorage.setItem("theme", "light");
+      return;
+    }
+    setTheme("dark");
+    localStorage.setItem("theme", "dark");
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("theme") === "ligh") {
+      setTheme("light");
+    }
+    if (localStorage.getItem("theme") === "dark") {
+      setTheme("dark");
+    }
+  }, []);
+
   return (
-    <div className="table">
+    <div className={`table table--${theme}`} onClick={handleClick}>
       {cards.map((card, index) => (
         <Card
           className={`card card__${card.color}

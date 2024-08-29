@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     min-width: 24rem;
-    height: 50vh;
+    height: 65vh;
     overflow: hidden;
     background-image: $wood;
   }
@@ -30,8 +30,7 @@
   &__title {
     display: flex;
     margin-bottom: 1rem;
-    // color: rgb(255, 217, 0);
-    color: rgba(255, 98, 0, 0.925);
+    color: rgb(255, 217, 0);
     text-shadow: 0 1px rgba(0, 0, 0, 0.797);
     text-transform: uppercase;
   }
