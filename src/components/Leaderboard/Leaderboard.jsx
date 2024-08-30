@@ -37,8 +37,8 @@ export default function Leaderboard() {
       <div className="leaderboard__subcontainer">
         <ol className="leaderboard__content">
           {leaderboardData.map((leader, index) => (
-            <li key={index} className="leaderboard__data-container">
-              {JSON.stringify(leader)}
+            <li key={leader.id} className="leaderboard__data-container">
+              {index + 1}: {JSON.stringify(leader)}
             </li>
           ))}
         </ol>
