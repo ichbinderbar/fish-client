@@ -22,7 +22,7 @@ import Leaderboard from "./components/Leaderboard/Leaderboard";
 import ProfileCard from "./components/ProfileCard/ProfileCard";
 
 // To-Dos:
-// - keepping track of table updates is not working find a better aproach maybe with sum of players hands counter
+
 // - fix turn switch logic to flip alternation of turns when deck is reshuffled
 // - figure out where the first table update is comming from and if it is a problem
 // - build fishBots with the strategies described at the end of the players object file
@@ -84,7 +84,6 @@ function App() {
   }, []);
 
   // keep track of table updates to trigger new deck shuffle, card counting and awards after 40 table updates
-  // the counter for table updates is not reliable and it pushes the problem to the next reshuffle where it resets the table too early
   useEffect(() => {
     if (gameInitialized) {
       setTableCount((prevTableUpdateCount) => {

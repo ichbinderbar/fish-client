@@ -14,7 +14,7 @@ export default function MainMenu() {
           Start New Game
         </div>
       </Link>
-      <Link to={"/"}>
+      <Link to={"/instructions"}>
         <div className="main-menu__button main-menu__button--instructions">
           How To Play
         </div>

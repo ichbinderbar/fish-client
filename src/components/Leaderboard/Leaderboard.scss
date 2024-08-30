@@ -36,5 +36,15 @@
   }
   &__content {
     display: flex;
+    flex-direction: column;
+    color: black;
+    font-size: 1rem;
+    gap: 1rem;
+  }
+  &__data-container {
+    display: flex;
+    background-color: white;
+    padding: 0.3rem;
+    list-style-type: upper-roman;
   }
 }

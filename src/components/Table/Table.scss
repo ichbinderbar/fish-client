@@ -38,7 +38,13 @@
     top: 1rem;
     right: 1rem;
     cursor: pointer;
-    background-color: white;
+    padding: 0.3rem;
+    border-radius: 5%;
+    border: solid 2px goldenrod;
+    color: gold;
+    text-transform: uppercase;
+    background-color: purple;
+    font-size: 1rem;
   }
   &--dark {
     background-size: 15px;
