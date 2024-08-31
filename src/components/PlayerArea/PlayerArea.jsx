@@ -9,33 +9,10 @@ export default function PlayerArea({
   handleHandCardSelection,
   fishedCards,
   coins,
+  theme,
 }) {
-  const [theme, setTheme] = useState("light");
-
-  const handleClick = () => {
-    if (theme === "dark") {
-      setTheme("light");
-      localStorage.setItem("theme", "light");
-      return;
-    }
-    setTheme("dark");
-    localStorage.setItem("theme", "dark");
-  };
-
-  useEffect(() => {
-    if (localStorage.getItem("theme") === "ligh") {
-      setTheme("light");
-    }
-    if (localStorage.getItem("theme") === "dark") {
-      setTheme("dark");
-    }
-  }, []);
-
   return (
     <div className={`player-area player-area--${theme}`}>
-      <div className="player-area__theme-button" onClick={handleClick}>
-        {theme === "light" ? "🌑" : "☀️"}
-      </div>
       <Hand player={player} handleHandCardSelection={handleHandCardSelection} />
       <div className="player-area__stat-container">
         <CardsCollectedCounter

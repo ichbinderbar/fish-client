@@ -2,8 +2,6 @@ import "./App.scss";
 import { initialShuffleDealFlip } from "./game/InitialShuffleDealFlip";
 import { switchActivePlayer } from "./game/SwitchActivePlayer";
 import deal from "./game/Deal";
-import PlayerArea from "./components/PlayerArea/PlayerArea";
-import Table from "./components/Table/Table";
 import { Schools } from "./assets/data/Schools";
 import { Deck } from "./assets/data/Deck";
 import {
@@ -20,6 +18,7 @@ import MainMenu from "./pages/MainMenu/MainMenu";
 import InstructionsBoard from "./components/InstructionsBoard/InstructionsBoard";
 import Leaderboard from "./components/Leaderboard/Leaderboard";
 import ProfileCard from "./components/ProfileCard/ProfileCard";
+import GamePage from "./pages/GamePage/GamePage";
 
 // To-Dos:
 
@@ -42,7 +41,16 @@ function App() {
   const [playerHandCounter, setPlayerHandCounter] = useState(0);
   const [opponentHandCounter, setOpponentHandCounter] = useState(0);
   const [gameOver, setGameOver] = useState(true);
-  // const navigate = useNavigate();
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    if (localStorage.getItem("theme") === "ligh") {
+      setTheme("light");
+    }
+    if (localStorage.getItem("theme") === "dark") {
+      setTheme("dark");
+    }
+  }, []);
 
   // debbuger logs
   useEffect(() => {
@@ -82,6 +90,16 @@ function App() {
     });
     setGameInitialized(true);
   }, []);
+
+  const handleThemeChange = () => {
+    if (theme === "dark") {
+      setTheme("light");
+      localStorage.setItem("theme", "light");
+      return;
+    }
+    setTheme("dark");
+    localStorage.setItem("theme", "dark");
+  };
 
   // keep track of table updates to trigger new deck shuffle, card counting and awards after 40 table updates
   useEffect(() => {
@@ -302,8 +320,12 @@ function App() {
           path="/"
           element={
             <>
-              <MainMenu />
-              <Leaderboard />
+              <MainMenu
+                setTheme={setTheme}
+                theme={theme}
+                handleThemeChange={handleThemeChange}
+              />
+              <Leaderboard theme={theme} />
             </>
           }
         />
@@ -311,8 +333,12 @@ function App() {
           path="/instructions"
           element={
             <>
-              <MainMenu />
-              <InstructionsBoard />
+              <MainMenu
+                setTheme={setTheme}
+                theme={theme}
+                handleThemeChange={handleThemeChange}
+              />
+              <InstructionsBoard theme={theme} />
             </>
           }
         />
@@ -320,8 +346,12 @@ function App() {
           path="/scores"
           element={
             <>
-              <MainMenu />
-              <Leaderboard />
+              <MainMenu
+                setTheme={setTheme}
+                theme={theme}
+                handleThemeChange={handleThemeChange}
+              />
+              <Leaderboard theme={theme} />
             </>
           }
         />
@@ -329,26 +359,29 @@ function App() {
           path="/user-profile"
           element={
             <>
-              <MainMenu />
-              <ProfileCard></ProfileCard>
+              <MainMenu
+                setTheme={setTheme}
+                theme={theme}
+                handleThemeChange={handleThemeChange}
+              />
+              <ProfileCard theme={theme}></ProfileCard>
             </>
           }
         />
         <Route
           path="/game"
           element={
-            <>
-              <Table
-                cards={table}
-                handleTableCardSelection={handleTableCardSelection}
-              />
-              <PlayerArea
-                coins={player.coins}
-                fishedCards={player.fishedCards}
-                player={player}
-                handleHandCardSelection={handleHandCardSelection}
-              />
-            </>
+            <GamePage
+              theme={theme}
+              setTheme={setTheme}
+              cards={table}
+              handleTableCardSelection={handleTableCardSelection}
+              coins={player.coins}
+              fishedCards={player.fishedCards}
+              player={player}
+              handleHandCardSelection={handleHandCardSelection}
+              handleThemeChange={handleThemeChange}
+            />
           }
         />
       </Routes>

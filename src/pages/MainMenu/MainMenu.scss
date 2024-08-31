@@ -6,6 +6,7 @@
 .main-menu {
   &__main-container {
     background-image: $table-cloth;
+    position: relative;
     border: 0.5rem solid rgba(201, 83, 10, 0.912);
     border-bottom: none;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
@@ -22,6 +23,13 @@
     -ms-overflow-style: none; /* For IE and Edge */
     &:-webkit-scrollbar {
       display: none; /* For Chrome, Safari, and Opera */
+    }
+    &--dark {
+      background-size: 15px;
+      background-image: $purple-flowers-cloth;
+      box-shadow: inset 0 0 10px rgba(161, 51, 189, 0.623);
+      border: 0.5rem solid rgba(72, 29, 1, 0.912);
+      border-bottom: none;
     }
   }
   &__button {

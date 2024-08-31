@@ -1,10 +1,14 @@
 import "./InstructionsBoard.scss";
 
-export default function InstructionsBoard() {
+export default function InstructionsBoard({ theme }) {
   return (
-    <div className="instructions-board__main-container">
+    <div
+      className={`instructions-board__main-container instructions-board__main-container--${theme}`}
+    >
       <h1 className="instructions-board__title">How To Play:</h1>
-      <div className="instructions-board__subcontainer">
+      <div
+        className={`instructions-board__subcontainer instructions-board__subcontainer--${theme}`}
+      >
         <p className="instructions-board__content">
           Your goal is to collect enough coins to buy a boat worth 20 coins
           <br />

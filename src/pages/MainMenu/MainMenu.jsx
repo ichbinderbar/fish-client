@@ -1,9 +1,11 @@
 import "./MainMenu.scss";
 import { Link } from "react-router-dom";
 
-export default function MainMenu() {
+export default function MainMenu({ theme, handleThemeChange }) {
   return (
-    <div className="main-menu__main-container">
+    <div
+      className={`main-menu__main-container main-menu__main-container--${theme}`}
+    >
       <Link to={"/scores"}>
         <div className="main-menu__button main-menu__button--scores">
           Scores
@@ -24,6 +26,9 @@ export default function MainMenu() {
           My Profile
         </div>
       </Link>
+      <div className="table__theme-button" onClick={handleThemeChange}>
+        {theme === "light" ? "🌑" : "☀️"}
+      </div>
     </div>
   );
 }
