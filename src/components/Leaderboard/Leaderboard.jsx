@@ -29,7 +29,7 @@ export default function Leaderboard({ theme }) {
         <div
           className={`leaderboard__subcontainer leaderboard__subcontainer--${theme}`}
         >
-          <div className="leaderboard__content">Loading...</div>
+          <div className="leaderboard__data-container">Loading...</div>
         </div>
       </div>
     );

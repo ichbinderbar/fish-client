@@ -27,7 +27,7 @@ export default function MainMenu({ theme, handleThemeChange }) {
         </div>
       </Link>
       <div className="table__theme-button" onClick={handleThemeChange}>
-        {theme === "light" ? "🌑" : "☀️"}
+        {theme === "light" ? "🌙" : "☀️"}
       </div>
     </div>
   );

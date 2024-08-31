@@ -18,14 +18,16 @@ export default function Table({
   return (
     <div className={`table table--${theme}`}>
       <div className="table__theme-button" onClick={handleThemeChange}>
-        {theme === "light" ? "🌑" : "☀️"}
+        {theme === "light" ? "🌙" : "☀️"}
       </div>
       <div className="table__home-button" onClick={handleGoToHomePage}>
         Home
       </div>
       {cards.map((card, index) => (
         <Card
-          className={`card card__${card.color}
+          className={`card card__${card.color} card--${
+            [3, 4, 5, 6, 7].includes(card.number) ? "net" : card.number
+          }
           ${card.selected ? `card__${card.color}--selected` : ""}`}
           onClick={() => handleTableCardSelection(card)}
           key={index}

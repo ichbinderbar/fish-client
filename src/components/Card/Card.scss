@@ -17,6 +17,9 @@
   font-size: 3rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   cursor: pointer;
+  &--net {
+    color: rgb(0, 0, 0);
+  }
   @include tablet {
     width: 6rem;
     height: 9rem;
