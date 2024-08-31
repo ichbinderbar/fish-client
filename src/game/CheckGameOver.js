@@ -3,8 +3,8 @@ export const checkGameOver = (
   setPlayer,
   opponent,
   setOpponent,
-  setPaused,
-  setTable
+  setTable,
+  setGameOver
 ) => {
   if (player.coins >= 20 || opponent.coins >= 20) {
     const winner = player.coins >= 20 ? "Player" : "Opponent";
@@ -12,10 +12,10 @@ export const checkGameOver = (
 
     console.log(`Game Over: ${winner} wins with ${winnerCoins} coins!`);
 
-    setPaused(true);
     setPlayer((prevPlayer) => ({ ...prevPlayer, hand: [] }));
     setOpponent((prevOpponent) => ({ ...prevOpponent, hand: [] }));
     setTable([]);
+    setGameOver(true);
     return true;
   }
   return false;
