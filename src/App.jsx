@@ -164,16 +164,16 @@ function App() {
         console.log("Deck is empty and all cards have been played.");
 
         // calculate coins earned and update state
-        const playerCoins = (player.coins += sell(player.fishedCards));
-        const opponentCoins = (opponent.coins += sell(opponent.fishedCards));
+        const earnedPlayerCoins = sell(player.fishedCards);
+        const earnedOpponentCoins = sell(opponent.fishedCards);
         setPlayer((prevPlayer) => ({
           ...prevPlayer,
-          coins: prevPlayer.coins + playerCoins,
+          coins: prevPlayer.coins + earnedPlayerCoins,
           fishedCards: 0,
         }));
         setOpponent((prevOpponent) => ({
           ...prevOpponent,
-          coins: prevOpponent.coins + opponentCoins,
+          coins: prevOpponent.coins + earnedOpponentCoins,
           fishedCards: 0,
         }));
 
@@ -373,7 +373,6 @@ function App() {
           element={
             <GamePage
               theme={theme}
-              setTheme={setTheme}
               cards={table}
               handleTableCardSelection={handleTableCardSelection}
               coins={player.coins}

@@ -1,7 +1,6 @@
 import PlayerArea from "../../components/PlayerArea/PlayerArea";
 import Table from "../../components/Table/Table";
 import "./GamePage.scss";
-import { useState, useEffect } from "react";
 
 export default function GamePage({
   cards,
@@ -11,7 +10,6 @@ export default function GamePage({
   player,
   handleHandCardSelection,
   theme,
-  setTheme,
   handleThemeChange,
 }) {
   return (
