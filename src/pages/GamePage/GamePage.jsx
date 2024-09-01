@@ -18,7 +18,9 @@ import {
 import { useNavigate } from "react-router-dom";
 
 // To-Dos:
+
 // - fix turn switch logic to flip alternation of turns when deck is reshuffled
+// - figure out where the first table update is comming from and if it is a problem
 // - build fishBots with the strategies described at the end of the players object file
 
 export default function GamePage({ theme, handleThemeChange }) {
@@ -29,6 +31,7 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [opponent, setOpponent] = useState(opponentInState);
   const [selectedTableCards, setSelectedTableCards] = useState([]);
   const [gameInitialized, setGameInitialized] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [lastPlacedCard, setLastPlacedCard] = useState(null);
   const [isDeckFinished, setIsDeckFinished] = useState(false);
   const [tableCount, setTableCount] = useState(0);
