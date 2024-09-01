@@ -27,7 +27,11 @@ function fish() {
   }
 }
 
-function fishBot(setOpponent, table, setTable, setLastPlacedCard) {
+function fishBot(gameOver, setOpponent, table, setTable, setLastPlacedCard) {
+  console.log("FishBot invoked");
+  if (gameOver) {
+    return;
+  }
   if (this.hand.length > 0) {
     const fishedCard = this.hand.pop();
 

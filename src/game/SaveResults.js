@@ -1,8 +1,8 @@
-import fs from "fs";
+// import fs from "fs";
 
 export const saveResults = (gameResults) => {
-  fs.writeFileSynch("results.json", JSON.stringify(gameResults));
-  return true;
+  // fs.writeFileSynch("results.json", JSON.stringify(gameResults));
+  console.log(gameResults);
 };
 
 export const readResults = () => {

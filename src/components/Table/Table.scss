@@ -51,11 +51,37 @@
     min-width: 4rem;
     font-size: 3rem;
     text-align: center;
+    position: absolute;
+    animation: bounce 2s;
   }
   &--dark {
     background-size: 15px;
     background-image: $purple-flowers-cloth;
     box-shadow: inset 0 0 10px rgba(161, 51, 189, 0.623);
     border: 0.5rem solid rgba(72, 29, 1, 0.912);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-50px);
+  }
+  40% {
+    transform: translateY(0);
+  }
+  60% {
+    transform: translateY(-35px);
+  }
+  80% {
+    transform: translateY(0);
+  }
+  90% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

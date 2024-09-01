@@ -17,6 +17,7 @@ import {
 } from "../../game/PlayerObjects";
 import { useNavigate } from "react-router-dom";
 import dealToPlayers from "../../game/Deal";
+import { saveResults } from "../../game/SaveResults";
 
 // To-Dos:
 
@@ -79,9 +80,15 @@ export default function GamePage({ theme, handleThemeChange }) {
 
   // check if it's the opponent's turn and handle auto-play with a timeout
   useEffect(() => {
-    if (opponent.isActive) {
+    if (gameInitialized && opponent.isActive && gameOver === false) {
       setTimeout(() => {
-        opponent.fishBot(setOpponent, table, setTable, setLastPlacedCard);
+        opponent.fishBot(
+          gameOver,
+          setOpponent,
+          table,
+          setTable,
+          setLastPlacedCard
+        );
         switchActivePlayer({ setPlayer, setOpponent, player, opponent });
       }, 300);
     }
@@ -245,6 +252,10 @@ export default function GamePage({ theme, handleThemeChange }) {
   };
 
   const handleTableCardSelection = (card) => {
+    if (gameOver) {
+      console.log("Game is over. No actions can be taken.");
+      return;
+    }
     if (card.selected) {
       card.selected = false;
       setSelectedTableCards((prevSelected) =>
@@ -266,7 +277,8 @@ export default function GamePage({ theme, handleThemeChange }) {
           opponent,
           setOpponent,
           setTable,
-          setGameOver
+          setGameOver,
+          setWinner
         )
       ) {
         return;
@@ -275,6 +287,14 @@ export default function GamePage({ theme, handleThemeChange }) {
   }, [gameInitialized, player.coins, opponent.coins]);
 
   if (gameOver) {
+    const gameResults = [
+      {
+        winner: winner.id,
+        coins: winner.coins,
+        date: new Date(),
+      },
+    ];
+    saveResults(gameResults);
     setTimeout(() => {
       navigate("/scores");
     }, 10000);

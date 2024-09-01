@@ -32,18 +32,18 @@ export default function Table({
           {`${player.coins >= 20 ? "You win!" : "Better luck next time..."}`}
         </div>
       ) : null}
-      {cards.map((card, index) => (
-        <Card
-          className={`card card__${card.color} card--${
-            [3, 4, 5, 6, 7].includes(card.number) ? "net" : card.number
-          }
-          ${card.selected ? `card__${card.color}--selected` : ""}`}
-          onClick={() => handleTableCardSelection(card)}
-          key={index}
-          color={card.color}
-          number={card.number}
-        />
-      ))}
+      {!gameOver &&
+        cards.map((card, index) => (
+          <Card
+            className={`card card__${card.color} card--${
+              [3, 4, 5, 6, 7].includes(card.number) ? "net" : card.number
+            } ${card.selected ? `card__${card.color}--selected` : ""}`}
+            onClick={() => handleTableCardSelection(card)}
+            key={index}
+            color={card.color}
+            number={card.number}
+          />
+        ))}
     </div>
   );
 }
