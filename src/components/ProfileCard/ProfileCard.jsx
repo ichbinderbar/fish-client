@@ -1,5 +1,6 @@
 import "./ProfileCard.scss";
 import playerDp from "../../assets/images/player.jpg";
+import { SignInRegisterForm } from "../SignInRegisterForm/SignInRegisterForm";
 
 export default function ProfileCard({ theme }) {
   return (
@@ -9,7 +10,9 @@ export default function ProfileCard({ theme }) {
       <h1 className="profile-card__title">Profile Info:</h1>
       <div
         className={`profile-card__subcontainer profile-card__subcontainer--${theme}`}
-      ></div>
+      >
+        <SignInRegisterForm />
+      </div>
     </div>
   );
 }

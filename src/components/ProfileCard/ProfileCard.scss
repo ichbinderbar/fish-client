@@ -19,7 +19,6 @@
     }
   }
   &__subcontainer {
-    color: rgba(255, 98, 0, 0.925);
     text-shadow: 0 1px rgba(0, 0, 0, 0.797);
     padding: 1rem;
     display: flex;
@@ -44,5 +43,6 @@
   }
   &__content {
     display: flex;
+    color: white;
   }
 }
