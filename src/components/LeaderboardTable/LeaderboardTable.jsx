@@ -1,3 +1,4 @@
+import formatDate from "../../utils/formateDate";
 import "./LeaderboardTable.scss";
 
 const LeaderboardTable = ({ leaderboardData }) => {
@@ -6,7 +7,7 @@ const LeaderboardTable = ({ leaderboardData }) => {
       {leaderboardData.map((leader, index) => (
         <div key={index} className="leaderboard-table__row">
           <div className="leaderboard-table__cell leaderboard-table__cell--rank">
-            {index + 1}
+            {`${index + 1}.`}
           </div>
           <div className="leaderboard-table__cell leaderboard-table__cell--winner">
             {leader.winner}
@@ -15,7 +16,7 @@ const LeaderboardTable = ({ leaderboardData }) => {
             {leader.coins}
           </div>
           <div className="leaderboard-table__cell leaderboard-table__cell--date">
-            {leader.date}
+            {`${formatDate(leader.date)}`}
           </div>
         </div>
       ))}

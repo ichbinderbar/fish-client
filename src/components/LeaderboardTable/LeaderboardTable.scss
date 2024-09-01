@@ -3,41 +3,41 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 
-.leaderboard-table__content {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.leaderboard-table__row {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem;
-  border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
-  color: white;
-  background: rgba(255, 255, 255, 0.05);
-  &:nth-child(even) {
-    background: rgba(255, 255, 255, 0.1);
+.leaderboard-table {
+  &__content {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
   }
-}
-
-.leaderboard-table__cell {
-  text-align: left;
-  @include tablet {
-    flex: 1;
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+    min-width: 21rem;
+    &:nth-child(even) {
+      background: rgba(255, 255, 255, 0.1);
+    }
   }
-  &--rank {
-    width: 6%;
-  }
-  &--winner {
-    width: 24%;
-  }
-  &--score {
-    width: 20%;
-  }
-  &--date {
-    width: 50%;
-    text-align: right;
+  &__cell {
+    text-align: left;
+    align-self: center;
+    &--rank {
+      width: 6%;
+    }
+    &--winner {
+      width: 24%;
+    }
+    &--score {
+      width: 10%;
+    }
+    &--date {
+      width: 60%;
+      text-align: right;
+    }
   }
 }
