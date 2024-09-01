@@ -16,6 +16,7 @@ import {
   opponent as opponentInState,
 } from "../../game/PlayerObjects";
 import { useNavigate } from "react-router-dom";
+import dealToPlayers from "../../game/Deal";
 
 // To-Dos:
 
@@ -37,16 +38,8 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [tableCount, setTableCount] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const navigate = useNavigate();
-
-  // debbuger logs
-  useEffect(() => {
-    if (player.isActive) {
-      console.log("Player's turn activated");
-    }
-    if (opponent.isActive) {
-      console.log("Opponent's turn activated");
-    }
-  }, [player.isActive, opponent.isActive]);
+  const [gameResults, setGameResults] = useState({});
+  const [winner, setWinner] = useState(null);
 
   // set up game on mount
   useEffect(() => {
@@ -61,7 +54,7 @@ export default function GamePage({ theme, handleThemeChange }) {
     setGameInitialized(true);
   }, []);
 
-  // keep track of table updates to trigger new deck shuffle, card counting and awards after 40 table updates
+  // this counter tracks table updates because its the best way to check if the cards on each round, including those in the players hands, have actually been played
   useEffect(() => {
     if (gameInitialized) {
       setTableCount((prevTableUpdateCount) => {
@@ -74,33 +67,25 @@ export default function GamePage({ theme, handleThemeChange }) {
     }
   }, [gameInitialized, table]);
 
+  // debbuger logs
+  useEffect(() => {
+    if (player.isActive) {
+      console.log("Player's turn activated");
+    }
+    if (opponent.isActive) {
+      console.log("Opponent's turn activated");
+    }
+  }, [player.isActive, opponent.isActive]);
+
   // check if it's the opponent's turn and handle auto-play with a timeout
   useEffect(() => {
-    if (opponent.isActive /*&& opponent.hand.length > 0*/) {
+    if (opponent.isActive) {
       setTimeout(() => {
         opponent.fishBot(setOpponent, table, setTable, setLastPlacedCard);
         switchActivePlayer({ setPlayer, setOpponent, player, opponent });
-      }, 500);
+      }, 300);
     }
   }, [opponent.isActive]);
-
-  // check for winner and end the game
-  useEffect(() => {
-    if (gameInitialized) {
-      if (
-        checkGameOver(
-          player,
-          setPlayer,
-          opponent,
-          setOpponent,
-          setTable,
-          setGameOver
-        )
-      ) {
-        return;
-      }
-    }
-  }, [gameInitialized, player.coins, opponent.coins]);
 
   useEffect(() => {
     if (gameInitialized) {
@@ -112,11 +97,9 @@ export default function GamePage({ theme, handleThemeChange }) {
           opponent,
           deckAfterPlayerDeal
         );
-
         setDeck(finalDeck);
         setPlayer(newPlayerHand);
         setOpponent(newOpponentHand);
-        console.log("Cards dealt.");
       }
 
       // check if the deck is empty and all cards from deck had been played
@@ -151,8 +134,8 @@ export default function GamePage({ theme, handleThemeChange }) {
 
   // handle player's card selection from hand
   const handleHandCardSelection = (card) => {
-    if (paused) {
-      console.log("Game is paused. No actions can be taken.");
+    if (gameOver) {
+      console.log("Game is over. No actions can be taken.");
       return;
     }
 
@@ -273,8 +256,28 @@ export default function GamePage({ theme, handleThemeChange }) {
     }
   };
 
+  // check for winner and end the game
+  useEffect(() => {
+    if (gameInitialized) {
+      if (
+        checkGameOver(
+          player,
+          setPlayer,
+          opponent,
+          setOpponent,
+          setTable,
+          setGameOver
+        )
+      ) {
+        return;
+      }
+    }
+  }, [gameInitialized, player.coins, opponent.coins]);
+
   if (gameOver) {
-    navigate("/scores");
+    setTimeout(() => {
+      navigate("/scores");
+    }, 10000);
   }
 
   return (
@@ -283,6 +286,8 @@ export default function GamePage({ theme, handleThemeChange }) {
         cards={table}
         handleTableCardSelection={handleTableCardSelection}
         handleThemeChange={handleThemeChange}
+        gameOver={gameOver}
+        player={player}
         theme={theme}
       />
       <PlayerArea

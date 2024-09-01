@@ -44,6 +44,14 @@
     background-color: purple;
     font-size: 1rem;
   }
+  &__game-over {
+    text-shadow: 0 3px rgba(155, 5, 200, 0.8);
+    color: yellow;
+    display: flex;
+    min-width: 4rem;
+    font-size: 3rem;
+    text-align: center;
+  }
   &--dark {
     background-size: 15px;
     background-image: $purple-flowers-cloth;
