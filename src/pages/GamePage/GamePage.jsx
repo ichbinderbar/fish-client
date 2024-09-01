@@ -286,17 +286,19 @@ export default function GamePage({ theme, handleThemeChange }) {
     }
   }, [gameInitialized, player.coins, opponent.coins]);
 
-  if (gameOver) {
-    const gameResults = {
-      winner: winner.id,
-      coins: winner.coins,
-      date: new Date().toISOString(),
-    };
-    saveResults(gameResults);
-    setTimeout(() => {
-      navigate("/scores");
-    }, 10000);
-  }
+  useEffect(() => {
+    if (gameOver) {
+      const gameResults = {
+        winner: winner.id,
+        coins: winner.coins,
+        date: new Date().toISOString(),
+      };
+      saveResults(gameResults);
+      setTimeout(() => {
+        navigate("/scores");
+      }, 10000);
+    }
+  }, [gameOver]);
 
   return (
     <>

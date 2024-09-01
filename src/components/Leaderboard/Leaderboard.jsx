@@ -2,15 +2,14 @@ import "./Leaderboard.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import LeaderboardTable from "../LeaderboardTable/LeaderboardTable";
+import { apiUrl } from "../../assets/data/Api";
 
 export default function Leaderboard({ theme }) {
   const [leaderboardData, setLeaderboardData] = useState(null);
 
   const getLeaderboardData = async () => {
     try {
-      const leaderboardData = await axios.get(
-        "https://fish-server-deb16c6159c1.herokuapp.com/leaderboard"
-      );
+      const leaderboardData = await axios.get(`${apiUrl}leaderboard`);
       setLeaderboardData(leaderboardData.data);
     } catch (error) {
       console.log(error);

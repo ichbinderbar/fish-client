@@ -11,7 +11,7 @@ export const opponent = {
   id: "Opponent",
   isActive: false,
   hand: [],
-  coins: 20,
+  coins: 0,
   fishedCards: 0,
   fishBot: fishBot,
 };
