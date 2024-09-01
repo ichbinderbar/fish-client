@@ -11,7 +11,7 @@ export const opponent = {
   id: "Opponent",
   isActive: false,
   hand: [],
-  coins: 0,
+  coins: 20,
   fishedCards: 0,
   fishBot: fishBot,
 };
@@ -48,7 +48,7 @@ function fishBot(gameOver, setOpponent, table, setTable, setLastPlacedCard) {
       }));
     }
   } else {
-    console.log(`FishBot invoked but ${this.id} has no cards to play`);
+    console.log(` but ${this.id} has no cards to play`);
   }
 }
 

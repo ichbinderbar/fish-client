@@ -1,6 +1,7 @@
 import "./Leaderboard.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import LeaderboardTable from "../LeaderboardTable/LeaderboardTable";
 
 export default function Leaderboard({ theme }) {
   const [leaderboardData, setLeaderboardData] = useState(null);
@@ -8,7 +9,7 @@ export default function Leaderboard({ theme }) {
   const getLeaderboardData = async () => {
     try {
       const leaderboardData = await axios.get(
-        "http://localhost:1809/leaderboard"
+        "https://fish-server-deb16c6159c1.herokuapp.com/leaderboard"
       );
       setLeaderboardData(leaderboardData.data);
     } catch (error) {
@@ -43,13 +44,14 @@ export default function Leaderboard({ theme }) {
       <div
         className={`leaderboard__subcontainer leaderboard__subcontainer--${theme}`}
       >
-        <ol className="leaderboard__content">
+        <LeaderboardTable leaderboardData={leaderboardData} />
+        {/* <ol className="leaderboard__content">
           {leaderboardData.map((leader, index) => (
             <li key={leader.id} className="leaderboard__data-container">
               {JSON.stringify(leader)}
             </li>
           ))}
-        </ol>
+        </ol> */}
       </div>
     </div>
   );

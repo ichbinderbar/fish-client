@@ -10,10 +10,24 @@ export default function dealToPlayers({
   if (player.hand.length === 0 || opponent.hand.length === 0) return true;
 }
 
-// To save results:
+// import fs from "fs";
 
-import fs from "fs";
+// // Read results from a file
+// export const readResults = () => {
+//   try {
+//     const data = fs.readFileSync("gameResults.json", "utf-8");
+//     return JSON.parse(data); // Return the parsed data
+//   } catch (error) {
+//     console.error("Error reading file:", error);
+//     return null; // Return null or handle the error as needed
+//   }
+// };
 
-fs.writeFileSynch("./stats.txt", "utf8");
-
-const data = fs.readFileSync("./stats.txt");
+// // Save results to a file
+// export const saveResults = (gameResults) => {
+//   try {
+//     fs.writeFileSync("results.json", JSON.stringify(gameResults), "utf-8");
+//   } catch (error) {
+//     console.error("Error writing file:", error);
+//   }
+// };

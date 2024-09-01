@@ -1,10 +1,14 @@
-// import fs from "fs";
+import axios from "axios";
 
-export const saveResults = (gameResults) => {
-  // fs.writeFileSynch("results.json", JSON.stringify(gameResults));
+export const saveResults = async (gameResults) => {
+  try {
+    const leaderboardData = await axios.post(
+      "https://fish-server-deb16c6159c1.herokuapp.com/gameresults",
+      gameResults
+    );
+  } catch (error) {
+    console.log(error);
+  }
   console.log(gameResults);
-};
-
-export const readResults = () => {
-  const data = fs.readFileSync("results.json", "utf-8");
+  return true;
 };
