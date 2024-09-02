@@ -37,19 +37,25 @@ function fishBot(
   setTable,
   setLastPlacedCard
 ) {
-  console.log("FishBot invoked");
+  console.log("FishBot invoked.");
   if (gameOver) {
+    console.log("Game is over. No actions are allowed.");
     return;
   }
-  if (this.hand.length > 0) {
+  let newHand = [...opponent.hand];
+  let finalHand = [];
+  console.log("Hand before maniputalion:", newHand);
+  if (newHand.length > 0) {
     let fishingCard = null;
     if (table.length > 0) {
+      // prepare variables to perfom filtering in search of the best table selection and hook value
       const handNumbers = opponent.hand.map((card) => card.number);
       console.log("Hand:", handNumbers);
       const tableNumbers = table.map((card) => card.number);
       console.log("Table:", tableNumbers);
+
       // filters to find the possible combination(s):
-      // filter the schools of less or equall lenght as table, with a matching hook value (a hook value that is both in table and opponent's hand)
+      // filter the schools of less or equall lenght as table, with a matching hook value in both table and opponent's hand
       const subSchools = Schools.filter(
         (school) =>
           school.totalCards <= table.length &&
@@ -62,8 +68,7 @@ function fishBot(
         school.cardsArray.some((num) => tableNumbers.includes(num))
       );
       console.log("All viable combos:", viableCombinations);
-
-      // find the longest cardsArray
+      // find the longest cardsArray that can be collected
       const longestSchool = viableCombinations.reduce(
         (maxSchool, currentSchool) =>
           currentSchool.cardsArray.length > maxSchool.cardsArray.length
@@ -75,26 +80,34 @@ function fishBot(
 
       // find a card in hand with the same number value as the hook of the longest array
       const hookValue = longestSchool.hook;
-      fishingCard = this.hand.find((card) => card.number === hookValue);
+      fishingCard = newHand.find((card) => card.number === hookValue);
 
-      // TODO: fishingCard must be first one with the same number value of the hook of the longest array in viableCombinations
+      // if no match is found discard the last card on hand
+      if (!fishingCard) {
+        fishingCard = newHand[newHand.length - 1];
+        finalHand = newHand.slice(0, -1);
+        console.log("Hand after no viable match was found:", newHand);
+      }
+      console.log("Selected fishing card:", fishingCard);
     } else {
-      fishingCard = this.hand.pop();
+      fishingCard = newHand[newHand.length - 1];
+      finalHand = newHand.slice(0, -1);
+      console.log("Hand after empty table pop:", newHand);
     }
     if (fishingCard) {
       const updatedTable = [...table, fishingCard];
       console.log(`${this.id} played:`, fishingCard);
       setTable(updatedTable);
-
+      console.log("newHand as it will be updated after pop:", newHand);
       setLastPlacedCard(fishingCard);
-
+      console.log("Hand before it is updated in state:", newHand);
       setOpponent((prevOpponent) => ({
         ...prevOpponent,
-        hand: [...prevOpponent.hand],
+        hand: finalHand,
       }));
     }
   } else {
-    console.log(` but ${this.id} has no cards to play`);
+    console.log(`But ${this.id} has no cards to play`);
   }
 }
 
