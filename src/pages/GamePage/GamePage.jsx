@@ -84,6 +84,7 @@ export default function GamePage({ theme, handleThemeChange }) {
       setTimeout(() => {
         opponent.fishBot(
           gameOver,
+          opponent,
           setOpponent,
           table,
           setTable,
