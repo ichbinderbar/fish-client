@@ -6,7 +6,6 @@ export const player = {
   hand: [],
   coins: 0,
   fishedCards: 0,
-  fish: fish,
 };
 
 export const opponent = {
@@ -17,17 +16,6 @@ export const opponent = {
   fishedCards: 0,
   fishBot: stupidFishBot,
 };
-
-function fish() {
-  if (this.hand.length > 0) {
-    const fishingCard = this.hand.pop();
-    console.log(`${this.id} played: ${JSON.stringify(fishingCard)}`);
-    return fishingCard;
-  } else {
-    console.log(`${this.id} has no cards to play with`);
-    return null;
-  }
-}
 
 function stupidFishBot(
   gameOver,
