@@ -15,7 +15,7 @@ export const opponent = {
   hand: [],
   coins: 0,
   fishedCards: 0,
-  fishBot: fishBot,
+  fishBot: stupidFishBot,
 };
 
 function fish() {
@@ -26,6 +26,41 @@ function fish() {
   } else {
     console.log(`${this.id} has no cards to play with`);
     return null;
+  }
+}
+
+function stupidFishBot(
+  gameOver,
+  opponent,
+  setOpponent,
+  table,
+  setTable,
+  setLastPlacedCard
+) {
+  console.log("FishBot invoked");
+
+  if (gameOver) {
+    console.log("Game is over. No actions are allowed.");
+    return;
+  }
+
+  let newHand = [...opponent.hand];
+
+  if (newHand.length > 0) {
+    const fishingCard = newHand.pop();
+    console.log(`${opponent.id} played: ${JSON.stringify(fishingCard)}`);
+
+    const updatedTable = [...table, fishingCard];
+    console.log(`${opponent.id} added to table:`, fishingCard);
+
+    setOpponent((prevOpponent) => ({
+      ...prevOpponent,
+      hand: newHand,
+    }));
+    setTable(updatedTable);
+    setLastPlacedCard(fishingCard);
+  } else {
+    console.log(`${opponent.id} has no cards to play with`);
   }
 }
 
