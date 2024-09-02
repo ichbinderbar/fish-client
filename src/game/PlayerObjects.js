@@ -65,10 +65,8 @@ function fishBot(
     console.log("Game is over. No actions are allowed.");
     return;
   }
-  console.log("Hand before turn manipulation:", this.hand);
-
   let newHand = [...opponent.hand];
-  let finalHand = []; // this is a problem! it is causing the hand to be dealt to prematurely
+  console.log("newHand on initialization:", newHand);
 
   if (newHand.length > 0) {
     let fishingCard = null;
@@ -102,27 +100,31 @@ function fishBot(
       // find a card in hand with the same number value as the hook of the longest array
       const hookValue = longestSchool.hook;
       fishingCard = newHand.find((card) => card.number === hookValue);
+      console.log("newHand after match found:", newHand);
+
+      // remove the matched card from the hand
+      if (fishingCard) {
+        newHand = newHand.filter((card) => card.id !== fishingCard.id);
+      }
 
       // if no match is found discard the last card on hand
       if (!fishingCard) {
-        fishingCard = newHand[newHand.length - 1];
-        finalHand = newHand.slice(0, -1);
+        fishingCard = newHand.pop();
+        console.log("newHand after match not found:", newHand);
       }
     } else {
-      fishingCard = newHand[newHand.length - 1];
-      finalHand = newHand.slice(0, -1);
+      fishingCard = newHand.pop();
+      console.log("newHand after no cards in table:", newHand);
     }
-    if (fishingCard) {
-      const updatedTable = [...table, fishingCard];
-      console.log(`${this.id} played:`, fishingCard);
-      setTable(updatedTable);
-      setLastPlacedCard(fishingCard);
-      console.log("Hand before it is updated in state:", finalHand);
-      setOpponent((prevOpponent) => ({
-        ...prevOpponent,
-        hand: finalHand,
-      }));
-    }
+
+    const updatedTable = [...table, fishingCard];
+    console.log(`${this.id} played:`, fishingCard);
+    setTable(updatedTable);
+    setLastPlacedCard(fishingCard);
+    setOpponent((prevOpponent) => ({
+      ...prevOpponent,
+      hand: newHand,
+    }));
   } else {
     console.log(`But ${this.id} has no cards to play`);
   }
