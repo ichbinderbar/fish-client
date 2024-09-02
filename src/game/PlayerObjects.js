@@ -17,7 +17,7 @@ export const opponent = {
   fishBot: lisaBot,
 };
 
-// To-Do: Smart fishBot V2 preffers earning points from last card matches than fishing longer schools
+// TODO: smart fishBot V2 AKA Juan preffers earning points from last card matches than fishing longer schools
 
 // the dumbBot is just the one i plug in to debug the business logic
 function dumbBot(

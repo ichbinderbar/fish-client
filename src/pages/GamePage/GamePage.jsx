@@ -19,8 +19,7 @@ import { useNavigate } from "react-router-dom";
 import dealToPlayers from "../../game/Deal";
 import { saveResults } from "../../utils/SaveResults";
 
-// To-Do:
-// - fix turn switch logic to flip alternation of turns when deck is reshuffled
+// TODO: fix turn switch logic to flip alternation of turns when deck is reshuffled
 
 export default function GamePage({ theme, handleThemeChange }) {
   // initialize state variables to manage game logic
