@@ -65,18 +65,14 @@ export default function GamePage({ theme, handleThemeChange }) {
   }, [gameInitialized, table]);
 
   // debbuger logs
-  useEffect(() => {
-    if (player.isActive) {
-      console.log("Player's turn activated");
-    }
-    if (opponent.isActive) {
-      console.log("Opponent's turn activated");
-    }
-  }, [player.isActive, opponent.isActive]);
-
-  useEffect(() => {
-    console.log("Opponent's hand has changed:", opponent.hand);
-  }, [opponent.hand]);
+  // useEffect(() => {
+  //   if (player.isActive) {
+  //     console.log("Player's turn activated");
+  //   }
+  //   if (opponent.isActive) {
+  //     console.log("Opponent's turn activated");
+  //   }
+  // }, [player.isActive, opponent.isActive]);
 
   // check if it's the opponent's turn and handle auto-play with a timeout
   useEffect(() => {

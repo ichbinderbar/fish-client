@@ -70,7 +70,6 @@ function lisaBot(
     return;
   }
   let newHand = [...opponent.hand];
-  console.log("newHand on initialization:", newHand);
 
   if (newHand.length > 0) {
     let fishingCard = null;
@@ -100,12 +99,10 @@ function lisaBot(
             : maxSchool,
         { cardsArray: [] }
       );
-      console.log("Longest viable combo:", longestCombination);
 
       // find a card in hand with the same number value as the hook of the longest array
       const hookValue = longestCombination.hook;
       fishingCard = newHand.find((card) => card.number === hookValue);
-      console.log("newHand after match found:", newHand);
 
       // if a match is found remove the matched card from the hand
       if (fishingCard) {
@@ -115,11 +112,9 @@ function lisaBot(
       // if no match is found discard the last card on hand
       if (!fishingCard) {
         fishingCard = newHand.pop();
-        console.log("newHand after match not found:", newHand);
       }
     } else {
       fishingCard = newHand.pop();
-      console.log("newHand after no cards in table:", newHand);
     }
 
     const updatedTable = [...table, fishingCard];
@@ -135,10 +130,14 @@ function lisaBot(
     const updatedTableWithoutlongestCombination = updatedTable.filter(
       (card) => !longestCombination.cardsArray.includes(card.number)
     );
-    console.log(
-      "Updated table after removing longestCombination cards:",
-      updatedTableWithoutlongestCombination
-    );
+    setOpponent((prevOpponent) => ({
+      ...prevOpponent,
+      fishedCards:
+        prevOpponent.fishedCards + longestCombination.cardsArray.length,
+    }));
+    console.log("Combination captured:", longestCombination);
+    console.log("Updated table:", updatedTableWithoutlongestCombination);
+    console.log("Opponent's total cards captured:", opponent.fishedCards);
     setTable(updatedTableWithoutlongestCombination);
   } else {
     console.log(`But ${this.id} has no cards to play`);
