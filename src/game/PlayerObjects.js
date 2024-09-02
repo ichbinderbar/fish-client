@@ -14,7 +14,7 @@ export const opponent = {
   hand: [],
   coins: 0,
   fishedCards: 0,
-  fishBot: stupidFishBot,
+  fishBot: fishBot,
 };
 
 function stupidFishBot(
@@ -65,17 +65,17 @@ function fishBot(
     console.log("Game is over. No actions are allowed.");
     return;
   }
+  console.log("Hand before turn manipulation:", this.hand);
+
   let newHand = [...opponent.hand];
   let finalHand = [];
-  console.log("Hand before maniputalion:", newHand);
+
   if (newHand.length > 0) {
     let fishingCard = null;
     if (table.length > 0) {
       // prepare variables to perfom filtering in search of the best table selection and hook value
       const handNumbers = opponent.hand.map((card) => card.number);
-      console.log("Hand:", handNumbers);
       const tableNumbers = table.map((card) => card.number);
-      console.log("Table:", tableNumbers);
 
       // filters to find the possible combination(s):
       // filter the schools of less or equall lenght as table, with a matching hook value in both table and opponent's hand
@@ -85,12 +85,10 @@ function fishBot(
           handNumbers.includes(school.hook) &&
           tableNumbers.includes(school.hook)
       );
-      console.log("Filtered options:", subSchools);
       // find all viable combinations with overlapping numbers in the table
       const viableCombinations = subSchools.filter((school) =>
         school.cardsArray.some((num) => tableNumbers.includes(num))
       );
-      console.log("All viable combos:", viableCombinations);
       // find the longest cardsArray that can be collected
       const longestSchool = viableCombinations.reduce(
         (maxSchool, currentSchool) =>
@@ -109,21 +107,17 @@ function fishBot(
       if (!fishingCard) {
         fishingCard = newHand[newHand.length - 1];
         finalHand = newHand.slice(0, -1);
-        console.log("Hand after no viable match was found:", newHand);
       }
-      console.log("Selected fishing card:", fishingCard);
     } else {
       fishingCard = newHand[newHand.length - 1];
       finalHand = newHand.slice(0, -1);
-      console.log("Hand after empty table pop:", newHand);
     }
     if (fishingCard) {
       const updatedTable = [...table, fishingCard];
       console.log(`${this.id} played:`, fishingCard);
       setTable(updatedTable);
-      console.log("newHand as it will be updated after pop:", newHand);
       setLastPlacedCard(fishingCard);
-      console.log("Hand before it is updated in state:", newHand);
+      console.log("Hand before it is updated in state:", finalHand);
       setOpponent((prevOpponent) => ({
         ...prevOpponent,
         hand: finalHand,

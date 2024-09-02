@@ -167,8 +167,6 @@ export default function GamePage({ theme, handleThemeChange }) {
       const match = checkMatch(Schools, selectedNumbers);
 
       if (match.match) {
-        console.log("Valid combination selected:", selectedNumbers);
-
         const fishedCardsCount = updatedSelectedCards.length;
 
         // Remove the selected cards from the table
