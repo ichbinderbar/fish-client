@@ -17,7 +17,7 @@ import {
 } from "../../game/PlayerObjects";
 import { useNavigate } from "react-router-dom";
 import dealToPlayers from "../../game/Deal";
-import { saveResults } from "../../game/SaveResults";
+import { saveResults } from "../../utils/SaveResults";
 
 // To-Dos:
 

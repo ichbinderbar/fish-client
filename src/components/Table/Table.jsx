@@ -23,7 +23,7 @@ export default function Table({
         {theme === "light" ? "🌙" : "☀️"}
       </div>
       <div className="table__home-button" onClick={handleGoToHomePage}>
-        Home
+        🔖
       </div>
       {gameOver ? (
         <div className="table__game-over">

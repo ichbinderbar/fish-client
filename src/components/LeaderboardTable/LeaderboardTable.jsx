@@ -1,4 +1,4 @@
-import formatDate from "../../utils/formateDate";
+import formatDate from "../../utils/FormateDate";
 import "./LeaderboardTable.scss";
 
 const LeaderboardTable = ({ leaderboardData }) => {

@@ -33,6 +33,19 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
+          path="*"
+          element={
+            <>
+              <MainMenu
+                setTheme={setTheme}
+                theme={theme}
+                handleThemeChange={handleThemeChange}
+              />
+              <Leaderboard theme={theme} />
+            </>
+          }
+        />
+        <Route
           path="/"
           element={
             <>
