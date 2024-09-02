@@ -19,11 +19,8 @@ import { useNavigate } from "react-router-dom";
 import dealToPlayers from "../../game/Deal";
 import { saveResults } from "../../utils/SaveResults";
 
-// To-Dos:
-
+// To-Do:
 // - fix turn switch logic to flip alternation of turns when deck is reshuffled
-// - figure out where the first table update is comming from and if it is a problem
-// - build fishBots with the strategies described at the end of the players object file
 
 export default function GamePage({ theme, handleThemeChange }) {
   // initialize state variables to manage game logic
@@ -77,6 +74,10 @@ export default function GamePage({ theme, handleThemeChange }) {
       console.log("Opponent's turn activated");
     }
   }, [player.isActive, opponent.isActive]);
+
+  useEffect(() => {
+    console.log("Opponent's hand has changed:", opponent.hand);
+  }, [opponent.hand]);
 
   // check if it's the opponent's turn and handle auto-play with a timeout
   useEffect(() => {

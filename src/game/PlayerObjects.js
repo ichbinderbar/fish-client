@@ -68,7 +68,7 @@ function fishBot(
   console.log("Hand before turn manipulation:", this.hand);
 
   let newHand = [...opponent.hand];
-  let finalHand = [];
+  let finalHand = []; // this is a problem! it is causing the hand to be dealt to prematurely
 
   if (newHand.length > 0) {
     let fishingCard = null;
