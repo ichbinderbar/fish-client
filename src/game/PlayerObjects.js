@@ -14,10 +14,10 @@ export const opponent = {
   hand: [],
   coins: 0,
   fishedCards: 0,
-  fishBot: fishBot,
+  fishBot: lisaBot,
 };
 
-function stupidFishBot(
+function dumbBot(
   gameOver,
   opponent,
   setOpponent,
@@ -52,7 +52,8 @@ function stupidFishBot(
   }
 }
 
-function fishBot(
+// smart fishBot V1 AKA Lisa preffers collecting cards than earning coins from last card match
+function lisaBot(
   gameOver,
   opponent,
   setOpponent,
@@ -70,6 +71,7 @@ function fishBot(
 
   if (newHand.length > 0) {
     let fishingCard = null;
+    let longestCombination = { cardsArray: [] };
     if (table.length > 0) {
       // prepare variables to perfom filtering in search of the best table selection and hook value
       const handNumbers = opponent.hand.map((card) => card.number);
@@ -88,21 +90,21 @@ function fishBot(
         school.cardsArray.some((num) => tableNumbers.includes(num))
       );
       // find the longest cardsArray that can be collected
-      const longestSchool = viableCombinations.reduce(
+      longestCombination = viableCombinations.reduce(
         (maxSchool, currentSchool) =>
           currentSchool.cardsArray.length > maxSchool.cardsArray.length
             ? currentSchool
             : maxSchool,
         { cardsArray: [] }
       );
-      console.log("Longest viable combo:", longestSchool);
+      console.log("Longest viable combo:", longestCombination);
 
       // find a card in hand with the same number value as the hook of the longest array
-      const hookValue = longestSchool.hook;
+      const hookValue = longestCombination.hook;
       fishingCard = newHand.find((card) => card.number === hookValue);
       console.log("newHand after match found:", newHand);
 
-      // remove the matched card from the hand
+      // if a match is found remove the matched card from the hand
       if (fishingCard) {
         newHand = newHand.filter((card) => card.id !== fishingCard.id);
       }
@@ -125,17 +127,17 @@ function fishBot(
       ...prevOpponent,
       hand: newHand,
     }));
+
+    // remove cards matching the longestCombination from the table
+    const updatedTableWithoutlongestCombination = updatedTable.filter(
+      (card) => !longestCombination.cardsArray.includes(card.number)
+    );
+    console.log(
+      "Updated table after removing longestCombination cards:",
+      updatedTableWithoutlongestCombination
+    );
+    setTable(updatedTableWithoutlongestCombination);
   } else {
     console.log(`But ${this.id} has no cards to play`);
   }
 }
-
-// To-Do: Smart fishBot V1 preffers collecting cards than earning coins from last card match
-// to determine best play the fishBot:
-////// - compares its hand array to the table card array number values and finds the longest combination in table that is also in schools
-////// - and returns first card that matches longest combination in schools
-
-// To-Do: Smart fishBot V2 preffers earning points from last card matches than fishing longer schools
-// to determine best play the fishBot:
-////// - compares its hand array to the table card array number values and finds the longest combination in table that is also in schools that also matches the number value
-////// - and returns first card that matches this criteria
