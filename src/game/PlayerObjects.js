@@ -39,7 +39,7 @@ function dumbBot(
 
   if (newHand.length > 0) {
     const fishingCard = newHand.pop();
-    console.log(`${opponent.id} played: ${JSON.stringify(fishingCard)}`);
+    console.log(`${opponent.id} played:`, fishingCard);
 
     const updatedTable = [...table, fishingCard];
     console.log(`${opponent.id} added to table:`, fishingCard);
@@ -130,14 +130,17 @@ function lisaBot(
     const updatedTableWithoutlongestCombination = updatedTable.filter(
       (card) => !longestCombination.cardsArray.includes(card.number)
     );
+    if (updatedTableWithoutlongestCombination === 0) {
+      setOpponent((prevOpponent) => ({
+        ...prevOpponent,
+        coins: prevOpponent.coins + 1,
+      }));
+    }
     setOpponent((prevOpponent) => ({
       ...prevOpponent,
       fishedCards:
         prevOpponent.fishedCards + longestCombination.cardsArray.length,
     }));
-    console.log("Combination captured:", longestCombination);
-    console.log("Updated table:", updatedTableWithoutlongestCombination);
-    console.log("Opponent's total cards captured:", opponent.fishedCards);
     setTable(updatedTableWithoutlongestCombination);
   } else {
     console.log(`But ${this.id} has no cards to play`);

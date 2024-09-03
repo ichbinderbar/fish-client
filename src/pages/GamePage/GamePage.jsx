@@ -65,6 +65,19 @@ export default function GamePage({ theme, handleThemeChange }) {
   }, [gameInitialized, table]);
 
   // debbuger logs
+
+  useEffect(() => {
+    console.log("Table:", table);
+  }, [table]);
+
+  useEffect(() => {
+    console.log("Opponent coins:", opponent.coins);
+  }, [opponent.coins]);
+
+  useEffect(() => {
+    console.log("Opponent fishedCards:", opponent.fishedCards);
+  }, [opponent.fishedCards]);
+
   // useEffect(() => {
   //   if (player.isActive) {
   //     console.log("Player's turn activated");
