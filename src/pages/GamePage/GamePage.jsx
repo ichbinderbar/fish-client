@@ -64,7 +64,7 @@ export default function GamePage({ theme, handleThemeChange }) {
     }
   }, [gameInitialized, table]);
 
-  // debbuger logs
+  // debuger logs
 
   useEffect(() => {
     console.log("Table:", table);
