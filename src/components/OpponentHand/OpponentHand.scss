@@ -1,0 +1,18 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.opponent-area {
+  &__hand {
+    display: flex;
+    flex-direction: row;
+    gap: 0.2rem;
+    padding: 1rem;
+    overflow: visible;
+    width: 70%;
+    position: relative;
+    @include tablet {
+      margin: auto;
+      top: -4rem;
+    }
+  }
+}

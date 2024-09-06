@@ -1,10 +1,11 @@
 import CardsCollectedCounter from "../CardsCollected/CardsCollectedCounter";
 import CoinsEarnedCounter from "../CoinsEarned/CoinsEarnedCounter";
 import Hand from "../Hand/Hand";
-import "./PlayerArea.scss";
+import OpponentHand from "../OpponentHand/OpponentHand";
+import "./OpponentArea.scss";
 import { useState, useEffect } from "react";
 
-export default function PlayerArea({
+export default function OpponentArea({
   player,
   handleHandCardSelection,
   fishedCards,
@@ -12,14 +13,18 @@ export default function PlayerArea({
   theme,
 }) {
   return (
-    <div className={`player-area player-area--${theme}`}>
-      <div className="player-area__stat-container">
+    <div className={`opponent-area opponent-area--${theme}`}>
+      <OpponentHand
+        player={player}
+        handleHandCardSelection={handleHandCardSelection}
+      />
+      {/* <Hand player={player} handleHandCardSelection={handleHandCardSelection} /> */}
+      <div className="opponent-area__stat-container">
         <CardsCollectedCounter
           fishedCards={fishedCards}
         ></CardsCollectedCounter>
         <CoinsEarnedCounter coins={coins}></CoinsEarnedCounter>
       </div>
-      <Hand player={player} handleHandCardSelection={handleHandCardSelection} />
     </div>
   );
 }

@@ -1,1 +1,1 @@
-export const apiUrl = "https://fish-server-deb16c6159c1.herokuapp.com/";
+export const apiUrl = "https://fish-server-1e51f49ad8f0.herokuapp.com/";

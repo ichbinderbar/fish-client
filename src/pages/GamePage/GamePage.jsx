@@ -18,6 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import dealToPlayers from "../../game/Deal";
 import { saveResults } from "../../utils/SaveResults";
+import OpponentArea from "../../components/OpponentArea/OpponentArea";
 
 // TODO: fix turn switch logic to flip alternation of turns when deck is reshuffled
 
@@ -310,6 +311,13 @@ export default function GamePage({ theme, handleThemeChange }) {
 
   return (
     <>
+      <OpponentArea
+        coins={opponent.coins}
+        fishedCards={opponent.fishedCards}
+        player={opponent}
+        handleHandCardSelection={handleHandCardSelection}
+        theme={theme}
+      />
       <Table
         cards={table}
         handleTableCardSelection={handleTableCardSelection}

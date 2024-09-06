@@ -18,9 +18,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   cursor: pointer;
   &--net {
-    &:hover {
-      animation: changeColors 5s infinite linear;
-    }
+    animation: changeColors 5s infinite linear;
   }
   @include tablet {
     width: 6rem;
@@ -83,31 +81,23 @@
 
 @keyframes changeColors {
   0% {
-    border-color: rgb(255, 85, 0);
-    color: rgb(149, 0, 255);
+    border-color: rgb(255, 82, 82);
+    text-shadow: 0 3px rgb(255, 82, 82);
   }
-  16.6% {
-    border-color: orange;
-    color: rgb(255, 82, 82);
-  }
-  33.3% {
-    border-color: yellow;
-    color: orange;
+  25% {
+    border-color: rgb(75, 75, 255);
+    text-shadow: 0 3px rgb(75, 75, 255);
   }
   50% {
-    border-color: green;
-    color: yellow;
+    border-color: rgb(238, 0, 255);
+    text-shadow: 0 3px rgb(238, 0, 255);
   }
-  66.6% {
+  75% {
     border-color: rgb(75, 75, 255);
-    color: green;
-  }
-  83.3% {
-    border-color: indigo;
-    color: rgb(75, 75, 255);
+    text-shadow: 0 3px rgb(75, 75, 255);
   }
   100% {
-    border-color: rgb(255, 85, 0);
-    color: rgb(149, 0, 255);
+    border-color: rgb(255, 82, 82);
+    text-shadow: 0 3px rgb(255, 82, 82);
   }
 }

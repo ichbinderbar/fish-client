@@ -3,15 +3,16 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 
-.player-area {
+.opponent-area {
   display: flex;
   position: relative;
-  flex-direction: column;
+  flex-direction: row;
   min-width: 24rem;
-  height: 25vh;
+  height: 10vh;
   overflow: visible;
   background-image: $wood;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.65);
+  z-index: 1;
   @include tablet {
     flex-direction: row;
   }
@@ -21,9 +22,14 @@
     gap: 1rem;
     padding: auto;
     flex: 1;
-    max-width: 12rem;
-    margin: 0.5rem auto;
-    position: relative;
+    max-width: 9rem;
+    // margin: auto;
+    @include tablet {
+      position: relative;
+      top: 1.5rem;
+      right: 2rem;
+      max-width: 12rem;
+    }
   }
   &--dark {
     background-size: 85px;

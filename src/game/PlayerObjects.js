@@ -70,20 +70,21 @@ function lisaBot(
     return;
   }
   let newHand = [...opponent.hand];
+  let newTable = [...table];
 
   if (newHand.length > 0) {
     let fishingCard = null;
     let longestCombination = { cardsArray: [] };
-    if (table.length > 0) {
+    if (newTable.length > 0) {
       // prepare variables to perfom filtering in search of the best table selection and hook value
       const handNumbers = opponent.hand.map((card) => card.number);
-      const tableNumbers = table.map((card) => card.number);
+      const tableNumbers = newTable.map((card) => card.number);
 
       // filters to find the possible combination(s):
       // filter the schools of less or equall lenght as table, with a matching hook value in both table and opponent's hand
       const subSchools = Schools.filter(
         (school) =>
-          school.totalCards <= table.length &&
+          school.totalCards <= newTable.length &&
           handNumbers.includes(school.hook) &&
           tableNumbers.includes(school.hook)
       );
@@ -117,7 +118,7 @@ function lisaBot(
       fishingCard = newHand.pop();
     }
 
-    const updatedTable = [...table, fishingCard];
+    const updatedTable = [...newTable, fishingCard];
     console.log(`${this.id} played:`, fishingCard);
     setTable(updatedTable);
     setLastPlacedCard(fishingCard);

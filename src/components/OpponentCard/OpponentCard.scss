@@ -1,0 +1,134 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/globals" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.opponent-card {
+  text-shadow: 0 3px rgba(155, 5, 200, 0.8);
+  border: 2px solid gold;
+  // color: yellow;
+  display: flex;
+  min-width: 4rem;
+  width: 3rem;
+  height: 6rem;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: -0.5rem;
+  background-image: $red;
+  background-position: center;
+  // cursor: pointer;
+  @include tablet {
+    width: 6rem;
+    height: 9rem;
+    font-size: 5rem;
+    position: static;
+    align-items: center;
+  }
+  &--0 {
+    left: 2%;
+  }
+  &--1 {
+    left: 12%;
+  }
+  &--2 {
+    left: 22%;
+  }
+  &--3 {
+    left: 32%;
+  }
+  &--4 {
+    left: 42%;
+  }
+  // &--net {
+  //   &:hover {
+  //     animation: changeColors 5s infinite linear;
+  //   }
+  // }
+  // &__blue {
+  //   background-color: blue;
+  //   // background-image: $blue-net;
+  //   background-position: center;
+  //   background-repeat: repeat;
+  //   background-size: 20px;
+  //   &--selected {
+  //     @include selected-card;
+  //   }
+  // }
+  // &__purple {
+  //   background-color: purple;
+  //   // background-image: $yellow-net;
+  //   background-position: center;
+  //   background-repeat: repeat;
+  //   background-size: 10px;
+  //   &--selected {
+  //     @include selected-card;
+  //   }
+  // }
+  // &__green {
+  //   background-color: green;
+  //   // background-image: $green-net;
+  //   background-position: center;
+  //   background-repeat: repeat;
+  //   background-size: 20px;
+  //   &--selected {
+  //     @include selected-card;
+  //   }
+  // }
+  // &__red {
+  //   background-color: red;
+  //   // background-image: $red-net;
+  //   background-position: center;
+  //   background-repeat: repeat;
+  //   background-size: 20px;
+  //   &--selected {
+  //     @include selected-card;
+  //   }
+  // }
+  // &:hover {
+  //   @include hover-card;
+  // }
+  // &:active {
+  //   @include active-card;
+  // }
+  // &--inactive {
+  //   @include inactive-card;
+  // }
+  // &--selected {
+  //   @include selected-card;
+  // }
+}
+
+// @keyframes changeColors {
+//   0% {
+//     border-color: rgb(255, 85, 0);
+//     color: rgb(149, 0, 255);
+//   }
+//   16.6% {
+//     border-color: orange;
+//     color: rgb(255, 82, 82);
+//   }
+//   33.3% {
+//     border-color: yellow;
+//     color: orange;
+//   }
+//   50% {
+//     border-color: green;
+//     color: yellow;
+//   }
+//   66.6% {
+//     border-color: rgb(75, 75, 255);
+//     color: green;
+//   }
+//   83.3% {
+//     border-color: indigo;
+//     color: rgb(75, 75, 255);
+//   }
+//   100% {
+//     border-color: rgb(255, 85, 0);
+//     color: rgb(149, 0, 255);
+//   }
+// }
