@@ -98,7 +98,8 @@ export default function GamePage({ theme, handleThemeChange }) {
           setOpponent,
           table,
           setTable,
-          setLastPlacedCard
+          setLastPlacedCard,
+          lastPlacedCard
         );
         switchActivePlayer({ setPlayer, setOpponent, player, opponent });
       }, 300);

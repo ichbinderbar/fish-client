@@ -1,4 +1,5 @@
-import { Schools } from "../assets/data/Schools";
+import { getLongestCombination } from "./getLongestCombination";
+import { getFishingCard } from "./getFishingCard";
 
 export const player = {
   id: "Player",
@@ -35,10 +36,10 @@ function dumbBot(
     return;
   }
 
-  let newHand = [...opponent.hand];
+  let currentHand = [...opponent.hand];
 
-  if (newHand.length > 0) {
-    const fishingCard = newHand.pop();
+  if (currentHand.length > 0) {
+    const fishingCard = currentHand.pop();
     console.log(`${opponent.id} played:`, fishingCard);
 
     const updatedTable = [...table, fishingCard];
@@ -46,7 +47,7 @@ function dumbBot(
 
     setOpponent((prevOpponent) => ({
       ...prevOpponent,
-      hand: newHand,
+      hand: currentHand,
     }));
     setTable(updatedTable);
     setLastPlacedCard(fishingCard);
@@ -62,88 +63,63 @@ function lisaBot(
   setOpponent,
   table,
   setTable,
-  setLastPlacedCard
+  setLastPlacedCard,
+  lastPlacedCard
 ) {
-  console.log("FishBot invoked.");
   if (gameOver) {
     console.log("Game is over. No actions are allowed.");
     return;
   }
-  let newHand = [...opponent.hand];
-  let newTable = [...table];
 
-  if (newHand.length > 0) {
-    let fishingCard = null;
-    let longestCombination = { cardsArray: [] };
-    if (newTable.length > 0) {
-      // prepare variables to perfom filtering in search of the best table selection and hook value
-      const handNumbers = opponent.hand.map((card) => card.number);
-      const tableNumbers = newTable.map((card) => card.number);
+  const currentHand = [...opponent.hand];
+  const currentTable = [...table];
+  const longestCombination = getLongestCombination(currentHand, currentTable);
+  const hookValue = longestCombination.hook;
+  const fishingCard = getFishingCard(currentHand, currentTable, hookValue);
 
-      // filters to find the possible combination(s):
-      // filter the schools of less or equall lenght as table, with a matching hook value in both table and opponent's hand
-      const subSchools = Schools.filter(
-        (school) =>
-          school.totalCards <= newTable.length &&
-          handNumbers.includes(school.hook) &&
-          tableNumbers.includes(school.hook)
-      );
-      // find all viable combinations with overlapping numbers in the table
-      const viableCombinations = subSchools.filter((school) =>
-        school.cardsArray.some((num) => tableNumbers.includes(num))
-      );
-      // find the longest cardsArray that can be collected
-      longestCombination = viableCombinations.reduce(
-        (maxSchool, currentSchool) =>
-          currentSchool.cardsArray.length > maxSchool.cardsArray.length
-            ? currentSchool
-            : maxSchool,
-        { cardsArray: [] }
-      );
+  console.log("Current Hand:", currentHand);
+  console.log("Current Table:", currentTable);
+  console.log("Longest Combination:", longestCombination);
+  console.log("Hook Value:", hookValue);
+  console.log("Fishing Card:", fishingCard);
 
-      // find a card in hand with the same number value as the hook of the longest array
-      const hookValue = longestCombination.hook;
-      fishingCard = newHand.find((card) => card.number === hookValue);
+  if (fishingCard) {
+    const newHand = currentHand.filter((card) => card !== fishingCard);
+    const updatedTable = [...currentTable, fishingCard];
+    const updatedTableWithoutCombination = updatedTable.filter(
+      (card) => !longestCombination.cardsArray.includes(card.number)
+    );
+    const isTableEmpty = updatedTableWithoutCombination.length === 0;
+    const isMatchWithLastPlacedCard =
+      lastPlacedCard && lastPlacedCard.number === longestCombination.hook;
 
-      // if a match is found remove the matched card from the hand
-      if (fishingCard) {
-        newHand = newHand.filter((card) => card.id !== fishingCard.id);
-      }
+    console.log("New Hand:", newHand);
+    console.log("Updated Table:", updatedTable);
+    console.log(
+      "Updated Table Without Combination:",
+      updatedTableWithoutCombination
+    );
+    console.log("Is Table Empty:", isTableEmpty);
+    console.log("Is Match With Last Placed Card:", isMatchWithLastPlacedCard);
 
-      // if no match is found discard the last card on hand
-      if (!fishingCard) {
-        fishingCard = newHand.pop();
-      }
-    } else {
-      fishingCard = newHand.pop();
-    }
-
-    const updatedTable = [...newTable, fishingCard];
-    console.log(`${this.id} played:`, fishingCard);
-    setTable(updatedTable);
-    setLastPlacedCard(fishingCard);
     setOpponent((prevOpponent) => ({
       ...prevOpponent,
       hand: newHand,
     }));
+    setTable(updatedTable);
 
-    // remove cards matching the longestCombination from the table
-    const updatedTableWithoutlongestCombination = updatedTable.filter(
-      (card) => !longestCombination.cardsArray.includes(card.number)
-    );
-    if (updatedTableWithoutlongestCombination === 0) {
-      setOpponent((prevOpponent) => ({
-        ...prevOpponent,
-        coins: prevOpponent.coins + 1,
-      }));
-    }
     setOpponent((prevOpponent) => ({
       ...prevOpponent,
       fishedCards:
         prevOpponent.fishedCards + longestCombination.cardsArray.length,
+      coins:
+        prevOpponent.coins +
+        (isTableEmpty ? 1 : 0) +
+        (isMatchWithLastPlacedCard ? 1 : 0),
     }));
-    setTable(updatedTableWithoutlongestCombination);
+    setTable(updatedTableWithoutCombination);
+    setLastPlacedCard(fishingCard);
   } else {
-    console.log(`But ${this.id} has no cards to play`);
+    console.log(`${opponent.id} could not play any card.`);
   }
 }

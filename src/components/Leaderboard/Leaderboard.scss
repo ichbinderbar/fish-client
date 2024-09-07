@@ -26,12 +26,12 @@
     width: 100%;
     overflow: scroll;
     scrollbar-width: none; /* For Firefox */
+    background-image: $wood;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.65);
     -ms-overflow-style: none; /* For IE and Edge */
     &:-webkit-scrollbar {
       display: none; /* For Chrome, Safari, and Opera */
     }
-    background-image: $wood;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.65);
     @include tablet {
       flex-direction: row;
     }
