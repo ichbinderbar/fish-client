@@ -1,6 +1,7 @@
 import { getLongestCombination } from "./getLongestCombination";
 import { getFishingCard } from "./getFishingCard";
 import { switchActivePlayer } from "./SwitchActivePlayer";
+import { removeCardsFromTable } from "./removeCombinationFromTable";
 
 export const player = {
   id: "Player",
@@ -91,8 +92,10 @@ function lisaBot({
   if (fishingCard) {
     const newHand = currentHand.filter((card) => card !== fishingCard);
     const updatedTable = [...currentTable, fishingCard];
-    const updatedTableWithoutCombination = updatedTable.filter(
-      (card) => !longestCombination.cardsArray.includes(card.number)
+    const updatedTableWithoutCombination = removeCardsFromTable(
+      updatedTable,
+      longestCombination.cardsArray,
+      fishingCard
     );
     const isTableEmpty = updatedTableWithoutCombination.length === 0;
     const isMatchWithLastPlacedCard =
@@ -113,17 +116,16 @@ function lisaBot({
     }));
     setTable(updatedTable);
 
-    setTimeout(() => {
-      setOpponent((prevOpponent) => ({
-        ...prevOpponent,
-        fishedCards: prevOpponent.fishedCards + longestCombination.totalCards,
-        coins:
-          prevOpponent.coins +
-          (isTableEmpty ? 1 : 0) +
-          (isMatchWithLastPlacedCard ? 1 : 0),
-      }));
-      setTable(updatedTableWithoutCombination);
-    }, 1000);
+    setOpponent((prevOpponent) => ({
+      ...prevOpponent,
+      fishedCards: prevOpponent.fishedCards + longestCombination.totalCards,
+      coins:
+        prevOpponent.coins +
+        (isTableEmpty ? 1 : 0) +
+        (isMatchWithLastPlacedCard ? 1 : 0),
+    }));
+    setTable(updatedTableWithoutCombination);
+
     setLastPlacedCard(fishingCard);
   } else {
     console.log(`${opponent.id} could not play any card.`);

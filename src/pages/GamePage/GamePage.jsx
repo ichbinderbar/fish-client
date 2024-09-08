@@ -12,6 +12,7 @@ import { Deck } from "../../assets/data/Deck";
 import {
   player as playerObject,
   opponent as opponentObject,
+  player,
 } from "../../game/PlayerObjects";
 import { useNavigate } from "react-router-dom";
 import { saveResults } from "../../utils/SaveResults";
@@ -28,12 +29,13 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [gameInitialized, setGameInitialized] = useState(false);
   const [lastPlacedCard, setLastPlacedCard] = useState(null);
   const [isDeckFinished, setIsDeckFinished] = useState(false);
-  const [tableCount, setTableCount] = useState(0);
+  const [turnCount, setTurnCount] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const navigate = useNavigate();
   const [winner, setWinner] = useState(null);
   const [firstToMove, setFirstToMove] = useState(null);
   const [isRoundOver, setIsRoundOver] = useState(false);
+  const [changeCounter, setChangeCounter] = useState(0);
 
   // set up game on mount
   useEffect(() => {
@@ -116,7 +118,7 @@ export default function GamePage({ theme, handleThemeChange }) {
           fishedCards: 0,
         }));
         // setDeck(newDeck);
-        setTableCount(0);
+        setTurnCount(0);
         setTable([]);
         setIsDeckFinished(false);
       }
@@ -181,18 +183,43 @@ export default function GamePage({ theme, handleThemeChange }) {
     }
   }, [gameOver]);
 
-  // track table updates to determine end of round
+  // track player.hand if player is first to move to determine end of round
   useEffect(() => {
     if (gameInitialized) {
-      setTableCount((prevTableUpdateCount) => {
-        const tableUpdateCount = prevTableUpdateCount + 1;
-        if (tableUpdateCount % 40 === 0) {
-          setIsDeckFinished(true);
-        }
-        return tableUpdateCount;
-      });
+      if (firstToMove === "Player") {
+        setTurnCount((prevTableUpdateCount) => {
+          const tableUpdateCount = prevTableUpdateCount + 1;
+          // console.log("Updated table count:", tableUpdateCount);
+          if (tableUpdateCount % 24 === 0) {
+            console.log(
+              "Player hand is finished. Deck is finished.--------------------"
+            );
+            setIsDeckFinished(true);
+          }
+          return tableUpdateCount;
+        });
+      }
     }
-  }, [gameInitialized, table]);
+  }, [player.hand]);
+
+  // track opponent.hand if opponent is first to move to determine end of round
+  useEffect(() => {
+    if (gameInitialized) {
+      if (firstToMove === "Opponent") {
+        setTurnCount((prevTableUpdateCount) => {
+          const tableUpdateCount = prevTableUpdateCount + 1;
+          // console.log("Updated table count:", tableUpdateCount);
+          if (tableUpdateCount % 24 === 0) {
+            console.log(
+              "Opponent hand is finished. Deck is finished.--------------------"
+            );
+            setIsDeckFinished(true);
+          }
+          return tableUpdateCount;
+        });
+      }
+    }
+  }, [opponent.hand]);
 
   return (
     <>
