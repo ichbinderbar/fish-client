@@ -17,6 +17,7 @@ export const getLongestCombination = (currentHand, currentTable) => {
   );
   const bestCombination = findLongestCombination(matchesFromTableInSubSchools);
   const hook = findHookByCardsArray(subSchools, bestCombination);
+  const totalCards = findTotalCardsByCardsArray(subSchools, bestCombination);
 
   // console.log("Hand numbers:", handNumbers);
   // console.log("Table numbers:", tableNumbers);
@@ -24,10 +25,12 @@ export const getLongestCombination = (currentHand, currentTable) => {
   // console.log("Filtered subSchools:", subSchoolsArrays);
   // console.log("Possible table selections:", matchesFromTableInSubSchools);
   // console.log("Best matching combination:", bestCombination);
+  console.log("Total cards:", totalCards);
 
   return {
     hook: hook,
     cardsArray: bestCombination,
+    totalCards: totalCards ?? 0,
   };
 };
 
@@ -42,6 +45,19 @@ const findHookByCardsArray = (arrayOfObjects, targetArray) => {
 
   // return the hook property if a match is found, otherwise return undefined
   return match ? match.hook : undefined;
+};
+
+const findTotalCardsByCardsArray = (arrayOfObjects, targetArray) => {
+  // convert the targetArray to a JSON string for comparison
+  const targetArrayStr = JSON.stringify(targetArray);
+
+  // find the object where cardsArray matches the targetArray
+  const match = arrayOfObjects.find(
+    (obj) => JSON.stringify(obj.cardsArray) === targetArrayStr
+  );
+
+  // return the totalCards property if a match is found, otherwise return 0
+  return match ? match.totalCards : 0;
 };
 
 const findLongestCombination = (arrayOfArrays) => {

@@ -116,8 +116,7 @@ function lisaBot({
     setTimeout(() => {
       setOpponent((prevOpponent) => ({
         ...prevOpponent,
-        fishedCards:
-          prevOpponent.fishedCards + longestCombination.cardsArray.length,
+        fishedCards: prevOpponent.fishedCards + longestCombination.totalCards,
         coins:
           prevOpponent.coins +
           (isTableEmpty ? 1 : 0) +
