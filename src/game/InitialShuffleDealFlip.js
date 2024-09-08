@@ -1,5 +1,4 @@
 import deal from "./Deal";
-import flipCoin from "./FlipCoin";
 import shuffle from "./Shuffle";
 
 export const initialShuffleDealFlip = ({

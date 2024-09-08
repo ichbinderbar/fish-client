@@ -117,16 +117,24 @@ export default function GamePage({ theme, handleThemeChange }) {
   // handle new round
   useEffect(() => {
     if (gameInitialized && isRoundOver) {
-      if (firstToMove === "player") {
+      if (firstToMove === "Player") {
         setPlayer((prevPlayer) => ({ ...prevPlayer, isActive: false }));
         setOpponent((prevOpponent) => ({ ...prevOpponent, isActive: true }));
-      } else {
+        console.log(
+          "--------------------Opponent starts this round.--------------------"
+        );
+      }
+      if (firstToMove === "Opponent") {
         setPlayer((prevPlayer) => ({ ...prevPlayer, isActive: true }));
         setOpponent((prevOpponent) => ({ ...prevOpponent, isActive: false }));
+        console.log(
+          "--------------------Player starts this round.--------------------"
+        );
       }
       const newDeck = shuffle(Deck);
       setDeck(newDeck);
       setIsRoundOver(false);
+      setFirstToMove(firstToMove === "Player" ? "Opponent" : "Player");
     }
   }, [isRoundOver]);
 
