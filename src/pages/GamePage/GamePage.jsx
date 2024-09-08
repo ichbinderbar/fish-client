@@ -75,17 +75,21 @@ export default function GamePage({ theme, handleThemeChange }) {
       !gameOver &&
       opponent.hand.length > 0
     ) {
-      opponent.fishBot({
-        gameOver,
-        opponent,
-        setOpponent,
-        table,
-        setTable,
-        setLastPlacedCard,
-        lastPlacedCard,
-        player,
-        setPlayer,
-      });
+      setTimeout(
+        () =>
+          opponent.fishBot({
+            gameOver,
+            opponent,
+            setOpponent,
+            table,
+            setTable,
+            setLastPlacedCard,
+            lastPlacedCard,
+            player,
+            setPlayer,
+          }),
+        300
+      );
     }
   }, [opponent]);
 

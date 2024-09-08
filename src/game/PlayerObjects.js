@@ -16,7 +16,7 @@ export const opponent = {
   hand: [],
   coins: 0,
   fishedCards: 0,
-  fishBot: dumbBot,
+  fishBot: lisaBot,
 };
 
 // TODO: smart fishBot V2 AKA Juan preffers earning points from last card matches than fishing longer schools
@@ -67,6 +67,8 @@ function lisaBot({
   setTable,
   setLastPlacedCard,
   lastPlacedCard,
+  player,
+  setPlayer,
 }) {
   if (gameOver) {
     console.log("Game is over. No actions are allowed.");
