@@ -49,10 +49,10 @@ export default function GamePage({ theme, handleThemeChange }) {
     setGameInitialized(true);
   }, []);
 
-  // handle dealing after mount's initial deal
+  // handle dealing
   useEffect(() => {
     if (gameInitialized) {
-      if (player.hand.length === 0 || opponent.hand.length === 0) {
+      if (player.hand.length === 0 && opponent.hand.length === 0) {
         const { player: newPlayerHand, shuffledDeck: deckAfterPlayerDeal } =
           deal(player, deck);
         const { player: newOpponentHand, shuffledDeck: finalDeck } = deal(
