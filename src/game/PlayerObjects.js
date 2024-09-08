@@ -81,8 +81,8 @@ function lisaBot({
   const hookValue = longestCombination.hook;
   const fishingCard = getFishingCard(currentHand, currentTable, hookValue);
 
-  // console.log("Current hand:", currentHand);
-  // console.log("Current table:", currentTable);
+  console.log("Current hand:", currentHand);
+  console.log("Current table:", currentTable);
   console.log("Longest collectable combination:", longestCombination);
   console.log("Hook value:", hookValue);
   console.log("Fishing card:", fishingCard);

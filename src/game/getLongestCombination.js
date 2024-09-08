@@ -17,12 +17,13 @@ export const getLongestCombination = (currentHand, currentTable) => {
   );
   const bestCombination = findLongestCombination(matchesFromTableInSubSchools);
   const hook = findHookByCardsArray(subSchools, bestCombination);
-  console.log("Hand numbers:", handNumbers);
-  console.log("Table numbers:", tableNumbers);
-  console.log("Power set of table numbers:", tablePowerSet);
-  console.log("Filtered subSchools:", subSchoolsArrays);
-  console.log("Possible table selections:", matchesFromTableInSubSchools);
-  console.log("Best matching combination:", bestCombination);
+
+  // console.log("Hand numbers:", handNumbers);
+  // console.log("Table numbers:", tableNumbers);
+  // console.log("Power set of table numbers:", tablePowerSet);
+  // console.log("Filtered subSchools:", subSchoolsArrays);
+  // console.log("Possible table selections:", matchesFromTableInSubSchools);
+  // console.log("Best matching combination:", bestCombination);
 
   return {
     hook: hook,
