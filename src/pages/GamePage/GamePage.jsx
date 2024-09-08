@@ -49,7 +49,7 @@ export default function GamePage({ theme, handleThemeChange }) {
     setGameInitialized(true);
   }, []);
 
-  // handle dealing
+  // handle dealing after mount's initial deal
   useEffect(() => {
     if (gameInitialized) {
       if (player.hand.length === 0 || opponent.hand.length === 0) {
@@ -69,7 +69,12 @@ export default function GamePage({ theme, handleThemeChange }) {
 
   // handle opponents auto-play
   useEffect(() => {
-    if (gameInitialized && opponent.isActive && !gameOver) {
+    if (
+      gameInitialized &&
+      opponent.isActive &&
+      !gameOver &&
+      opponent.hand.length > 0
+    ) {
       opponent.fishBot({
         gameOver,
         opponent,

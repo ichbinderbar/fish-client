@@ -54,6 +54,7 @@ function dumbBot({
   } else {
     console.log(`${opponent.id} has no cards to play with.`);
   }
+
   switchActivePlayer({ setPlayer, setOpponent, player, opponent });
 }
 
