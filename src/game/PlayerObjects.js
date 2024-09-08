@@ -81,11 +81,12 @@ function lisaBot({
   const hookValue = longestCombination.hook;
   const fishingCard = getFishingCard(currentHand, currentTable, hookValue);
 
-  // console.log("Current Hand:", currentHand);
-  // console.log("Current Table:", currentTable);
-  // console.log("Longest Combination:", longestCombination);
-  // console.log("Hook Value:", hookValue);
-  // console.log("Fishing Card:", fishingCard);
+  // console.log("Current hand:", currentHand);
+  // console.log("Current table:", currentTable);
+  console.log("Longest collectable combination:", longestCombination);
+  console.log("Hook value:", hookValue);
+  console.log("Fishing card:", fishingCard);
+  console.log("----------------------------------------");
 
   if (fishingCard) {
     const newHand = currentHand.filter((card) => card !== fishingCard);
@@ -97,14 +98,14 @@ function lisaBot({
     const isMatchWithLastPlacedCard =
       lastPlacedCard && lastPlacedCard.number === longestCombination.hook;
 
-    // console.log("New Hand:", newHand);
-    // console.log("Updated Table:", updatedTable);
-    // console.log(
-    //   "Updated Table Without Combination:",
-    //   updatedTableWithoutCombination
-    // );
-    // console.log("Is Table Empty:", isTableEmpty);
-    // console.log("Is Match With Last Placed Card:", isMatchWithLastPlacedCard);
+    console.log("New hand:", newHand);
+    console.log("Updated table:", updatedTable);
+    console.log(
+      "Updated table without combination:",
+      updatedTableWithoutCombination
+    );
+    console.log("Is table empty:", isTableEmpty);
+    console.log("Is match with last placed card:", isMatchWithLastPlacedCard);
 
     setOpponent((prevOpponent) => ({
       ...prevOpponent,
@@ -130,4 +131,5 @@ function lisaBot({
   }
 
   switchActivePlayer({ setPlayer, setOpponent, player, opponent });
+  console.log("________________________________________");
 }

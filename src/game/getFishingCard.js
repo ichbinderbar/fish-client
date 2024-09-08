@@ -4,6 +4,6 @@ export const getFishingCard = (currentHand, currentTable, hookValue) => {
       currentHand.find((card) => card.number === hookValue) || currentHand.pop()
     );
   }
-  console.log("Nothing to collect. Discarting random card.");
+  // console.log("Nothing to collect. Discarting random card.");
   return currentHand[Math.floor(Math.random() * currentHand.length)];
 };
