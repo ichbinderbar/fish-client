@@ -35,7 +35,6 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [winner, setWinner] = useState(null);
   const [firstToMove, setFirstToMove] = useState(null);
   const [isRoundOver, setIsRoundOver] = useState(false);
-  const [changeCounter, setChangeCounter] = useState(0);
 
   // set up game on mount
   useEffect(() => {
