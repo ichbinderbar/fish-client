@@ -80,7 +80,7 @@ const powerSet = (array) => {
 };
 
 const findExactMatches = (arrayOfArrays1, arrayOfArrays2) => {
-  const set2 = new Set(arrayOfArrays2.map((arr) => JSON.stringify(arr)));
+  const set = new Set(arrayOfArrays2.map((arr) => JSON.stringify(arr)));
 
-  return arrayOfArrays1.filter((arr) => set2.has(JSON.stringify(arr)));
+  return arrayOfArrays1.filter((arr) => set.has(JSON.stringify(arr)));
 };

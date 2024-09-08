@@ -4,7 +4,7 @@
 @use "../../styles/partials/variables" as *;
 
 .card {
-  text-shadow: 0 3px rgba(155, 5, 200, 0.8);
+  text-shadow: 0 3px rgba(82, 0, 106, 0.8);
   border: 2px solid gold;
   color: yellow;
   display: flex;
@@ -81,23 +81,23 @@
 
 @keyframes changeColors {
   0% {
-    border-color: rgb(255, 82, 82);
-    text-shadow: 0 3px rgb(255, 82, 82);
+    border-color: gold;
+    text-shadow: 0 1px purple;
   }
   25% {
     border-color: rgb(75, 75, 255);
     text-shadow: 0 3px rgb(75, 75, 255);
   }
   50% {
-    border-color: rgb(238, 0, 255);
-    text-shadow: 0 3px rgb(238, 0, 255);
+    border-color: rgb(255, 161, 246);
+    text-shadow: 0 5px rgb(255, 74, 225);
   }
   75% {
     border-color: rgb(75, 75, 255);
     text-shadow: 0 3px rgb(75, 75, 255);
   }
   100% {
-    border-color: rgb(255, 82, 82);
-    text-shadow: 0 3px rgb(255, 82, 82);
+    border-color: gold;
+    text-shadow: 0 1px purple;
   }
 }
