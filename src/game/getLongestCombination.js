@@ -25,12 +25,12 @@ export const getLongestCombination = (currentHand, currentTable) => {
   // console.log("Filtered subSchools:", subSchoolsArrays);
   // console.log("Possible table selections:", matchesFromTableInSubSchools);
   // console.log("Best matching combination:", bestCombination);
-  console.log("Total cards:", totalCards);
+  // console.log("Total cards:", totalCards);
 
   return {
+    totalCards: totalCards ?? 0,
     hook: hook,
     cardsArray: bestCombination,
-    totalCards: totalCards ?? 0,
   };
 };
 
