@@ -1,45 +1,69 @@
-import { Schools } from "../assets/data/Schools";
+import { SubSchools as Schools } from "../assets/data/SubSchools";
 
 export const getLongestCombination = (currentHand, currentTable) => {
   const handNumbers = currentHand.map((card) => card.number);
   const tableNumbers = currentTable.map((card) => card.number);
-  // const uniqueTableNumbers = [
-  //   ...new Set(currentTable.map((card) => card.number)),
-  // ];
-
-  console.log("Hand numbers:", handNumbers);
-  console.log("Table numbers:", tableNumbers);
-
-  // filter schools into a subset comprised of the arrays with a hook value
-  // that is both in the player's hand and the table
-  // and which length is less or equall to the the length of the table plus one
-  // to account for the card that has not yet been placed on the table
+  const tablePowerSet = powerSet(tableNumbers);
   const subSchools = Schools.filter(
     (school) =>
-      school.totalCards <= currentTable.length + 1 &&
+      school.totalCards <= currentTable.length &&
       handNumbers.includes(school.hook) &&
       tableNumbers.includes(school.hook)
   );
+  const subSchoolsArrays = subSchools.map((school) => school.cardsArray);
+  const matchesFromTableInSubSchools = findExactMatches(
+    tablePowerSet,
+    subSchoolsArrays
+  );
+  const bestCombination = findLongestCombination(matchesFromTableInSubSchools);
+  const hook = findHookByCardsArray(subSchools, bestCombination);
+  console.log("Hand numbers:", handNumbers);
+  console.log("Table numbers:", tableNumbers);
+  console.log("Power set of table numbers:", tablePowerSet);
+  console.log("Filtered subSchools:", subSchoolsArrays);
+  console.log("Possible table selections:", matchesFromTableInSubSchools);
+  console.log("Best matching combination:", bestCombination);
 
-  console.log("---Filtered subSchools:", subSchools);
+  return {
+    hook: hook,
+    cardsArray: bestCombination,
+  };
+};
 
-  // Filter subSchools to find viable combinations
-  const viableCombinations = subSchools.filter((school) =>
-    school.cardsArray.some((num) => tableNumbers.includes(num))
+const findHookByCardsArray = (arrayOfObjects, targetArray) => {
+  // convert the targetArray to a JSON string for comparison
+  const targetArrayStr = JSON.stringify(targetArray);
+
+  // find the object where cardsArray matches the targetArray
+  const match = arrayOfObjects.find(
+    (obj) => JSON.stringify(obj.cardsArray) === targetArrayStr
   );
 
-  console.log("---Viable combinations:", viableCombinations);
+  // return the hook property if a match is found, otherwise return undefined
+  return match ? match.hook : undefined;
+};
 
-  // Find the longest combination
-  const longestCombination = viableCombinations.reduce(
-    (maxSchool, currentSchool) =>
-      currentSchool.cardsArray.length > maxSchool.cardsArray.length
-        ? currentSchool
-        : maxSchool,
-    { cardsArray: [] }
+const findLongestCombination = (arrayOfArrays) => {
+  return arrayOfArrays.reduce((longest, current) => {
+    return current.length > longest.length ? current : longest;
+  }, []);
+};
+
+// power set function that sorts both elements within each subset and the subsets
+const powerSet = (array) => {
+  const subsets = array.reduce(
+    (subsets, value) =>
+      subsets.concat(
+        subsets.map((set) => [...set, value].sort((a, b) => a - b))
+      ),
+    [[]]
   );
 
-  console.log("---Longest combination:", longestCombination);
+  return subsets.sort((a, b) => a.length - b.length);
+};
 
-  return longestCombination;
+const findExactMatches = (arrayOfArrays1, arrayOfArrays2) => {
+  const set2 = new Set(arrayOfArrays2.map((arr) => JSON.stringify(arr)));
+
+  return arrayOfArrays1.filter((arr) => set2.has(JSON.stringify(arr)));
 };

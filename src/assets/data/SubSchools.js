@@ -1,6 +1,6 @@
 // sets of valid combinations in this SubSchools' cardsArrays property do not include the hook
 // totalCards does include the hook to represent cardsArray.length plus the hook card
-export const Schools = [
+export const SubSchools = [
   {
     totalCards: 11,
     hook: 1,
