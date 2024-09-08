@@ -2,7 +2,7 @@ import { Schools } from "../assets/data/Schools";
 
 export const getLongestCombination = (currentHand, currentTable) => {
   const handNumbers = currentHand.map((card) => card.number);
-  const tableNumbers = currentTable.map((card) => card.number);
+  const tableNumbers = [...new Set(currentTable.map((card) => card.number))];
 
   const subSchools = Schools.filter(
     (school) =>

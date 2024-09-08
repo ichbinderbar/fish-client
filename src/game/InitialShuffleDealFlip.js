@@ -9,12 +9,13 @@ export const initialShuffleDealFlip = ({
   setPlayer,
   opponent,
   setOpponent,
+  setFirstToMove,
 }) => {
-  // Shuffle and set deck
+  // shuffle and set deck
   const playingDeck = shuffle(deck);
   setDeck(playingDeck);
 
-  // Deal cards to both players first
+  // deal cards to both players first
   const { player: playerAfterDeal, shuffledDeck: deckAfterPlayerDeal } = deal(
     player,
     playingDeck
@@ -24,24 +25,24 @@ export const initialShuffleDealFlip = ({
     deckAfterPlayerDeal
   );
 
-  // Update the deck and player states after dealing
+  // update the deck and player states after dealing
   setDeck(finalDeck);
   setPlayer(playerAfterDeal);
   setOpponent(opponentAfterDeal);
 
-  // Now determine who goes first by flipping a coin
-  const isPlayerFirst = flipCoin() === "player";
-
-  // Update players' active status based on the coin flip
-  setPlayer((prevPlayer) => ({ ...prevPlayer, isActive: isPlayerFirst }));
+  // Randomly determine who goes first
+  const firstToMove = Math.random() > 0.5 ? "Player" : "Opponent";
+  setFirstToMove(firstToMove);
+  setPlayer((prevPlayer) => ({
+    ...prevPlayer,
+    isActive: firstToMove === "Player",
+  }));
   setOpponent((prevOpponent) => ({
     ...prevOpponent,
-    isActive: !isPlayerFirst,
+    isActive: firstToMove === "Opponent",
   }));
 
-  if (isPlayerFirst) {
-    console.log("Player starts the game");
-  } else {
-    console.log("Opponent starts the game");
-  }
+  console.log(
+    `--------------------${firstToMove} starts the game.--------------------`
+  );
 };

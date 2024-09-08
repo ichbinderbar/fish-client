@@ -1,5 +1,6 @@
 import { getLongestCombination } from "./getLongestCombination";
 import { getFishingCard } from "./getFishingCard";
+import { switchActivePlayer } from "./SwitchActivePlayer";
 
 export const player = {
   id: "Player",
@@ -15,20 +16,22 @@ export const opponent = {
   hand: [],
   coins: 0,
   fishedCards: 0,
-  fishBot: lisaBot,
+  fishBot: dumbBot,
 };
 
 // TODO: smart fishBot V2 AKA Juan preffers earning points from last card matches than fishing longer schools
 
 // the dumbBot is just for debugging the business logic
-function dumbBot(
+function dumbBot({
   gameOver,
   opponent,
   setOpponent,
   table,
   setTable,
-  setLastPlacedCard
-) {
+  setLastPlacedCard,
+  player,
+  setPlayer,
+}) {
   console.log("FishBot invoked");
 
   if (gameOver) {
@@ -40,10 +43,7 @@ function dumbBot(
 
   if (currentHand.length > 0) {
     const fishingCard = currentHand.pop();
-    console.log(`${opponent.id} played:`, fishingCard);
-
     const updatedTable = [...table, fishingCard];
-    console.log(`${opponent.id} added to table:`, fishingCard);
 
     setOpponent((prevOpponent) => ({
       ...prevOpponent,
@@ -52,20 +52,21 @@ function dumbBot(
     setTable(updatedTable);
     setLastPlacedCard(fishingCard);
   } else {
-    console.log(`${opponent.id} has no cards to play with`);
+    console.log(`${opponent.id} has no cards to play with.`);
   }
+  switchActivePlayer({ setPlayer, setOpponent, player, opponent });
 }
 
 // smart fishBot V1 AKA Lisa preffers collecting cards than earning coins from last card match
-function lisaBot(
+function lisaBot({
   gameOver,
   opponent,
   setOpponent,
   table,
   setTable,
   setLastPlacedCard,
-  lastPlacedCard
-) {
+  lastPlacedCard,
+}) {
   if (gameOver) {
     console.log("Game is over. No actions are allowed.");
     return;
@@ -77,11 +78,11 @@ function lisaBot(
   const hookValue = longestCombination.hook;
   const fishingCard = getFishingCard(currentHand, currentTable, hookValue);
 
-  console.log("Current Hand:", currentHand);
-  console.log("Current Table:", currentTable);
-  console.log("Longest Combination:", longestCombination);
-  console.log("Hook Value:", hookValue);
-  console.log("Fishing Card:", fishingCard);
+  // console.log("Current Hand:", currentHand);
+  // console.log("Current Table:", currentTable);
+  // console.log("Longest Combination:", longestCombination);
+  // console.log("Hook Value:", hookValue);
+  // console.log("Fishing Card:", fishingCard);
 
   if (fishingCard) {
     const newHand = currentHand.filter((card) => card !== fishingCard);
@@ -93,14 +94,14 @@ function lisaBot(
     const isMatchWithLastPlacedCard =
       lastPlacedCard && lastPlacedCard.number === longestCombination.hook;
 
-    console.log("New Hand:", newHand);
-    console.log("Updated Table:", updatedTable);
-    console.log(
-      "Updated Table Without Combination:",
-      updatedTableWithoutCombination
-    );
-    console.log("Is Table Empty:", isTableEmpty);
-    console.log("Is Match With Last Placed Card:", isMatchWithLastPlacedCard);
+    // console.log("New Hand:", newHand);
+    // console.log("Updated Table:", updatedTable);
+    // console.log(
+    //   "Updated Table Without Combination:",
+    //   updatedTableWithoutCombination
+    // );
+    // console.log("Is Table Empty:", isTableEmpty);
+    // console.log("Is Match With Last Placed Card:", isMatchWithLastPlacedCard);
 
     setOpponent((prevOpponent) => ({
       ...prevOpponent,
@@ -108,18 +109,22 @@ function lisaBot(
     }));
     setTable(updatedTable);
 
-    setOpponent((prevOpponent) => ({
-      ...prevOpponent,
-      fishedCards:
-        prevOpponent.fishedCards + longestCombination.cardsArray.length,
-      coins:
-        prevOpponent.coins +
-        (isTableEmpty ? 1 : 0) +
-        (isMatchWithLastPlacedCard ? 1 : 0),
-    }));
-    setTable(updatedTableWithoutCombination);
+    setTimeout(() => {
+      setOpponent((prevOpponent) => ({
+        ...prevOpponent,
+        fishedCards:
+          prevOpponent.fishedCards + longestCombination.cardsArray.length,
+        coins:
+          prevOpponent.coins +
+          (isTableEmpty ? 1 : 0) +
+          (isMatchWithLastPlacedCard ? 1 : 0),
+      }));
+      setTable(updatedTableWithoutCombination);
+    }, 1000);
     setLastPlacedCard(fishingCard);
   } else {
     console.log(`${opponent.id} could not play any card.`);
   }
+
+  switchActivePlayer({ setPlayer, setOpponent, player, opponent });
 }
