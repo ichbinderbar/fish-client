@@ -101,3 +101,53 @@
     text-shadow: 0 1px purple;
   }
 }
+
+// @keyframes changeColors {
+//   0% {
+//     border-color: gold;
+//     text-shadow: 0 1px purple;
+//   }
+//   10% {
+//     border-color: gold;
+//     text-shadow: 0 1.5px purple;
+//   }
+//   20% {
+//     border-color: rgb(75, 75, 255);
+//     text-shadow: 0 2px rgb(75, 75, 255);
+//     color: purple;
+//   }
+//   30% {
+//     border-color: rgb(75, 75, 255);
+//     text-shadow: 0 3px rgb(75, 75, 255);
+//   }
+//   40% {
+//     border-color: rgb(255, 161, 246);
+//     text-shadow: 0 4px rgb(255, 74, 225);
+//   }
+//   50% {
+//     border-color: rgb(255, 161, 246);
+//     text-shadow: 0 5px rgb(61, 0, 51);
+//     color: white;
+//   }
+//   60% {
+//     border-color: rgb(255, 161, 246);
+//     text-shadow: 0 4px rgb(255, 74, 225);
+//   }
+//   70% {
+//     border-color: rgb(75, 75, 255);
+//     text-shadow: 0 3px rgb(75, 75, 255);
+//   }
+//   80% {
+//     border-color: rgb(75, 75, 255);
+//     text-shadow: 0 2px rgb(75, 75, 255);
+//     color: purple;
+//   }
+//   90% {
+//     border-color: gold;
+//     text-shadow: 0 1.5px purple;
+//   }
+//   100% {
+//     border-color: gold;
+//     text-shadow: 0 1px purple;
+//   }
+// }

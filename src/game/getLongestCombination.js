@@ -6,7 +6,7 @@ export const getLongestCombination = (currentHand, currentTable) => {
   const tablePowerSet = powerSet(tableNumbers);
   const subSchools = Schools.filter(
     (school) =>
-      school.totalCards <= currentTable.length &&
+      school.totalCards <= currentTable.length + 1 &&
       handNumbers.includes(school.hook) &&
       tableNumbers.includes(school.hook)
   );

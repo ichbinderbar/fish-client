@@ -9,7 +9,7 @@ export default function Leaderboard({ theme }) {
 
   const getLeaderboardData = async () => {
     try {
-      const leaderboardData = await axios.get(`${apiUrl}leaderboard`);
+      const leaderboardData = await axios.get(`${apiUrl}/leaderboard`);
       setLeaderboardData(leaderboardData.data);
     } catch (error) {
       console.log(error);

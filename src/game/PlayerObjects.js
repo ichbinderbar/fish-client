@@ -90,7 +90,7 @@ function lisaBot({
   console.log("----------------------------------------");
 
   if (fishingCard) {
-    const newHand = currentHand.filter((card) => card !== fishingCard);
+    const updatedHand = currentHand.filter((card) => card !== fishingCard);
     const updatedTable = [...currentTable, fishingCard];
     const updatedTableWithoutCombination = removeCardsFromTable(
       updatedTable,
@@ -101,7 +101,7 @@ function lisaBot({
     const isMatchWithLastPlacedCard =
       lastPlacedCard && lastPlacedCard.number === longestCombination.hook;
 
-    console.log("New hand:", newHand);
+    console.log("Updated hand:", updatedHand);
     console.log("Updated table:", updatedTable);
     console.log(
       "Updated table without combination:",
@@ -112,7 +112,7 @@ function lisaBot({
 
     setOpponent((prevOpponent) => ({
       ...prevOpponent,
-      hand: newHand,
+      hand: updatedHand,
     }));
     setTable(updatedTable);
 

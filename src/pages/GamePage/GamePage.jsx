@@ -19,6 +19,8 @@ import { saveResults } from "../../utils/SaveResults";
 import OpponentArea from "../../components/OpponentArea/OpponentArea";
 import handleHandCardSelection from "../../game/handleHandCardSelection";
 import handleTableCardSelection from "../../game/handleTableCardSelection";
+import io from "socket.io-client";
+import { apiUrl } from "../../assets/data/Api";
 
 export default function GamePage({ theme, handleThemeChange }) {
   const [deck, setDeck] = useState(Deck);
@@ -35,9 +37,12 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [winner, setWinner] = useState(null);
   const [firstToMove, setFirstToMove] = useState(null);
   const [isRoundOver, setIsRoundOver] = useState(false);
+  const [socket, setSocket] = useState(null);
 
   // set up game on mount
   useEffect(() => {
+    const newSocket = io(apiUrl);
+    setSocket(newSocket);
     initialShuffleDealFlip({
       deck,
       setDeck,
@@ -240,6 +245,7 @@ export default function GamePage({ theme, handleThemeChange }) {
             gameOver,
             setOpponent,
             opponent,
+            socket,
           })
         }
         theme={theme}
@@ -277,6 +283,7 @@ export default function GamePage({ theme, handleThemeChange }) {
             gameOver,
             setOpponent,
             opponent,
+            socket,
           })
         }
         theme={theme}
