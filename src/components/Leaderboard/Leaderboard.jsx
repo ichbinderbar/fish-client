@@ -44,13 +44,6 @@ export default function Leaderboard({ theme }) {
         className={`leaderboard__subcontainer leaderboard__subcontainer--${theme}`}
       >
         <LeaderboardTable leaderboardData={leaderboardData} />
-        {/* <ol className="leaderboard__content">
-          {leaderboardData.map((leader, index) => (
-            <li key={leader.id} className="leaderboard__data-container">
-              {JSON.stringify(leader)}
-            </li>
-          ))}
-        </ol> */}
       </div>
     </div>
   );

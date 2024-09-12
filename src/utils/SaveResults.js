@@ -1,9 +1,10 @@
 import axios from "axios";
+import { apiUrl } from "../assets/data/Api";
 
 export const saveResults = async (gameResults) => {
   try {
     const leaderboardData = await axios.post(
-      "https://fish-server-deb16c6159c1.herokuapp.com/gameresults",
+      `${apiUrl}gameresults`,
       gameResults
     );
   } catch (error) {
