@@ -7,8 +7,7 @@ export const getLongestCombination = (currentHand, currentTable) => {
   const subSchools = Schools.filter(
     (school) =>
       school.totalCards <= currentTable.length + 1 &&
-      handNumbers.includes(school.hook) &&
-      tableNumbers.includes(school.hook)
+      handNumbers.includes(school.hook)
   );
   const subSchoolsArrays = subSchools.map((school) => school.cardsArray);
   const matchesFromTableInSubSchools = findExactMatches(
