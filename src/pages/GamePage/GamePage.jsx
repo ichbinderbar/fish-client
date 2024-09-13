@@ -53,6 +53,9 @@ export default function GamePage({ theme, handleThemeChange }) {
       setFirstToMove,
     });
     setGameInitialized(true);
+    newSocket.on("update-game-state", (gameState) => {
+      console.log("Game state updated:", gameState);
+    });
     return () => {
       newSocket.disconnect();
     };
