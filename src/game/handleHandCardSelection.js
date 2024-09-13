@@ -16,7 +16,6 @@ const handleHandCardSelection = ({
   gameOver,
   setOpponent,
   opponent,
-  socket,
 }) => {
   if (gameOver) {
     console.log("Game is over. No actions can be taken.");
@@ -52,7 +51,6 @@ const handleHandCardSelection = ({
       }
 
       setTable(updatedTable);
-      socket.emit("table-event", updatedTable);
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
         hand: updatedHand,
@@ -77,7 +75,6 @@ const handleHandCardSelection = ({
       }));
 
       setTable(updatedTable);
-      socket.emit("table-event", updatedTable);
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
         hand: updatedHand,
@@ -98,10 +95,8 @@ const handleHandCardSelection = ({
     }));
     setLastPlacedCard(card);
     setTable(updatedTable);
-    socket.emit("table-event", updatedTable);
   }
   console.log("--------------------Player played:", card.number);
-
   switchActivePlayer({ setPlayer, setOpponent, player, opponent });
 };
 

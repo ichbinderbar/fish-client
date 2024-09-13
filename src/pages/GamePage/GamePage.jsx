@@ -53,7 +53,23 @@ export default function GamePage({ theme, handleThemeChange }) {
       setFirstToMove,
     });
     setGameInitialized(true);
+    return () => {
+      newSocket.disconnect();
+    };
   }, []);
+
+  // emit game state updates
+  useEffect(() => {
+    if (socket) {
+      socket.emit("game-state-update-event", {
+        player,
+        opponent,
+        table,
+        selectedTableCards,
+        lastPlacedCard,
+      });
+    }
+  }, [socket, player, opponent, table, selectedTableCards, lastPlacedCard]);
 
   // handle dealing
   useEffect(() => {
@@ -245,7 +261,6 @@ export default function GamePage({ theme, handleThemeChange }) {
             gameOver,
             setOpponent,
             opponent,
-            socket,
           })
         }
         theme={theme}
@@ -283,7 +298,6 @@ export default function GamePage({ theme, handleThemeChange }) {
             gameOver,
             setOpponent,
             opponent,
-            socket,
           })
         }
         theme={theme}
