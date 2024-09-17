@@ -6,6 +6,7 @@ import Leaderboard from "./components/Leaderboard/Leaderboard";
 import ProfileCard from "./components/ProfileCard/ProfileCard";
 import GamePage from "./pages/GamePage/GamePage";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import MultiplayerGamePage from "./pages/OnlineGamePage.jsx/MultiplayerGamePage";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -107,6 +108,7 @@ function App() {
             />
           }
         />
+        <Route path="/multiplayergame" element={<MultiplayerGamePage />} />
       </Routes>
     </BrowserRouter>
   );
