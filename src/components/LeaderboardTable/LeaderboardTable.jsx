@@ -1,4 +1,4 @@
-import formatDate from "../../utils/FormateDate.js";
+// import formatDate from "../../utils/FormateDate";
 import "./LeaderboardTable.scss";
 
 const LeaderboardTable = ({ leaderboardData }) => {
@@ -16,7 +16,7 @@ const LeaderboardTable = ({ leaderboardData }) => {
             {leader.coins}
           </div>
           <div className="leaderboard-table__cell leaderboard-table__cell--date">
-            {`${formatDate(leader.date)}`}
+            {/* {`${formatDate(leader.date)}`} */}
           </div>
         </div>
       ))}
