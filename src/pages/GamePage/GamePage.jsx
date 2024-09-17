@@ -6,7 +6,6 @@ import shuffle from "../../game/Shuffle";
 import sell from "../../game/Sell";
 import { checkGameOver } from "../../game/CheckGameOver";
 import { initialShuffleDealFlip } from "../../game/InitialShuffleDealFlip";
-import { switchActivePlayer } from "../../game/SwitchActivePlayer";
 import deal from "../../game/Deal";
 import { Deck } from "../../assets/data/Deck";
 import {
@@ -19,8 +18,6 @@ import { saveResults } from "../../utils/SaveResults";
 import OpponentArea from "../../components/OpponentArea/OpponentArea";
 import handleHandCardSelection from "../../game/handleHandCardSelection";
 import handleTableCardSelection from "../../game/handleTableCardSelection";
-import io from "socket.io-client";
-import { apiUrl } from "../../assets/data/Api";
 
 export default function GamePage({ theme, handleThemeChange }) {
   const [deck, setDeck] = useState(Deck);
@@ -37,12 +34,9 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [winner, setWinner] = useState(null);
   const [firstToMove, setFirstToMove] = useState(null);
   const [isRoundOver, setIsRoundOver] = useState(false);
-  const [socket, setSocket] = useState(null);
 
   // set up game on mount
   useEffect(() => {
-    const newSocket = io(apiUrl);
-    setSocket(newSocket);
     initialShuffleDealFlip({
       deck,
       setDeck,
@@ -53,26 +47,7 @@ export default function GamePage({ theme, handleThemeChange }) {
       setFirstToMove,
     });
     setGameInitialized(true);
-    newSocket.on("update-game-state", (gameState) => {
-      console.log("Game state updated:", gameState);
-    });
-    return () => {
-      newSocket.disconnect();
-    };
   }, []);
-
-  // emit game state updates
-  useEffect(() => {
-    if (socket) {
-      socket.emit("game-state-update-event", {
-        player,
-        opponent,
-        table,
-        selectedTableCards,
-        lastPlacedCard,
-      });
-    }
-  }, [socket, player, opponent, table, selectedTableCards, lastPlacedCard]);
 
   // handle dealing
   useEffect(() => {
