@@ -21,7 +21,7 @@ export default function MainMenu({ theme, handleThemeChange }) {
           How To Play
         </div>
       </Link>
-      <Link to={"/user-profile"}>
+      <Link to={"/user"}>
         <div className="main-menu__button main-menu__button--profile">
           My Profile
         </div>

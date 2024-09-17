@@ -86,7 +86,7 @@ function App() {
           }
         />
         <Route
-          path="/user-profile"
+          path="/user"
           element={
             <>
               <MainMenu
