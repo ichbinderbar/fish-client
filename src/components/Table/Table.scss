@@ -9,7 +9,7 @@
   border: 0.5rem solid rgba(201, 83, 10, 0.912);
   box-shadow: inset 0 0 10px rgba(175, 255, 62, 0.758);
   gap: 1.5rem;
-  padding: 4rem;
+  padding: 3rem;
   align-items: center;
   display: flex;
   height: 55vh;
@@ -70,6 +70,7 @@
   }
   @include tablet {
     height: 65vh;
+    padding: 4rem;
   }
 }
 
