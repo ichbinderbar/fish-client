@@ -5,10 +5,9 @@
 
 .table {
   position: relative;
-  background-image: $table-cloth;
-
+  // background-image: $table-cloth;
+  background-image: $green-cloth;
   background-size: 15px;
-
   border: 0.5rem solid rgba(201, 83, 10, 0.912);
   box-shadow: inset 0 0 10px rgba(175, 255, 62, 0.758);
   gap: 1.5rem;
