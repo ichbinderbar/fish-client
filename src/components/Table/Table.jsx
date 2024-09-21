@@ -1,7 +1,8 @@
 import Card from "../Card/Card";
-// import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./Table.scss";
 import { useNavigate } from "react-router-dom";
+import Modal from "../Modal/Modal";
 
 export default function Table({
   cards,
@@ -12,9 +13,19 @@ export default function Table({
   player,
 }) {
   const navigate = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleGoToHomePage = () => {
-    navigate("/");
+    setIsModalVisible(true); // Show the modal
+  };
+
+  const handleConfirmNavigation = () => {
+    setIsModalVisible(false);
+    navigate("/"); // Navigate to the homepage if confirmed
+  };
+
+  const handleCancelNavigation = () => {
+    setIsModalVisible(false); // Close the modal without navigating
   };
 
   return (
@@ -25,6 +36,18 @@ export default function Table({
       <div className="table__home-button" onClick={handleGoToHomePage}>
         🏠
       </div>
+      <Modal
+        isVisible={isModalVisible}
+        onConfirm={handleConfirmNavigation}
+        onCancel={handleCancelNavigation}
+        message={
+          <>
+            Are you sure you want to leave?
+            <br />
+            The game will end.
+          </>
+        }
+      />
       {gameOver ? (
         <div className="table__game-over">
           Game Over.

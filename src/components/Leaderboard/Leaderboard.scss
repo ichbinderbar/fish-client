@@ -10,9 +10,12 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 65vh;
+    height: 55vh;
     overflow: hidden;
     background-image: $wood;
+    @include tablet {
+      height: 65vh;
+    }
     &--dark {
       background-size: 85px;
       background-image: $dark-wood;
