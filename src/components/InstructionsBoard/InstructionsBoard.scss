@@ -13,11 +13,11 @@
     height: 55vh;
     overflow: hidden;
     background-image: $wood;
+    background-size: 85px;
     @include tablet {
       height: 65vh;
     }
     &--dark {
-      background-size: 85px;
       background-image: $dark-wood;
     }
   }
