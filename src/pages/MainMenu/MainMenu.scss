@@ -5,7 +5,8 @@
 
 .main-menu {
   &__main-container {
-    background-image: $table-cloth;
+    background-image: $green-cloth;
+    background-size: 15px;
     position: relative;
     border: 0.5rem solid rgba(201, 83, 10, 0.912);
     border-bottom: none;
