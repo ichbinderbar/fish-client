@@ -20,7 +20,6 @@ export default function Profile({ user }) {
           {user?.username || "username"}
         </h2>
         <p className="user-card__details-email">{user?.email || "email"}</p>
-        <p className="user-card__details-phone">{user?.phone || "phone"}</p>
       </div>
     </div>
   );
