@@ -4,7 +4,7 @@
 @use "../../styles/partials/variables" as *;
 
 .player-area {
-  &__cards-collected {
+  &__cards-collected-container {
     display: flex;
     position: relative;
     height: 3rem;

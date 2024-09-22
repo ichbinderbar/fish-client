@@ -34,6 +34,7 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [winner, setWinner] = useState(null);
   const [firstToMove, setFirstToMove] = useState(null);
   const [isRoundOver, setIsRoundOver] = useState(false);
+  const [cardsCollected, setCardsCollected] = useState([]);
 
   // set up game on mount
   useEffect(() => {
@@ -87,6 +88,7 @@ export default function GamePage({ theme, handleThemeChange }) {
             lastPlacedCard,
             player,
             setPlayer,
+            setCardsCollected,
           }),
         300
       );
@@ -104,21 +106,23 @@ export default function GamePage({ theme, handleThemeChange }) {
         const earnedOpponentCoins = sell(opponent.fishedCards);
         // const newDeck = shuffle(Deck);
 
-        setIsRoundOver(true);
-        setPlayer((prevPlayer) => ({
-          ...prevPlayer,
-          coins: prevPlayer.coins + earnedPlayerCoins,
-          fishedCards: 0,
-        }));
-        setOpponent((prevOpponent) => ({
-          ...prevOpponent,
-          coins: prevOpponent.coins + earnedOpponentCoins,
-          fishedCards: 0,
-        }));
-        // setDeck(newDeck);
-        setTurnCount(0);
-        setTable([]);
-        setIsDeckFinished(false);
+        setTimeout(() => {
+          setIsRoundOver(true);
+          setPlayer((prevPlayer) => ({
+            ...prevPlayer,
+            coins: prevPlayer.coins + earnedPlayerCoins,
+            fishedCards: 0,
+          }));
+          setOpponent((prevOpponent) => ({
+            ...prevOpponent,
+            coins: prevOpponent.coins + earnedOpponentCoins,
+            fishedCards: 0,
+          }));
+          // setDeck(newDeck);
+          setTurnCount(0);
+          setTable([]);
+          setIsDeckFinished(false);
+        }, 2000);
       }
     }
   }, [gameInitialized, player.hand.length, opponent.hand.length, deck]);
@@ -225,6 +229,7 @@ export default function GamePage({ theme, handleThemeChange }) {
         coins={opponent.coins}
         fishedCards={opponent.fishedCards}
         player={opponent}
+        cardsCollected={cardsCollected}
         handleHandCardSelection={(card) =>
           handleHandCardSelection({
             card,
