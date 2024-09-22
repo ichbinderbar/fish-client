@@ -54,6 +54,7 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.5rem;
+    height: 100%;
     @include tablet {
       flex-direction: row;
     }

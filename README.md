@@ -1,5 +1,5 @@
 upcomming updates:
 
-- edit profile form
 - log out button
-- message creator
+- visual identifiers for score banners on mobile view
+- edit profile form feature and message creator
