@@ -76,12 +76,17 @@ function lisaBot({
     console.log("Game is over. No actions are allowed.");
     return;
   }
-
+  const playerCurrentHand = [...player.hand];
   const currentHand = [...opponent.hand];
   const currentTable = [...table];
   const longestCombination = getLongestCombination(currentHand, currentTable);
   const hookValue = longestCombination.hook;
-  const fishingCard = getFishingCard(currentHand, currentTable, hookValue);
+  const fishingCard = getFishingCard(
+    currentHand,
+    currentTable,
+    hookValue,
+    playerCurrentHand
+  );
 
   // console.log("Current hand:", currentHand);
   // console.log("Current table:", currentTable);
