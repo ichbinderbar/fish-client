@@ -1,11 +1,16 @@
 import "./Profile.scss";
+import userDpPlaceholder from "../../assets/images/user-dp.svg";
 
 export default function Profile({ user }) {
+  if (!user) {
+    return <></>;
+  }
+
   return (
     <div className="user-card__container">
       <div className="user-card__photo">
         <img
-          src={user?.photo || "https://placehold.co/100"}
+          src={user?.photo || userDpPlaceholder}
           alt="User"
           className="user-card__photo-image"
         />
@@ -14,12 +19,8 @@ export default function Profile({ user }) {
         <h2 className="user-card__details-username">
           {user?.username || "username"}
         </h2>
-        <p className="user-card__details-email">
-          Email: {user?.email || "email"}
-        </p>
-        <p className="user-card__details-phone">
-          Phone: {user?.phone || "phone"}
-        </p>
+        <p className="user-card__details-email">{user?.email || "email"}</p>
+        <p className="user-card__details-phone">{user?.phone || "phone"}</p>
       </div>
     </div>
   );

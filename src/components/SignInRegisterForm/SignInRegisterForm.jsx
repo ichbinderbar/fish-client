@@ -5,7 +5,7 @@ import { apiUrl } from "../../assets/data/Api";
 
 export const SignInRegisterForm = ({ onSuccess }) => {
   const [isRegistered, setIsRegistered] = useState(false);
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -19,7 +19,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
     }
 
     const newUser = {
-      userName,
+      username,
       email,
       password,
     };
@@ -27,6 +27,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
     try {
       const response = await axios.post(`${apiUrl}/register`, newUser);
       console.log(response);
+      toggleForm();
     } catch (error) {
       console.error("Error registering new user:", error);
     }
@@ -75,8 +76,8 @@ export const SignInRegisterForm = ({ onSuccess }) => {
               name="username"
               placeholder="Username"
               className="sign-in-register-form__input"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
         )}

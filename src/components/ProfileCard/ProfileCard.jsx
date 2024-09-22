@@ -2,16 +2,41 @@ import "./ProfileCard.scss";
 import { SignInRegisterForm } from "../SignInRegisterForm/SignInRegisterForm";
 import { useState, useEffect } from "react";
 import Profile from "../Profile/Profile";
+import axios from "axios";
+import { apiUrl } from "../../assets/data/Api";
 
 export default function ProfileCard({ theme }) {
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("jwt");
     if (accessToken) {
       setIsAuthorized(true);
+      getUser(accessToken);
     }
   }, []);
+
+  const getUser = async (accessToken) => {
+    try {
+      const response = await axios.get(`${apiUrl}/profile`, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setUser(response.data);
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
+
+  const handleLoginSuccess = () => {
+    const accessToken = localStorage.getItem("jwt");
+    if (accessToken) {
+      setIsAuthorized(true);
+      getUser(accessToken);
+    }
+  };
 
   return (
     <div
@@ -22,9 +47,9 @@ export default function ProfileCard({ theme }) {
         className={`profile-card__subcontainer profile-card__subcontainer--${theme}`}
       >
         {!isAuthorized ? (
-          <SignInRegisterForm onSuccess={() => setIsAuthorized(true)} />
+          <SignInRegisterForm onSuccess={handleLoginSuccess} />
         ) : (
-          <Profile />
+          <Profile user={user} />
         )}
       </div>
     </div>
