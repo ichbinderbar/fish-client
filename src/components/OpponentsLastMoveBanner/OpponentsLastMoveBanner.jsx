@@ -18,6 +18,7 @@ export default function OpponentsLastMoveBanner({ cardsCollected }) {
           {cardsCollected.totalCards - 1} from the table:{" "}
           {cardsCollected.cardsArray.join(", ")}
           <br />
+          plus his own
         </>
       )}
     </div>
