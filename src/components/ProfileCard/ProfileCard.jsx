@@ -1,8 +1,18 @@
 import "./ProfileCard.scss";
-import playerDp from "../../assets/images/player.jpg";
 import { SignInRegisterForm } from "../SignInRegisterForm/SignInRegisterForm";
+import { useState, useEffect } from "react";
+import Profile from "../Profile/Profile";
 
 export default function ProfileCard({ theme }) {
+  const [isAuthorized, setIsAuthorized] = useState(false);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("jwt");
+    if (accessToken) {
+      setIsAuthorized(true);
+    }
+  }, []);
+
   return (
     <div
       className={`profile-card__main-container profile-card__main-container--${theme}`}
@@ -11,7 +21,11 @@ export default function ProfileCard({ theme }) {
       <div
         className={`profile-card__subcontainer profile-card__subcontainer--${theme}`}
       >
-        <SignInRegisterForm />
+        {!isAuthorized ? (
+          <SignInRegisterForm onSuccess={() => setIsAuthorized(true)} />
+        ) : (
+          <Profile />
+        )}
       </div>
     </div>
   );

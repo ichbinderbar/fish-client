@@ -3,7 +3,7 @@ import "./SignInRegisterForm.scss";
 import axios from "axios";
 import { apiUrl } from "../../assets/data/Api";
 
-export const SignInRegisterForm = () => {
+export const SignInRegisterForm = ({ onSuccess }) => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,7 +40,11 @@ export const SignInRegisterForm = () => {
 
     try {
       const response = await axios.post(`${apiUrl}/login`, userCredentials);
-      console.log(response);
+      const accessToken = response.data.accessToken;
+      localStorage.setItem("jwt", accessToken);
+
+      // notify parent component of successful login
+      if (onSuccess) onSuccess();
     } catch (error) {
       console.error("Error logging in:", error);
     }
