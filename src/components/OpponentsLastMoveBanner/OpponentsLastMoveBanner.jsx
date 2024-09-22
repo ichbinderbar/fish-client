@@ -1,21 +1,22 @@
 export default function OpponentsLastMoveBanner({ cardsCollected }) {
   return (
     <div className="opponent-area__cards-collected">
+      {cardsCollected?.hook !== undefined && (
+        <>
+          Opponent played card {cardsCollected.hook}
+          <br />
+        </>
+      )}
       {cardsCollected?.totalCards > 0 && (
         <>
-          Total cards collected: {cardsCollected.totalCards}
+          and collected {cardsCollected.totalCards} cards
           <br />
         </>
       )}
       {cardsCollected?.cardsArray?.length > 0 && (
         <>
-          From table: {cardsCollected.cardsArray.join(", ")}
-          <br />
-        </>
-      )}
-      {cardsCollected?.hook !== undefined && (
-        <>
-          Card played: {cardsCollected.hook}
+          {cardsCollected.totalCards - 1} from the table:{" "}
+          {cardsCollected.cardsArray.join(", ")}
           <br />
         </>
       )}
