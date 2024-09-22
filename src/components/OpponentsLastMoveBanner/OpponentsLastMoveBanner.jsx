@@ -3,7 +3,9 @@ export default function OpponentsLastMoveBanner({ cardsCollected }) {
     <div className="opponent-area__cards-collected">
       {cardsCollected?.hook !== undefined && (
         <>
-          Opponent played card {cardsCollected.hook}
+          The opponent played a card
+          <br />
+          with the number {cardsCollected.hook}
           <br />
         </>
       )}
