@@ -63,7 +63,6 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
       );
       setCommentary(comment);
     };
-
     fetchCommentary();
   }, [commentaryContext]);
 
@@ -215,11 +214,14 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
       addToCommentaryContext(
         `
         ${new Date().toLocaleString()}
-        Remmember you are ${opponent.id}. I am the ${player.id}.
+        Remmember you are ${opponent.name}. I am the ${player.name}.
         The game has ended! This are the results:
         Winner: ${winner.id}.
         Coins you have: ${opponent.coins}
         Coins I have: ${player.coins}
+
+        ${new Date().toLocaleString()} You said:
+        ${commentary}
         `,
         setCommentaryContext
       );
@@ -252,6 +254,8 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
                 Total cards I have collected up this point: ${
                   player.fishedCards
                 }
+                ${new Date().toLocaleString()} You said:
+                ${commentary}
                 `,
                 setCommentaryContext
               );
@@ -272,6 +276,8 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
                 Total cards I have collected up this point: ${
                   player.fishedCards
                 }
+                ${new Date().toLocaleString()} You said:
+                ${commentary}
                 `,
                 setCommentaryContext
               );
@@ -296,6 +302,8 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
                 Total cards I have collected up this point: ${
                   player.fishedCards
                 }
+                ${new Date().toLocaleString()} You said:
+                ${commentary}
                 `,
                 setCommentaryContext
               );
@@ -330,6 +338,8 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
                 Total cards I have collected up this point: ${
                   player.fishedCards
                 }
+                ${new Date().toLocaleString()} You said:
+                ${commentary}
                 `,
                 setCommentaryContext
               );
@@ -350,6 +360,8 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
                 Total cards I have collected up this point: ${
                   player.fishedCards
                 }
+                ${new Date().toLocaleString()} You said:
+                ${commentary}
                 `,
                 setCommentaryContext
               );
@@ -374,6 +386,8 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
                 Total cards I have collected up this point: ${
                   player.fishedCards
                 }
+                ${new Date().toLocaleString()} You said:
+                ${commentary}
                 `,
                 setCommentaryContext
               );
