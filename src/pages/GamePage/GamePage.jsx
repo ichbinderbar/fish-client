@@ -46,7 +46,7 @@ export default function GamePage({ theme, handleThemeChange }) {
       setAnimate(true);
       setTimeout(() => {
         setAnimate(false);
-      }, 4000);
+      }, 8000);
     }
   }, [commentary]);
 
