@@ -20,10 +20,13 @@ import handleTableCardSelection from "../../game/handleTableCardSelection";
 import handleCommentary from "../../game/handleCommentary";
 import addToCommentaryContext from "../../game/addToCommentaryContext";
 
-export default function GamePage({ theme, handleThemeChange }) {
+export default function GamePage({ theme, handleThemeChange, playerName }) {
   const [deck, setDeck] = useState(Deck);
   const [table, setTable] = useState([]);
-  const [player, setPlayer] = useState(playerObject);
+  const [player, setPlayer] = useState({
+    ...playerObject,
+    name: playerName,
+  });
   const [opponent, setOpponent] = useState(opponentObject);
   const [selectedTableCards, setSelectedTableCards] = useState([]);
   const [gameInitialized, setGameInitialized] = useState(false);
@@ -53,7 +56,11 @@ export default function GamePage({ theme, handleThemeChange }) {
   // runs everytime new commentary is provided by my state setter
   useEffect(() => {
     const fetchCommentary = async () => {
-      const result = await handleCommentary(commentaryContext, player);
+      const result = await handleCommentary(
+        commentaryContext,
+        player,
+        opponent
+      );
       setCommentary(result);
     };
 
@@ -206,11 +213,13 @@ export default function GamePage({ theme, handleThemeChange }) {
       saveResults(gameResults);
 
       addToCommentaryContext(
-        `Remmember you are the opponent. "Player" is your opponent.
+        `
+        ${new Date().toLocaleString()}
+        Remmember you are ${opponent.id}. I am the ${player.id}.
         The game has ended! This are the results:
         Winner: ${winner.id}.
         Coins you have: ${opponent.coins}
-        Coins ${player.id} has: ${player.coins}
+        Coins I have: ${player.coins}
         `,
         setCommentaryContext
       );
@@ -226,58 +235,151 @@ export default function GamePage({ theme, handleThemeChange }) {
     if (gameInitialized) {
       if (firstToMove === "Player") {
         setTurnCount((prevTurnCount) => {
-          const TurnCount = prevTurnCount + 1;
+          const turnCount = prevTurnCount + 1;
           // console.log("Updated table count:", TurnCount);
-          if (TurnCount % 24 === 0) {
+          if (turnCount % 8 === 0) {
+            if (!gameOver) {
+              addToCommentaryContext(
+                `
+                ${new Date().toLocaleString()}
+                Describe the current sentiment of the game based on
+                the current score:
+                Coins you have earned: ${opponent.coins}
+                Coins I have earned: ${player.coins}
+                Total cards you have collected up to this point: ${
+                  opponent.fishedCards
+                }
+                Total cards I have collected up this point: ${
+                  player.fishedCards
+                }
+                `,
+                setCommentaryContext
+              );
+            }
+          }
+          if (turnCount % 20 === 0) {
+            if (!gameOver) {
+              addToCommentaryContext(
+                `
+                ${new Date().toLocaleString()}
+                The round will end soon!
+                This is the current score:
+                Coins you have earned: ${opponent.coins}
+                Coins I have earned: ${player.coins}
+                Total cards you have collected up to this point: ${
+                  opponent.fishedCards
+                }
+                Total cards I have collected up this point: ${
+                  player.fishedCards
+                }
+                `,
+                setCommentaryContext
+              );
+            }
+          }
+          if (turnCount % 24 === 0) {
             console.log(
               "Player hand is finished. Deck is finished.--------------------"
             );
             setIsDeckFinished(true);
-            addToCommentaryContext(
-              `
-              A round has ended!
-              In this round you had the advantage.
-              This were the results:
-              Coins you have: ${opponent.coins}
-              Coins ${player.id} has: ${player.coins}
-              Total cards you have collected up to this point: ${opponent.fishedCards}
-              Total cards ${player.id} has collected up this point: ${player.fishedCards}
-              `,
-              setCommentaryContext
-            );
+            if (!gameOver) {
+              addToCommentaryContext(
+                `
+                ${new Date().toLocaleString()}
+                A round has ended!
+                This were the results:
+                Coins you earned: ${opponent.coins}
+                Coins I have earned: ${player.coins}
+                Total cards you collected up to this point: ${
+                  opponent.fishedCards
+                }
+                Total cards I have collected up this point: ${
+                  player.fishedCards
+                }
+                `,
+                setCommentaryContext
+              );
+            }
           }
-          return TurnCount;
+          return turnCount;
         });
       }
     }
   }, [player.hand]);
 
   // track opponent.hand if opponent is first to move to determine end of round
+  // add commentary context towards the end of the round
   useEffect(() => {
     if (gameInitialized) {
       if (firstToMove === "Opponent") {
         setTurnCount((prevTurnCount) => {
-          const TurnCount = prevTurnCount + 1;
+          const turnCount = prevTurnCount + 1;
           // console.log("Updated table count:", TurnCount);
-          if (TurnCount % 24 === 0) {
+          if (turnCount % 8 === 0) {
+            if (!gameOver) {
+              addToCommentaryContext(
+                `
+                ${new Date().toLocaleString()}
+                Describe the current sentiment of the game based on
+                the current score:
+                Coins you have: ${opponent.coins}
+                Coins I have: ${player.coins}
+                Total cards you have collected up to this point: ${
+                  opponent.fishedCards
+                }
+                Total cards I have collected up this point: ${
+                  player.fishedCards
+                }
+                `,
+                setCommentaryContext
+              );
+            }
+          }
+          if (turnCount % 20 === 0) {
+            if (!gameOver) {
+              addToCommentaryContext(
+                `
+                ${new Date().toLocaleString()}
+                A round will end soon!
+                This is the current score:
+                Coins you have: ${opponent.coins}
+                Coins I have: ${player.coins}
+                Total cards you have collected up to this point: ${
+                  opponent.fishedCards
+                }
+                Total cards I have collected up this point: ${
+                  player.fishedCards
+                }
+                `,
+                setCommentaryContext
+              );
+            }
+          }
+          if (turnCount % 24 === 0) {
             console.log(
               "Opponent hand is finished. Deck is finished.--------------------"
             );
             setIsDeckFinished(true);
-            addToCommentaryContext(
-              `
-              A round has ended!
-              In this round ${player.id} had the advantage.
-              This were the results:
-              Coins you have: ${opponent.coins}
-              Coins ${player.id} has: ${player.coins}
-              Total cards you have collected up to this point: ${opponent.fishedCards}
-              Total cards ${player.id} has collected up this point: ${player.fishedCards}
-              `,
-              setCommentaryContext
-            );
+            if (!gameOver) {
+              addToCommentaryContext(
+                `
+                ${new Date().toLocaleString()}
+                A round has ended!
+                This were the results:
+                Coins you earned: ${opponent.coins}
+                Coins I have earned: ${player.coins}
+                Total cards you collected up to this point: ${
+                  opponent.fishedCards
+                }
+                Total cards I have collected up this point: ${
+                  player.fishedCards
+                }
+                `,
+                setCommentaryContext
+              );
+            }
           }
-          return TurnCount;
+          return turnCount;
         });
       }
     }

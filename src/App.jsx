@@ -13,6 +13,7 @@ function App() {
   const [theme, setTheme] = useState("light");
   const [user, setUser] = useState(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [playerName, setPlayerName] = useState("Player");
 
   useEffect(() => {
     if (localStorage.getItem("theme") === "ligh") {
@@ -40,6 +41,12 @@ function App() {
       getUser(accessToken, setUser);
     }
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setPlayerName(user.username);
+    }
+  }, [user]);
 
   const handleLoginSuccess = () => {
     const accessToken = localStorage.getItem("jwt");
@@ -131,6 +138,7 @@ function App() {
               setTheme={setTheme}
               theme={theme}
               handleThemeChange={handleThemeChange}
+              playerName={playerName}
             />
           }
         />

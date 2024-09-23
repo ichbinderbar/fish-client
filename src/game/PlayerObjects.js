@@ -5,6 +5,7 @@ import { removeCardsFromTable } from "./removeCombinationFromTable";
 
 export const player = {
   id: "Player",
+  name: "Player",
   isActive: false,
   hand: [],
   coins: 0,
@@ -13,6 +14,7 @@ export const player = {
 
 export const opponent = {
   id: "Opponent",
+  name: "Opponent",
   isActive: false,
   hand: [],
   coins: 0,
