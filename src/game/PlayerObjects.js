@@ -14,7 +14,7 @@ export const player = {
 
 export const opponent = {
   id: "Opponent",
-  name: "Opponent",
+  name: "El Loco Abdala",
   isActive: false,
   hand: [],
   coins: 0,

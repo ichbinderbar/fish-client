@@ -21,6 +21,7 @@ export default async function handleCommentary(
   Including when responding to this first prompt.
   Respond with one phrase max.
   Pay attention to the timestamps to give yourself context of the evolution of the game.
+  Responde siempre en español.
 
   ${commentaryContext}`;
 
