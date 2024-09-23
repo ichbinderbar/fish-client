@@ -20,7 +20,7 @@ export const getFishingCard = (
   currentOpponentHand,
   currentTable,
   hookValue,
-  otherPlayerHand
+  currentPlayerHand
 ) => {
   if (currentTable.length > 0 && hookValue) {
     const matchingCard = currentOpponentHand.find(
@@ -33,7 +33,7 @@ export const getFishingCard = (
 
     const filteredHand = currentOpponentHand.filter(
       (card) =>
-        !otherPlayerHand.some((otherCard) => otherCard.number === card.number)
+        !currentPlayerHand.some((otherCard) => otherCard.number === card.number)
     );
 
     return filteredHand.length > 0
@@ -45,7 +45,7 @@ export const getFishingCard = (
 
   const filteredHand = currentOpponentHand.filter(
     (card) =>
-      !otherPlayerHand.some((otherCard) => otherCard.number === card.number)
+      !currentPlayerHand.some((otherCard) => otherCard.number === card.number)
   );
 
   return filteredHand.length > 0

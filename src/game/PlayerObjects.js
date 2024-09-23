@@ -90,10 +90,10 @@ function lisaBot({
 
   // console.log("Current hand:", currentHand);
   // console.log("Current table:", currentTable);
-  console.log("Longest collectable combination:", longestCombination);
+  // console.log("Longest collectable combination:", longestCombination);
   // console.log("Hook value:", hookValue);
-  console.log("Fishing card:", fishingCard);
-  console.log("----------------------------------------");
+  // console.log("Fishing card:", fishingCard);
+  // console.log("----------------------------------------");
 
   if (fishingCard) {
     const updatedHand = currentHand.filter((card) => card !== fishingCard);
@@ -139,5 +139,5 @@ function lisaBot({
   }
 
   switchActivePlayer({ setPlayer, setOpponent, player, opponent });
-  console.log("________________________________________");
+  // console.log("________________________________________");
 }

@@ -96,7 +96,7 @@ const handleHandCardSelection = ({
     setLastPlacedCard(card);
     setTable(updatedTable);
   }
-  console.log("--------------------Player played:", card.number);
+  // console.log("--------------------Player played:", card.number);
   switchActivePlayer({ setPlayer, setOpponent, player, opponent });
 };
 

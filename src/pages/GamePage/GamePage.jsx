@@ -18,6 +18,7 @@ import { saveResults } from "../../utils/SaveResults";
 import OpponentArea from "../../components/OpponentArea/OpponentArea";
 import handleHandCardSelection from "../../game/handleHandCardSelection";
 import handleTableCardSelection from "../../game/handleTableCardSelection";
+import handleCommentary from "../../game/handleCommentary";
 
 export default function GamePage({ theme, handleThemeChange }) {
   const [deck, setDeck] = useState(Deck);
@@ -35,6 +36,12 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [firstToMove, setFirstToMove] = useState(null);
   const [isRoundOver, setIsRoundOver] = useState(false);
   const [cardsCollected, setCardsCollected] = useState([]);
+  const [commentaryContext, setCommentaryContext] = useState("");
+
+  // handle commentary context sent to my openai api server
+  useEffect(() => {
+    handleCommentary(commentaryContext);
+  }, [commentaryContext]);
 
   // set up game on mount
   useEffect(() => {
@@ -133,16 +140,16 @@ export default function GamePage({ theme, handleThemeChange }) {
       if (firstToMove === "Player") {
         setPlayer((prevPlayer) => ({ ...prevPlayer, isActive: false }));
         setOpponent((prevOpponent) => ({ ...prevOpponent, isActive: true }));
-        console.log(
-          "--------------------Opponent starts this round.--------------------"
-        );
+        // console.log(
+        //   "--------------------Opponent starts this round.--------------------"
+        // );
       }
       if (firstToMove === "Opponent") {
         setPlayer((prevPlayer) => ({ ...prevPlayer, isActive: true }));
         setOpponent((prevOpponent) => ({ ...prevOpponent, isActive: false }));
-        console.log(
-          "--------------------Player starts this round.--------------------"
-        );
+        // console.log(
+        //   "--------------------Player starts this round.--------------------"
+        // );
       }
       const newDeck = shuffle(Deck);
       setDeck(newDeck);

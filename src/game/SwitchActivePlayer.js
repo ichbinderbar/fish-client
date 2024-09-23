@@ -12,7 +12,7 @@ export const switchActivePlayer = ({
     ...prevOpponent,
     isActive: !prevOpponent.isActive,
   }));
-  console.log(
-    `${!player.isActive ? "Player is now active" : "Opponent is now active"}`
-  );
+  // console.log(
+  //   `${!player.isActive ? "Player is now active" : "Opponent is now active"}`
+  // );
 };
