@@ -121,7 +121,7 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
             setPlayer,
             setCardsCollected,
           }),
-        300
+        1000
       );
     }
   }, [opponent]);
