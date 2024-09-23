@@ -2,7 +2,14 @@ import "./ProfileCard.scss";
 import { SignInRegisterForm } from "../SignInRegisterForm/SignInRegisterForm";
 import Profile from "../Profile/Profile";
 
-export default function ProfileCard({ theme, onSuccess, isAuthorized, user }) {
+export default function ProfileCard({
+  theme,
+  onSuccess,
+  isAuthorized,
+  user,
+  setUser,
+  setIsAuthorized,
+}) {
   return (
     <div
       className={`profile-card__main-container profile-card__main-container--${theme}`}
@@ -14,7 +21,11 @@ export default function ProfileCard({ theme, onSuccess, isAuthorized, user }) {
         {!isAuthorized ? (
           <SignInRegisterForm onSuccess={onSuccess} />
         ) : (
-          <Profile user={user} />
+          <Profile
+            user={user}
+            setIsAuthorized={setIsAuthorized}
+            setUser={setUser}
+          />
         )}
       </div>
     </div>

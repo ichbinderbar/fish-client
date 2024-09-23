@@ -118,6 +118,8 @@ function App() {
                 onSuccess={handleLoginSuccess}
                 isAuthorized={isAuthorized}
                 user={user}
+                setIsAuthorized={setIsAuthorized}
+                setUser={setUser}
               ></ProfileCard>
             </>
           }
