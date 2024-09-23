@@ -204,7 +204,7 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
   useEffect(() => {
     if (gameOver) {
       const gameResults = {
-        winner: winner.id,
+        winner: winner.name,
         coins: winner.coins,
         date: new Date().toISOString(),
       };
