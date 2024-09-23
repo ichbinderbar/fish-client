@@ -4,7 +4,7 @@ import axios from "axios";
 import LeaderboardTable from "../LeaderboardTable/LeaderboardTable";
 import { apiUrl } from "../../assets/data/Api";
 
-export default function Leaderboard({ theme }) {
+export default function Leaderboard({ theme, isAuthorized }) {
   const [leaderboardData, setLeaderboardData] = useState(null);
 
   const getLeaderboardData = async () => {
@@ -43,7 +43,10 @@ export default function Leaderboard({ theme }) {
       <div
         className={`leaderboard__subcontainer leaderboard__subcontainer--${theme}`}
       >
-        <LeaderboardTable leaderboardData={leaderboardData} />
+        <LeaderboardTable
+          leaderboardData={leaderboardData}
+          isAuthorized={isAuthorized}
+        />
       </div>
     </div>
   );

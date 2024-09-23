@@ -7,9 +7,12 @@ import ProfileCard from "./components/ProfileCard/ProfileCard";
 import GamePage from "./pages/GamePage/GamePage";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import MultiplayerGamePage from "./pages/OnlineGamePage.jsx/MultiplayerGamePage";
+import getUser from "./utils/getUser";
 
 function App() {
   const [theme, setTheme] = useState("light");
+  const [user, setUser] = useState(null);
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("theme") === "ligh") {
@@ -30,6 +33,22 @@ function App() {
     localStorage.setItem("theme", "dark");
   };
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem("jwt");
+    if (accessToken) {
+      setIsAuthorized(true);
+      getUser(accessToken, setUser);
+    }
+  }, []);
+
+  const handleLoginSuccess = () => {
+    const accessToken = localStorage.getItem("jwt");
+    if (accessToken) {
+      setIsAuthorized(true);
+      getUser(accessToken, setUser);
+    }
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -42,7 +61,7 @@ function App() {
                 theme={theme}
                 handleThemeChange={handleThemeChange}
               />
-              <Leaderboard theme={theme} />
+              <Leaderboard theme={theme} isAuthorized={isAuthorized} />
             </>
           }
         />
@@ -55,7 +74,7 @@ function App() {
                 theme={theme}
                 handleThemeChange={handleThemeChange}
               />
-              <Leaderboard theme={theme} />
+              <Leaderboard theme={theme} isAuthorized={isAuthorized} />
             </>
           }
         />
@@ -81,7 +100,7 @@ function App() {
                 theme={theme}
                 handleThemeChange={handleThemeChange}
               />
-              <Leaderboard theme={theme} />
+              <Leaderboard theme={theme} isAuthorized={isAuthorized} />
             </>
           }
         />
@@ -94,7 +113,12 @@ function App() {
                 theme={theme}
                 handleThemeChange={handleThemeChange}
               />
-              <ProfileCard theme={theme}></ProfileCard>
+              <ProfileCard
+                theme={theme}
+                onSuccess={handleLoginSuccess}
+                isAuthorized={isAuthorized}
+                user={user}
+              ></ProfileCard>
             </>
           }
         />
