@@ -11,7 +11,6 @@ import { Deck } from "../../assets/data/Deck";
 import {
   player as playerObject,
   opponent as opponentObject,
-  player,
 } from "../../game/PlayerObjects";
 import { useNavigate } from "react-router-dom";
 import { saveResults } from "../../utils/SaveResults";
@@ -19,6 +18,7 @@ import OpponentArea from "../../components/OpponentArea/OpponentArea";
 import handleHandCardSelection from "../../game/handleHandCardSelection";
 import handleTableCardSelection from "../../game/handleTableCardSelection";
 import handleCommentary from "../../game/handleCommentary";
+import addToCommentaryContext from "../../game/addToCommentaryContext";
 
 export default function GamePage({ theme, handleThemeChange }) {
   const [deck, setDeck] = useState(Deck);
@@ -38,9 +38,9 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [cardsCollected, setCardsCollected] = useState([]);
   const [commentaryContext, setCommentaryContext] = useState("");
 
-  // handle commentary context sent to my openai api server
+  // runs everytime new commentary is provided by my state setter
   useEffect(() => {
-    handleCommentary(commentaryContext);
+    handleCommentary(commentaryContext, player);
   }, [commentaryContext]);
 
   // set up game on mount
@@ -155,6 +155,11 @@ export default function GamePage({ theme, handleThemeChange }) {
       setDeck(newDeck);
       setIsRoundOver(false);
       setFirstToMove(firstToMove === "Player" ? "Opponent" : "Player");
+      addToCommentaryContext(
+        `
+              In this new round first to move is: ${firstToMove}`,
+        setCommentaryContext
+      );
     }
   }, [isRoundOver]);
 
@@ -185,7 +190,14 @@ export default function GamePage({ theme, handleThemeChange }) {
         coins: winner.coins,
         date: new Date().toISOString(),
       };
+
       saveResults(gameResults);
+
+      addToCommentaryContext(
+        `The game has ended! This are the results:`,
+        setCommentaryContext
+      );
+
       setTimeout(() => {
         navigate("/scores");
       }, 10000);
@@ -204,6 +216,18 @@ export default function GamePage({ theme, handleThemeChange }) {
               "Player hand is finished. Deck is finished.--------------------"
             );
             setIsDeckFinished(true);
+            addToCommentaryContext(
+              `
+              A round has ended!
+              In this round you had the advantage.
+              This were the results:
+              Coins you have: ${opponent.coins}
+              Coins ${player.id} has: ${player.coins}
+              Total cards you have collected up to this point: ${opponent.fishedCards}
+              Total cards ${player.id} has collected up this point: ${player.fishedCards}
+              `,
+              setCommentaryContext
+            );
           }
           return tableUpdateCount;
         });
@@ -223,6 +247,18 @@ export default function GamePage({ theme, handleThemeChange }) {
               "Opponent hand is finished. Deck is finished.--------------------"
             );
             setIsDeckFinished(true);
+            addToCommentaryContext(
+              `
+              A round has ended!
+              In this round ${player.id} had the advantage.
+              This were the results:
+              Coins you have: ${opponent.coins}
+              Coins ${player.id} has: ${player.coins}
+              Total cards you have collected up to this point: ${opponent.fishedCards}
+              Total cards ${player.id} has collected up this point: ${player.fishedCards}
+              `,
+              setCommentaryContext
+            );
           }
           return tableUpdateCount;
         });
