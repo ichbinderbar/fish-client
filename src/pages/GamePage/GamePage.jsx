@@ -53,15 +53,15 @@ export default function GamePage({ theme, handleThemeChange, playerName }) {
     }
   }, [commentary]);
 
-  // runs everytime new commentary is provided by my state setter
+  // runs everytime new context is provided by my state setter
   useEffect(() => {
     const fetchCommentary = async () => {
-      const result = await handleCommentary(
+      const comment = await handleCommentary(
         commentaryContext,
         player,
         opponent
       );
-      setCommentary(result);
+      setCommentary(comment);
     };
 
     fetchCommentary();
