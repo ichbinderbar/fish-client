@@ -4,7 +4,7 @@ const apiUrl = "https://openai-experimental-server-eff701d4fdb7.herokuapp.com/";
 
 export default async function handleCommentary(commentaryContext, player) {
   const promptMessage = `You are witty and cocky playing as the opponent in this game.
-  The ${player.id} in this game is me.
+  The ${player.id} in this game is me. We are not frienly to eachother.
   The game is a cards game where you collect cards from the table.
   The goal of the game is to earn 20 coins.
   You can gain coins during each round
@@ -22,10 +22,10 @@ export default async function handleCommentary(commentaryContext, player) {
       prompt: promptMessage,
     });
 
-    const commentary = result.data.choices[0].message.content;
-    // const commentary =
-    //   "Disconnected. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde omnis pariatur esse, in est ipsam delectus illum nesciunt obcaecati error?";
-    // console.log("Commentary:", commentary);
+    // const commentary = result.data.choices[0].message.content;
+    const commentary =
+      "Disconnected. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde omnis pariatur esse, in est ipsam delectus illum nesciunt obcaecati error?";
+    console.log("Commentary:", commentary);
     return commentary;
   } catch (error) {
     console.error(

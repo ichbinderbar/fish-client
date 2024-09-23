@@ -40,6 +40,7 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [commentary, setCommentary] = useState("");
   const [animate, setAnimate] = useState(false);
 
+  // toggles the class of my intelligent commentary box
   useEffect(() => {
     if (commentary) {
       setAnimate(true);
@@ -171,11 +172,6 @@ export default function GamePage({ theme, handleThemeChange }) {
       setDeck(newDeck);
       setIsRoundOver(false);
       setFirstToMove(firstToMove === "Player" ? "Opponent" : "Player");
-      addToCommentaryContext(
-        `
-              In this new round first to move is: ${firstToMove}`,
-        setCommentaryContext
-      );
     }
   }, [isRoundOver]);
 
@@ -210,7 +206,12 @@ export default function GamePage({ theme, handleThemeChange }) {
       saveResults(gameResults);
 
       addToCommentaryContext(
-        `The game has ended! This are the results:`,
+        `Remmember you are the opponent. "Player" is your opponent.
+        The game has ended! This are the results:
+        Winner: ${winner.id}.
+        Coins you have: ${opponent.coins}
+        Coins ${player.id} has: ${player.coins}
+        `,
         setCommentaryContext
       );
 
@@ -224,10 +225,10 @@ export default function GamePage({ theme, handleThemeChange }) {
   useEffect(() => {
     if (gameInitialized) {
       if (firstToMove === "Player") {
-        setTurnCount((prevTableUpdateCount) => {
-          const tableUpdateCount = prevTableUpdateCount + 1;
-          // console.log("Updated table count:", tableUpdateCount);
-          if (tableUpdateCount % 24 === 0) {
+        setTurnCount((prevTurnCount) => {
+          const TurnCount = prevTurnCount + 1;
+          // console.log("Updated table count:", TurnCount);
+          if (TurnCount % 24 === 0) {
             console.log(
               "Player hand is finished. Deck is finished.--------------------"
             );
@@ -245,7 +246,7 @@ export default function GamePage({ theme, handleThemeChange }) {
               setCommentaryContext
             );
           }
-          return tableUpdateCount;
+          return TurnCount;
         });
       }
     }
@@ -255,10 +256,10 @@ export default function GamePage({ theme, handleThemeChange }) {
   useEffect(() => {
     if (gameInitialized) {
       if (firstToMove === "Opponent") {
-        setTurnCount((prevTableUpdateCount) => {
-          const tableUpdateCount = prevTableUpdateCount + 1;
-          // console.log("Updated table count:", tableUpdateCount);
-          if (tableUpdateCount % 24 === 0) {
+        setTurnCount((prevTurnCount) => {
+          const TurnCount = prevTurnCount + 1;
+          // console.log("Updated table count:", TurnCount);
+          if (TurnCount % 24 === 0) {
             console.log(
               "Opponent hand is finished. Deck is finished.--------------------"
             );
@@ -276,7 +277,7 @@ export default function GamePage({ theme, handleThemeChange }) {
               setCommentaryContext
             );
           }
-          return tableUpdateCount;
+          return TurnCount;
         });
       }
     }
