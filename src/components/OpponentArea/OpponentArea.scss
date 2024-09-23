@@ -62,4 +62,42 @@
     right: 1.5rem;
     cursor: pointer;
   }
+  &__commentary {
+    color: white;
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    padding: 0.5rem;
+    top: 6rem;
+    left: 50%;
+    transform: translateX(100%);
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(1px);
+    border: solid 1px rgba(255, 255, 255, 0.1);
+  }
+}
+
+.animate {
+  animation: slideDownUp 4s ease-in-out forwards;
+}
+
+@keyframes slideDownUp {
+  0% {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  90% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+  }
 }

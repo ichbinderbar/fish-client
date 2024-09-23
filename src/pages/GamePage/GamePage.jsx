@@ -37,10 +37,26 @@ export default function GamePage({ theme, handleThemeChange }) {
   const [isRoundOver, setIsRoundOver] = useState(false);
   const [cardsCollected, setCardsCollected] = useState([]);
   const [commentaryContext, setCommentaryContext] = useState("");
+  const [commentary, setCommentary] = useState("");
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (commentary) {
+      setAnimate(true);
+      setTimeout(() => {
+        setAnimate(false);
+      }, 4000);
+    }
+  }, [commentary]);
 
   // runs everytime new commentary is provided by my state setter
   useEffect(() => {
-    handleCommentary(commentaryContext, player);
+    const fetchCommentary = async () => {
+      const result = await handleCommentary(commentaryContext, player);
+      setCommentary(result);
+    };
+
+    fetchCommentary();
   }, [commentaryContext]);
 
   // set up game on mount
@@ -269,6 +285,8 @@ export default function GamePage({ theme, handleThemeChange }) {
   return (
     <>
       <OpponentArea
+        animate={animate}
+        commentary={commentary}
         coins={opponent.coins}
         fishedCards={opponent.fishedCards}
         player={opponent}

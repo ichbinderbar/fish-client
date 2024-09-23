@@ -1,10 +1,8 @@
 import CardsCollectedCounter from "../CardsCollected/CardsCollectedCounter";
 import CoinsEarnedCounter from "../CoinsEarned/CoinsEarnedCounter";
-import Hand from "../Hand/Hand";
 import OpponentHand from "../OpponentHand/OpponentHand";
 import OpponentsLastMoveBanner from "../OpponentsLastMoveBanner/OpponentsLastMoveBanner";
 import "./OpponentArea.scss";
-import { useState, useEffect } from "react";
 
 export default function OpponentArea({
   player,
@@ -13,9 +11,14 @@ export default function OpponentArea({
   coins,
   theme,
   cardsCollected,
+  commentary,
+  animate,
 }) {
   return (
     <div className={`opponent-area opponent-area--${theme}`}>
+      <div className={`opponent-area__commentary ${animate ? "animate" : ""}`}>
+        {commentary}
+      </div>
       <OpponentHand
         player={player}
         handleHandCardSelection={handleHandCardSelection}
