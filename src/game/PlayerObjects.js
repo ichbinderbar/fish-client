@@ -9,7 +9,7 @@ export const player = {
   name: "Player",
   isActive: false,
   hand: [],
-  coins: 18,
+  coins: 0,
   fishedCards: 0,
 };
 
@@ -19,7 +19,7 @@ export const opponent = {
   name: "Opponent",
   isActive: false,
   hand: [],
-  coins: 18,
+  coins: 0,
   fishedCards: 0,
   fishBot: lisaBot,
 };
