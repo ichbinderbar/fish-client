@@ -1,3 +1,5 @@
+@use "../../styles/partials/variables" as *;
+
 .modal {
   position: fixed;
   top: 40%;
@@ -17,9 +19,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.1);
     z-index: 10;
     display: flex;
+    &--start-game {
+      backdrop-filter: blur(10px);
+    }
   }
 
   &__content {
@@ -29,6 +34,23 @@
     justify-content: center;
     color: white;
     text-align: center;
+  }
+
+  &__input {
+    display: none;
+    &--start-game {
+      display: flex;
+      width: 100%;
+      max-width: 20rem;
+      padding: 0.4rem;
+      margin-top: 0.5rem;
+      border: 0.1rem solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 1rem;
+      box-sizing: border-box;
+      font-family: "Modern Antiqua";
+    }
   }
 
   &__confirm,

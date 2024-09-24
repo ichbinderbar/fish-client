@@ -1,7 +1,32 @@
 import "./MainMenu.scss";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Modal from "../../components/Modal/Modal";
 
-export default function MainMenu({ theme, handleThemeChange }) {
+export default function MainMenu({
+  theme,
+  handleThemeChange,
+  setOpponentName,
+}) {
+  const navigate = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleStartGame = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleConfirmNavigation = () => {
+    setIsModalVisible(false);
+    setOpponentName(inputValue);
+    navigate("/game");
+  };
+
+  const handleCancelNavigation = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div
       className={`main-menu__main-container main-menu__main-container--${theme}`}
@@ -11,7 +36,23 @@ export default function MainMenu({ theme, handleThemeChange }) {
           Scores
         </div>
       </Link>
-      <Link to={"/game"}>
+      <Modal
+        isVisible={isModalVisible}
+        onConfirm={handleConfirmNavigation}
+        onCancel={handleCancelNavigation}
+        message={
+          <>
+            Choose a name to add personality to your opponent.
+            <br />
+            Or click continue to play against the default personality.
+            <br />
+            Don't name it Hitler or anything similar.
+          </>
+        }
+        modifier={"start-game"}
+        setInputValue={setInputValue}
+      />
+      <Link onClick={handleStartGame}>
         <div className="main-menu__button main-menu__button--new-game">
           Start New Game
         </div>

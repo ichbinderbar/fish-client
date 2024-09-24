@@ -16,16 +16,16 @@ export default function Table({
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleGoToHomePage = () => {
-    setIsModalVisible(true); // Show the modal
+    setIsModalVisible(true);
   };
 
   const handleConfirmNavigation = () => {
     setIsModalVisible(false);
-    navigate("/"); // Navigate to the homepage if confirmed
+    navigate("/");
   };
 
   const handleCancelNavigation = () => {
-    setIsModalVisible(false); // Close the modal without navigating
+    setIsModalVisible(false);
   };
 
   return (

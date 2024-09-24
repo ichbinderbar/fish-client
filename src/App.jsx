@@ -14,6 +14,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [playerName, setPlayerName] = useState("Player");
+  const [opponentName, setOpponentName] = useState("Opponent");
 
   useEffect(() => {
     if (localStorage.getItem("theme") === "ligh") {
@@ -67,6 +68,7 @@ function App() {
                 setTheme={setTheme}
                 theme={theme}
                 handleThemeChange={handleThemeChange}
+                setOpponentName={setOpponentName}
               />
               <Leaderboard theme={theme} isAuthorized={isAuthorized} />
             </>
@@ -80,6 +82,7 @@ function App() {
                 setTheme={setTheme}
                 theme={theme}
                 handleThemeChange={handleThemeChange}
+                setOpponentName={setOpponentName}
               />
               <Leaderboard theme={theme} isAuthorized={isAuthorized} />
             </>
@@ -93,6 +96,7 @@ function App() {
                 setTheme={setTheme}
                 theme={theme}
                 handleThemeChange={handleThemeChange}
+                setOpponentName={setOpponentName}
               />
               <InstructionsBoard theme={theme} />
             </>
@@ -106,6 +110,7 @@ function App() {
                 setTheme={setTheme}
                 theme={theme}
                 handleThemeChange={handleThemeChange}
+                setOpponentName={setOpponentName}
               />
               <Leaderboard theme={theme} isAuthorized={isAuthorized} />
             </>
@@ -119,6 +124,7 @@ function App() {
                 setTheme={setTheme}
                 theme={theme}
                 handleThemeChange={handleThemeChange}
+                setOpponentName={setOpponentName}
               />
               <ProfileCard
                 theme={theme}
@@ -139,6 +145,7 @@ function App() {
               theme={theme}
               handleThemeChange={handleThemeChange}
               playerName={playerName}
+              opponentName={opponentName}
             />
           }
         />

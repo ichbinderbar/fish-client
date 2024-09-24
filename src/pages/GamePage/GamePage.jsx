@@ -20,14 +20,22 @@ import handleTableCardSelection from "../../game/handleTableCardSelection";
 import handleCommentary from "../../game/handleCommentary";
 import addToCommentaryContext from "../../game/addToCommentaryContext";
 
-export default function GamePage({ theme, handleThemeChange, playerName }) {
+export default function GamePage({
+  theme,
+  handleThemeChange,
+  playerName,
+  opponentName,
+}) {
   const [deck, setDeck] = useState(Deck);
   const [table, setTable] = useState([]);
   const [player, setPlayer] = useState({
     ...playerObject,
     name: playerName,
   });
-  const [opponent, setOpponent] = useState(opponentObject);
+  const [opponent, setOpponent] = useState({
+    ...opponentObject,
+    name: opponentName,
+  });
   const [selectedTableCards, setSelectedTableCards] = useState([]);
   const [gameInitialized, setGameInitialized] = useState(false);
   const [lastPlacedCard, setLastPlacedCard] = useState(null);
