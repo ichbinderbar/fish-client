@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const apiUrl = "https://openai-experimental-server-eff701d4fdb7.herokuapp.com/";
-const apiUrl = "http://localhost:5000/";
+const apiUrl = "https://openai-experimental-server-eff701d4fdb7.herokuapp.com/";
+// const apiUrl = "http://localhost:5000/";
 
 export default async function handleCommentary(
   commentaryContext,
