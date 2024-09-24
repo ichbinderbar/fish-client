@@ -3,17 +3,16 @@
 //   currentTable,
 //   hookValue
 // ) => {
+//   const getRandomCard = (hand) => hand[Math.floor(Math.random() * hand.length)];
+
 //   if (currentTable.length > 0 && hookValue) {
 //     return (
 //       currentOpponentHand.find((card) => card.number === hookValue) ||
-//       currentOpponentHand[
-//         Math.floor(Math.random() * currentOpponentHand.length)
-//       ]
+//       getRandomCard(currentOpponentHand)
 //     );
 //   }
-//   return currentOpponentHand[
-//     Math.floor(Math.random() * currentOpponentHand.length)
-//   ];
+
+//   return getRandomCard(currentOpponentHand);
 // };
 
 export const getFishingCard = (
@@ -22,35 +21,24 @@ export const getFishingCard = (
   hookValue,
   currentPlayerHand
 ) => {
-  if (currentTable.length > 0 && hookValue) {
-    const matchingCard = currentOpponentHand.find(
-      (card) => card.number === hookValue
-    );
+  const getRandomCard = (hand) => hand[Math.floor(Math.random() * hand.length)];
 
-    if (matchingCard) {
-      return matchingCard;
-    }
-
-    const filteredHand = currentOpponentHand.filter(
+  const getFilteredHand = () =>
+    currentOpponentHand.filter(
       (card) =>
         !currentPlayerHand.some((otherCard) => otherCard.number === card.number)
     );
 
-    return filteredHand.length > 0
-      ? filteredHand[Math.floor(Math.random() * filteredHand.length)]
-      : currentOpponentHand[
-          Math.floor(Math.random() * currentOpponentHand.length)
-        ];
+  if (currentTable.length > 0 && hookValue) {
+    const matchingCard = currentOpponentHand.find(
+      (card) => card.number === hookValue
+    );
+    if (matchingCard) return matchingCard;
   }
 
-  const filteredHand = currentOpponentHand.filter(
-    (card) =>
-      !currentPlayerHand.some((otherCard) => otherCard.number === card.number)
-  );
+  const filteredHand = getFilteredHand();
 
   return filteredHand.length > 0
-    ? filteredHand[Math.floor(Math.random() * filteredHand.length)]
-    : currentOpponentHand[
-        Math.floor(Math.random() * currentOpponentHand.length)
-      ];
+    ? getRandomCard(filteredHand)
+    : getRandomCard(currentOpponentHand);
 };

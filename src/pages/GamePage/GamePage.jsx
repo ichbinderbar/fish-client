@@ -421,22 +421,6 @@ export default function GamePage({
         fishedCards={opponent.fishedCards}
         player={opponent}
         cardsCollected={cardsCollected}
-        handleHandCardSelection={(card) =>
-          handleHandCardSelection({
-            card,
-            player,
-            setPlayer,
-            table,
-            setTable,
-            setLastPlacedCard,
-            selectedTableCards,
-            setSelectedTableCards,
-            lastPlacedCard,
-            gameOver,
-            setOpponent,
-            opponent,
-          })
-        }
         theme={theme}
       />
       <Table
