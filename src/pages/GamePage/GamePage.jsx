@@ -216,9 +216,9 @@ export default function GamePage({
           ? `${winner.coins}-${opponent.coins}`
           : `${opponent.coins}-${winner.coins}`;
       const gameResults = {
-        winner: winner.name,
-        opponent: opponent.name,
-        coins: winner.coins,
+        winner_name: winner.name,
+        opponent_name: opponent.name,
+        player_name: player.name,
         score: score,
       };
 
