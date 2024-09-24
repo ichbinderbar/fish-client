@@ -212,9 +212,9 @@ export default function GamePage({
   useEffect(() => {
     if (gameOver) {
       const score =
-        winner.coins >= opponent.coins
-          ? `${winner.coins}-${opponent.coins}`
-          : `${opponent.coins}-${winner.coins}`;
+        player.coins >= opponent.coins
+          ? `${player.coins}-${opponent.coins}`
+          : `${opponent.coins}-${player.coins}`;
       const gameResults = {
         winner_name: winner.name,
         opponent_name: opponent.name,
