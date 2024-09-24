@@ -17,9 +17,9 @@
   font-size: 3rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   cursor: pointer;
-  &--net {
-    animation: changeColors 5s infinite linear;
-  }
+  // &--net {
+  //   animation: changeColors 5s infinite linear;
+  // }
   @include tablet {
     width: 6rem;
     height: 9rem;
@@ -79,28 +79,28 @@
   }
 }
 
-@keyframes changeColors {
-  0% {
-    border-color: gold;
-    text-shadow: 0 1px purple;
-  }
-  25% {
-    border-color: rgb(75, 75, 255);
-    text-shadow: 0 3px rgb(75, 75, 255);
-  }
-  50% {
-    border-color: rgb(255, 161, 246);
-    text-shadow: 0 5px rgb(255, 74, 225);
-  }
-  75% {
-    border-color: rgb(75, 75, 255);
-    text-shadow: 0 3px rgb(75, 75, 255);
-  }
-  100% {
-    border-color: gold;
-    text-shadow: 0 1px purple;
-  }
-}
+// @keyframes changeColors {
+//   0% {
+//     border-color: gold;
+//     text-shadow: 0 1px purple;
+//   }
+//   25% {
+//     border-color: rgb(75, 75, 255);
+//     text-shadow: 0 3px rgb(75, 75, 255);
+//   }
+//   50% {
+//     border-color: rgb(255, 161, 246);
+//     text-shadow: 0 5px rgb(255, 74, 225);
+//   }
+//   75% {
+//     border-color: rgb(75, 75, 255);
+//     text-shadow: 0 3px rgb(75, 75, 255);
+//   }
+//   100% {
+//     border-color: gold;
+//     text-shadow: 0 1px purple;
+//   }
+// }
 
 // @keyframes changeColors {
 //   0% {
