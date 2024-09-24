@@ -30,10 +30,10 @@ export default async function handleCommentary(
       prompt: promptMessage,
     });
 
-    const commentary = result.data.choices[0].message.content;
-    // const commentary =
-    //   "Disconnected. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde omnis pariatur esse, in est ipsam delectus illum nesciunt obcaecati error?";
-    // console.log("Commentary:", commentary);
+    // const commentary = result.data.choices[0].message.content;
+    const commentary =
+      "Disconnected. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde omnis pariatur esse, in est ipsam delectus illum nesciunt obcaecati error?";
+    console.log("Commentary:", commentary);
     return commentary;
   } catch (error) {
     console.error(

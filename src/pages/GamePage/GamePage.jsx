@@ -128,7 +128,7 @@ export default function GamePage({
             setPlayer,
             setCardsCollected,
           }),
-        1000
+        300
       );
     }
   }, [opponent]);
@@ -211,10 +211,15 @@ export default function GamePage({
   // post results
   useEffect(() => {
     if (gameOver) {
+      const score =
+        winner.coins >= opponent.coins
+          ? `${winner.coins}-${opponent.coins}`
+          : `${opponent.coins}-${winner.coins}`;
       const gameResults = {
         winner: winner.name,
+        opponent: opponent.name,
         coins: winner.coins,
-        date: new Date().toISOString(),
+        score: score,
       };
 
       saveResults(gameResults);

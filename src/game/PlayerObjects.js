@@ -4,7 +4,8 @@ import { switchActivePlayer } from "./SwitchActivePlayer";
 import { removeCardsFromTable } from "./removeCombinationFromTable";
 
 export const player = {
-  id: "Player",
+  id: null,
+  nickname: "Player",
   name: "Player",
   isActive: false,
   hand: [],
@@ -13,7 +14,8 @@ export const player = {
 };
 
 export const opponent = {
-  id: "Opponent",
+  id: null,
+  nickname: "Opponent",
   name: "Opponent",
   isActive: false,
   hand: [],
