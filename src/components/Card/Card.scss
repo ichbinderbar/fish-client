@@ -17,14 +17,13 @@
   font-size: 3rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   cursor: pointer;
-  // &--net {
-  //   animation: changeColors 5s infinite linear;
-  // }
+
   @include tablet {
     width: 6rem;
     height: 9rem;
     font-size: 5rem;
   }
+
   &__blue {
     background-color: blue;
     // background-image: $blue-net;
@@ -76,6 +75,10 @@
   }
   &--selected {
     @include selected-card;
+  }
+  &--net {
+    // animation: changeColors 5s infinite linear;
+    background-color: black;
   }
 }
 

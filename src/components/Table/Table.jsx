@@ -59,7 +59,7 @@ export default function Table({
         cards.map((card, index) => (
           <Card
             className={`card card__${card.color} card--${
-              [3, 4, 5, 6, 7].includes(card.number) ? "net" : card.number
+              [8, 9, 10].includes(card.number) ? "net" : card.number
             } ${card.selected ? `card__${card.color}--selected` : ""}`}
             onClick={() => handleTableCardSelection(card)}
             key={index}
