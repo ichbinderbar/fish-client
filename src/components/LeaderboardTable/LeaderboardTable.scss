@@ -27,6 +27,9 @@
   &__cell {
     text-align: left;
     align-self: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     &--rank {
       width: 10%;
     }

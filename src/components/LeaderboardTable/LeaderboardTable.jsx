@@ -1,5 +1,6 @@
 import "./LeaderboardTable.scss";
 import LoginPrompter from "../LoginPrompter/LoginPrompter";
+import formatDate from "../../utils/FormateDate";
 
 const LeaderboardTable = ({ leaderboardData, isAuthorized }) => {
   return (
@@ -34,7 +35,8 @@ const LeaderboardTable = ({ leaderboardData, isAuthorized }) => {
                   {leader.score}
                 </div>
                 <div className="leaderboard-table__cell leaderboard-table__cell--date">
-                  {/* {`${formatDate(leader.date)}`} */}
+                  {/* {leader.created_at} */}
+                  {`${formatDate(leader.created_at)}`}
                 </div>
               </div>
             ))}
