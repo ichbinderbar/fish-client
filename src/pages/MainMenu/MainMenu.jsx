@@ -42,11 +42,11 @@ export default function MainMenu({
         onCancel={handleCancelNavigation}
         message={
           <>
-            Choose a name to add personality to your opponent.
+            Choose a name and mood to add personality to your opponent.
             <br />
             Or click continue to play against the default personality.
             <br />
-            Don't name it Hitler or anything similar.
+            Keep it classy.
           </>
         }
         modifier={"start-game"}

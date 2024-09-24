@@ -222,9 +222,9 @@ export default function GamePage({
       addToCommentaryContext(
         `
         ${new Date().toLocaleString()}
-        Remmember you are ${opponent.name}. I am the ${player.name}.
+        Remmember you are ${opponent.name}. I am ${player.name}.
         The game has ended! This are the results:
-        Winner: ${winner.id}.
+        Winner: ${winner.name}.
         Coins you have: ${opponent.coins}
         Coins I have: ${player.coins}
 
