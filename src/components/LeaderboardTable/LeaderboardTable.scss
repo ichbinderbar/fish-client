@@ -18,10 +18,13 @@
     border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
     color: white;
     background: rgba(255, 255, 255, 0.05);
-    min-width: 21rem;
+    width: 21rem;
     transition: transform 0.5s ease-in-out;
     &:nth-child(even) {
       background: rgba(255, 255, 255, 0.1);
+    }
+    @include tablet {
+      width: 40rem;
     }
   }
   &__cell {
@@ -38,6 +41,7 @@
     }
     &--score {
       width: 20%;
+      text-align: center;
     }
     &--date {
       width: 40%;
