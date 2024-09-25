@@ -1,6 +1,5 @@
 import "./MainMenu.scss";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 
@@ -8,23 +7,29 @@ export default function MainMenu({
   theme,
   handleThemeChange,
   setOpponentName,
+  setOpponentLevel,
 }) {
-  const navigate = useNavigate();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isPersonalityModalVisible, setIsPersonalityModalVisible] =
+    useState(false);
+  const [isLevelModalVisible, setIsLevelModalVisible] = useState(false);
+
   const [inputValue, setInputValue] = useState("");
 
   const handleStartGame = () => {
-    setIsModalVisible(true);
+    setIsPersonalityModalVisible(true);
   };
 
-  const handleConfirmNavigation = () => {
-    setIsModalVisible(false);
-    setOpponentName(inputValue);
-    navigate("/game");
+  const handleConfirmPersonality = () => {
+    if (isPersonalityModalVisible) {
+      setOpponentName(inputValue);
+      setIsPersonalityModalVisible(false);
+      setIsLevelModalVisible(true);
+    }
   };
 
   const handleCancelNavigation = () => {
-    setIsModalVisible(false);
+    setIsPersonalityModalVisible(false);
+    setIsLevelModalVisible(false);
   };
 
   return (
@@ -37,8 +42,8 @@ export default function MainMenu({
         </div>
       </Link>
       <Modal
-        isVisible={isModalVisible}
-        onConfirm={handleConfirmNavigation}
+        isVisible={isPersonalityModalVisible}
+        onConfirm={handleConfirmPersonality}
         onCancel={handleCancelNavigation}
         message={
           <>
@@ -51,6 +56,13 @@ export default function MainMenu({
         }
         modifier={"start-game"}
         setInputValue={setInputValue}
+      />
+      <Modal
+        isVisible={isLevelModalVisible}
+        onCancel={handleCancelNavigation}
+        message={<>Choose a level of difficulty.</>}
+        modifier={"level"}
+        setOpponentLevel={setOpponentLevel}
       />
       <Link onClick={handleStartGame}>
         <div className="main-menu__button main-menu__button--new-game">

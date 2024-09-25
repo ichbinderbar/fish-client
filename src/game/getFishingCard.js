@@ -1,19 +1,19 @@
-// export const getFishingCard = (
-//   currentOpponentHand,
-//   currentTable,
-//   hookValue
-// ) => {
-//   const getRandomCard = (hand) => hand[Math.floor(Math.random() * hand.length)];
+export const getFishingCardBasic = (
+  currentOpponentHand,
+  currentTable,
+  hookValue
+) => {
+  const getRandomCard = (hand) => hand[Math.floor(Math.random() * hand.length)];
 
-//   if (currentTable.length > 0 && hookValue) {
-//     return (
-//       currentOpponentHand.find((card) => card.number === hookValue) ||
-//       getRandomCard(currentOpponentHand)
-//     );
-//   }
+  if (currentTable.length > 0 && hookValue) {
+    return (
+      currentOpponentHand.find((card) => card.number === hookValue) ||
+      getRandomCard(currentOpponentHand)
+    );
+  }
 
-//   return getRandomCard(currentOpponentHand);
-// };
+  return getRandomCard(currentOpponentHand);
+};
 
 export const getFishingCard = (
   currentOpponentHand,

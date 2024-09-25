@@ -1,5 +1,7 @@
 import React from "react";
 import "./Modal.scss";
+import { useNavigate } from "react-router-dom";
+import { lisaBot, dumbBot } from "../../game/PlayerObjects";
 
 export default function Modal({
   isVisible,
@@ -8,8 +10,16 @@ export default function Modal({
   message,
   modifier,
   setInputValue,
+  setOpponentLevel,
 }) {
   if (!isVisible) return null;
+
+  const navigate = useNavigate();
+
+  const handleLevelSelect = (bot) => {
+    setOpponentLevel(bot);
+    navigate("/game");
+  };
 
   return (
     <div className={`modal__container modal__container--${modifier}`}>
@@ -21,6 +31,24 @@ export default function Modal({
             onChange={(e) => setInputValue(e.target.value)}
           />
           <button
+            className={`modal__button modal__button--${modifier}`}
+            onClick={() => handleLevelSelect(lisaBot)}
+          >
+            Hard
+          </button>
+          <button
+            className={`modal__button modal__button--${modifier}`}
+            onClick={() => handleLevelSelect(juanBot)}
+          >
+            Medium
+          </button>
+          <button
+            className={`modal__button modal__button--${modifier}`}
+            onClick={() => handleLevelSelect(dumbBot)}
+          >
+            Practice
+          </button>
+          <button
             className={`modal__confirm modal__confirm--${modifier}`}
             onClick={onConfirm}
           >
@@ -30,7 +58,7 @@ export default function Modal({
             className={`modal__cancel modal__cancel--${modifier}`}
             onClick={onCancel}
           >
-            Cancel
+            Go back
           </button>
         </div>
       </div>

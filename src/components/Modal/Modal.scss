@@ -51,6 +51,7 @@
     }
   }
 
+  &__button,
   &__confirm,
   &__cancel {
     margin-top: 0.5rem;
@@ -65,6 +66,20 @@
 
     &:hover {
       background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &__confirm {
+    &--level {
+      display: none;
+    }
+  }
+
+  &__button {
+    display: none;
+    &--level {
+      display: flex;
+      justify-content: center;
     }
   }
 }

@@ -5,9 +5,10 @@ import InstructionsBoard from "./components/InstructionsBoard/InstructionsBoard"
 import Leaderboard from "./components/Leaderboard/Leaderboard";
 import ProfileCard from "./components/ProfileCard/ProfileCard";
 import GamePage from "./pages/GamePage/GamePage";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MultiplayerGamePage from "./pages/OnlineGamePage.jsx/MultiplayerGamePage";
 import getUser from "./utils/getUser";
+import { opponent } from "./game/PlayerObjects";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -15,6 +16,11 @@ function App() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [playerName, setPlayerName] = useState("Player");
   const [opponentName, setOpponentName] = useState("Opponent");
+
+  const setOpponentLevel = (selectedBot) => {
+    opponent.fishBot = selectedBot;
+    console.log("Updated fishBot:", opponent.fishBot);
+  };
 
   useEffect(() => {
     if (localStorage.getItem("theme") === "ligh") {
@@ -69,6 +75,7 @@ function App() {
                 theme={theme}
                 handleThemeChange={handleThemeChange}
                 setOpponentName={setOpponentName}
+                setOpponentLevel={setOpponentLevel}
               />
               <Leaderboard theme={theme} isAuthorized={isAuthorized} />
             </>
@@ -83,6 +90,7 @@ function App() {
                 theme={theme}
                 handleThemeChange={handleThemeChange}
                 setOpponentName={setOpponentName}
+                setOpponentLevel={setOpponentLevel}
               />
               <Leaderboard theme={theme} isAuthorized={isAuthorized} />
             </>
@@ -97,6 +105,7 @@ function App() {
                 theme={theme}
                 handleThemeChange={handleThemeChange}
                 setOpponentName={setOpponentName}
+                setOpponentLevel={setOpponentLevel}
               />
               <InstructionsBoard theme={theme} />
             </>
@@ -111,6 +120,7 @@ function App() {
                 theme={theme}
                 handleThemeChange={handleThemeChange}
                 setOpponentName={setOpponentName}
+                setOpponentLevel={setOpponentLevel}
               />
               <Leaderboard theme={theme} isAuthorized={isAuthorized} />
             </>
@@ -125,6 +135,7 @@ function App() {
                 theme={theme}
                 handleThemeChange={handleThemeChange}
                 setOpponentName={setOpponentName}
+                setOpponentLevel={setOpponentLevel}
               />
               <ProfileCard
                 theme={theme}

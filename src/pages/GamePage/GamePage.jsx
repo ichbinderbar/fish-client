@@ -25,6 +25,7 @@ export default function GamePage({
   handleThemeChange,
   playerName,
   opponentName,
+  opponentLevel,
 }) {
   const audioRefCard = useRef(null);
   const audioRefCoins = useRef(null);
