@@ -19,6 +19,7 @@ import handleHandCardSelection from "../../game/handleHandCardSelection";
 import handleTableCardSelection from "../../game/handleTableCardSelection";
 import handleCommentary from "../../game/handleCommentary";
 import addToCommentaryContext from "../../game/addToCommentaryContext";
+import AudioPlayer from "../../components/AudioPlayer/AudioPlayer";
 
 export default function GamePage({
   theme,
@@ -414,6 +415,7 @@ export default function GamePage({
 
   return (
     <>
+      <AudioPlayer />
       <OpponentArea
         animate={animate}
         commentary={commentary}
