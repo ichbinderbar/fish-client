@@ -63,7 +63,8 @@ function dumbBot({
   switchActivePlayer({ setPlayer, setOpponent, player, opponent });
 }
 
-// smart fishBot V1 AKA Lisa preffers collecting cards than earning coins from last card match
+//--------------------------------------------------------------------------------------------
+// lisaBot preffers collecting cards
 function lisaBot({
   gameOver,
   opponent,
@@ -81,8 +82,11 @@ function lisaBot({
     return;
   }
   const playerCurrentHand = [...player.hand];
-  const currentHand = [...opponent.hand];
-  const currentTable = [...table];
+  const currentHand = opponent.hand.map((card) => ({
+    ...card,
+    selected: false,
+  })); // change selected property of cards here as an attempt to solve the green-bug
+  const currentTable = table.map((card) => ({ ...card, selected: false })); // change selected property of cards here as an attempt to solve the green-bug
   const longestCombination = getLongestCombination(currentHand, currentTable);
   const hookValue = longestCombination.hook;
   const fishingCard = getFishingCard(
