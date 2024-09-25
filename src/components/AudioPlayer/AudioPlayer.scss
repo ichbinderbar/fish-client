@@ -1,0 +1,14 @@
+.game-music {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  //   &::-webkit-media-controls-current-time-display,
+  //   &::-webkit-media-controls-time-remaining-display,
+  //   &::-webkit-media-controls-mute-button,
+  //   &::-webkit-media-controls-timeline {
+  //     display: none;
+  //   }
+}
