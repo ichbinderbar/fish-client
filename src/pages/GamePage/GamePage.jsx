@@ -1,7 +1,7 @@
 import PlayerArea from "../../components/PlayerArea/PlayerArea";
 import Table from "../../components/Table/Table";
 import "./GamePage.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import shuffle from "../../game/Shuffle";
 import sell from "../../game/Sell";
 import { checkGameOver } from "../../game/CheckGameOver";
@@ -26,6 +26,8 @@ export default function GamePage({
   playerName,
   opponentName,
 }) {
+  const audioRefCard = useRef(null);
+  const audioRefCoins = useRef(null);
   const [deck, setDeck] = useState(Deck);
   const [table, setTable] = useState([]);
   const [player, setPlayer] = useState({
@@ -50,6 +52,42 @@ export default function GamePage({
   const [commentaryContext, setCommentaryContext] = useState("");
   const [commentary, setCommentary] = useState("");
   const [animate, setAnimate] = useState(false);
+
+  const previousPlayerCoins = useRef(player.coins);
+  const previousOpponentCoins = useRef(opponent.coins);
+
+  useEffect(() => {
+    let cardSoundPlayed = false;
+
+    if (audioRefCard.current && table.length !== 0) {
+      audioRefCard.current.play().catch((error) => {
+        console.error("Failed to play card sound:", error);
+      });
+      cardSoundPlayed = true;
+    }
+
+    if (audioRefCoins.current) {
+      if (
+        player.coins !== previousPlayerCoins.current ||
+        opponent.coins !== previousOpponentCoins.current
+      ) {
+        if (cardSoundPlayed) {
+          setTimeout(() => {
+            audioRefCoins.current.play().catch((error) => {
+              console.error("Failed to play coins sound:", error);
+            });
+          }, 500);
+        } else {
+          audioRefCoins.current.play().catch((error) => {
+            console.error("Failed to play coins sound:", error);
+          });
+        }
+      }
+    }
+
+    previousPlayerCoins.current = player.coins;
+    previousOpponentCoins.current = opponent.coins;
+  }, [table, player.coins, opponent.coins]);
 
   // toggles the class of my intelligent commentary box
   useEffect(() => {
@@ -128,7 +166,7 @@ export default function GamePage({
             setPlayer,
             setCardsCollected,
           }),
-        300
+        1000
       );
     }
   }, [opponent]);
@@ -414,6 +452,14 @@ export default function GamePage({
 
   return (
     <>
+      <audio ref={audioRefCoins} preload="auto" style={{ display: "none" }}>
+        <source src="/coins.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <audio ref={audioRefCard} preload="auto" style={{ display: "none" }}>
+        <source src="/card.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
       <OpponentArea
         animate={animate}
         commentary={commentary}

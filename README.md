@@ -1,6 +1,6 @@
 upcomming updates:
 
-- log out user when 404 request fails
+- log out user when 404 request failed
 - implement practice mode and hard mode
 - log in to save game history
 - clean up multiplayer game page
