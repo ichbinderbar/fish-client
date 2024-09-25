@@ -1,6 +1,6 @@
 import "./LeaderboardTable.scss";
 import LoginPrompter from "../LoginPrompter/LoginPrompter";
-import formatDate from "../../utils/FormateDate";
+import formatDate from "../../utils/FormateDate.js";
 
 const LeaderboardTable = ({ leaderboardData, isAuthorized }) => {
   return (
