@@ -65,7 +65,9 @@
     }
   }
   &:hover {
-    @include hover-card;
+    @include tablet {
+      @include hover-card;
+    }
   }
   &:active {
     @include active-card;
