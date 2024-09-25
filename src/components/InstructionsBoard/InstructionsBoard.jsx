@@ -11,27 +11,51 @@ export default function InstructionsBoard({ theme }) {
       >
         <div className="instructions-board__content">
           <div className="section">
-            <h3>Winner:</h3>
-            <p>The first player to earn 20 coins wins the game.</p>
+            <h3>How to Play:</h3>
+            <p>
+              On each turn you will "fish" cards from the table.
+              <br />
+              Select the cards you want to "fish" from the table first and then
+              from your hand select the "hook", the card you will use to capture
+              the combination selected from the table.
+              <br />
+              The order in which you select the cards on the table does not
+              matter.
+            </p>
+          </div>
+          <div className="section">
+            <h3>Your goal in the game:</h3>
+            <p>Earn 20 coins before your opponent to win the game.</p>
+            <br />
+            <h3>Tip:</h3>
+            <p>
+              There are 40 cards in total. The values of the cards go from 1 to
+              10. Therefore each number only repeats 4 times. Try to remember
+              the cards that have been played to better your odds of winning.
+            </p>
           </div>
           <div className="section">
             <h3>Turns:</h3>
             <p>
-              On each turn, a player must attempt to capture one or more cards
-              from the table using a card from their hand.
+              On each turn, a player must attempt to capture as many cards from
+              the table as possible using a card from their hand.
               <br />
-              If the played card is not a number between 3 and 7 (inclusive) it
-              must match the value of a card on the table.
+              There are two types of cards in the game: blacks (or high cards)
+              and colors (or low cards). If the played card is a black card, in
+              order to capture or "fish" a card from the table it must match its
+              value.
               <br />
-              If the played card is a number between 3 and 7 (inclusive) it can
-              capture two cards by adding up their values (e.g., if you have a 3
-              in your hand, you can capture a 3 from the table or add a 2 and a
-              1 from the table).
+              If the played card is a color card it can "fish" like black cards
+              or it can "fish" two cards by adding up their values (for example,
+              if the player has a card with a value of 3 and the table contains
+              the following cards: 1, 2, and 3, the player can either capture
+              the 3 alone with his 3 or the 1 and the 2 together).
               <br />
-              When cards are matched, all inmediatelly consecutive cards after
-              the card used to capture are also collected and counted into the
-              players pile. If the player cannot capture, they must discard a
-              card onto the table. The turn then passes to the next player.
+              When cards are matched as explained before, all inmediatelly
+              consecutive cards after the card used to capture can also be
+              collected and counted into the players cards pile. If the player
+              cannot capture any cards, they must discard a card onto the table.
+              The turn then passes to the next player.
             </p>
           </div>
           <div className="section">
@@ -45,7 +69,9 @@ export default function InstructionsBoard({ theme }) {
               <br />
               This two scenarios can happen on the same turn on which case 2
               points are awarded.
-              <br />6 coins are awarded for every 20 captured cards. One
+              <br />
+              At the end of each round the cards collected during that round at
+              counted and 6 coins are awarded for every 20 captured cards. One
               additional coin is awarded for every additional captured card.
             </p>
           </div>
@@ -55,9 +81,9 @@ export default function InstructionsBoard({ theme }) {
               The round ends when a player runs out of cards in their hand and
               there are no more cards left to be dealt.
               <br />
-              Players captured cards get counted and exchanged for coins, and
-              the game continues to the next round if neither player has reached
-              20 points.
+              At the end of each round each player captured cards get counted
+              and exchanged for coins, and the game continues to the next round
+              if neither player has reached 20 points.
             </p>
           </div>
         </div>
