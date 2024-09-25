@@ -7,7 +7,7 @@ export default function AudioPlayer() {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.5;
+      audioRef.current.volume = 0.3;
     }
   }, []);
 
