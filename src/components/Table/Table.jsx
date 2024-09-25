@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./Table.scss";
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal/Modal";
+import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
 export default function Table({
   cards,
@@ -30,6 +31,7 @@ export default function Table({
 
   return (
     <div className={`table table--${theme}`}>
+      <AudioPlayer />
       <div className="table__theme-button" onClick={handleThemeChange}>
         {theme === "light" ? "🌙" : "☀️"}
       </div>

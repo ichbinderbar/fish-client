@@ -1,14 +1,18 @@
-.game-music {
+.audio-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  display: flex;
   position: absolute;
-  top: 10px;
+  z-index: 2;
+  bottom: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1000;
-
-  //   &::-webkit-media-controls-current-time-display,
-  //   &::-webkit-media-controls-time-remaining-display,
-  //   &::-webkit-media-controls-mute-button,
-  //   &::-webkit-media-controls-timeline {
-  //     display: none;
-  //   }
 }
