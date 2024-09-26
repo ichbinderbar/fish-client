@@ -1,5 +1,5 @@
 import { getLongestCombination } from "./getLongestCombination";
-import { getFishingCard } from "./getFishingCard";
+import { getFishingCard, getFishingCardBasic } from "./getFishingCard";
 import { switchActivePlayer } from "./SwitchActivePlayer";
 import { removeCardsFromTable } from "./removeCombinationFromTable";
 
@@ -44,7 +44,10 @@ export function dumbBot({
     return;
   }
 
-  let currentHand = [...opponent.hand];
+  const currentHand = opponent.hand.map((card) => ({
+    ...card,
+    selected: false,
+  })); // change selected property of cards here as an attempt to solve the green-bug
 
   if (currentHand.length > 0) {
     const fishingCard = currentHand.pop();

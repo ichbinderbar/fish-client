@@ -48,6 +48,9 @@
       font-size: 1rem;
       box-sizing: border-box;
       font-family: "Modern Antiqua";
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
     }
   }
 

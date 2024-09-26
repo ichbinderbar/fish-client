@@ -14,6 +14,7 @@ export default async function handleCommentary(
   Copy their talking style. Say things that person would say
   like famous quotes or words they often use.
   I am ${player.name}. We are not frienly to eachother.
+  Do not repeat my name too often.
   The game is a cards game where you collect cards from the table.
   The goal of the game is to earn 20 coins.
   You can gain coins during each round

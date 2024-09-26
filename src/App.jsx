@@ -19,7 +19,6 @@ function App() {
 
   const setOpponentLevel = (selectedBot) => {
     opponent.fishBot = selectedBot;
-    console.log("Updated fishBot:", opponent.fishBot);
   };
 
   useEffect(() => {

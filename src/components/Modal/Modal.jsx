@@ -1,7 +1,7 @@
 import React from "react";
 import "./Modal.scss";
 import { useNavigate } from "react-router-dom";
-import { lisaBot, dumbBot } from "../../game/PlayerObjects";
+import { lisaBot, juanBot, dumbBot } from "../../game/PlayerObjects";
 
 export default function Modal({
   isVisible,
@@ -11,6 +11,7 @@ export default function Modal({
   modifier,
   setInputValue,
   setOpponentLevel,
+  placeholder,
 }) {
   if (!isVisible) return null;
 
@@ -29,18 +30,19 @@ export default function Modal({
           <input
             className={`modal__input modal__input--${modifier}`}
             onChange={(e) => setInputValue(e.target.value)}
+            placeholder={placeholder}
           />
           <button
             className={`modal__button modal__button--${modifier}`}
             onClick={() => handleLevelSelect(lisaBot)}
           >
-            Hard
+            Pro
           </button>
           <button
             className={`modal__button modal__button--${modifier}`}
             onClick={() => handleLevelSelect(juanBot)}
           >
-            Medium
+            Amateur
           </button>
           <button
             className={`modal__button modal__button--${modifier}`}
