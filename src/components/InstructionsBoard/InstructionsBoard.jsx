@@ -75,9 +75,12 @@ export default function InstructionsBoard({ theme }) {
               This two scenarios can happen on the same turn on which case 2
               points are awarded.
               <br />
-              At the end of each round the cards collected during that round at
+              At the end of each round the cards collected during that round are
               counted and 6 coins are awarded for every 20 captured cards. One
-              additional coin is awarded for every additional captured card.
+              additional coin is awarded for every 2 additional captured cards
+              (for example, a player whom at the end of the round has collected
+              23 cards will receive 6 coins for the first 20 and 1 coin for the
+              additional 3 cards, for a grand total of 7 coins).
             </p>
           </div>
           <div className="section">
