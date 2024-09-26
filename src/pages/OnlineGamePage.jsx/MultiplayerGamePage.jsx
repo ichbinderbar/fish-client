@@ -14,9 +14,9 @@ export default function MultiplayerGamePage() {
     const newSocket = io(apiUrl);
 
     setSocket(newSocket);
-    // // used in conjuction with handleStartGame and handleJoinRandomRoom server controllers
-    // newSocket.emit("joinGame");
-    // console.log("joinGame event emitted");
+    // used in conjuction with handleStartGame and handleJoinRandomRoom server controllers
+    newSocket.emit("joinGame");
+    console.log("joinGame event emitted");
 
     newSocket.on("connect", () => {
       console.log("Socket connected with ID:", newSocket.id);

@@ -25,7 +25,7 @@ export default function InstructionsBoard({ theme }) {
             </p>
           </div>
           <div className="section">
-            <h3>Your goal in the game:</h3>
+            <h3>Goal:</h3>
             <p>Earn 20 coins before your opponent to win the game.</p>
             <br />
             <h3>Tip:</h3>
