@@ -48,16 +48,25 @@
     }
   }
   &__cards-img {
-    display: flex;
-    position: absolute;
-    left: -1.5rem;
-    top: -1rem;
+    display: none;
     width: 100%;
     height: 100%;
     animation: breathe 3s ease-in-out infinite;
     @include tablet {
       display: flex;
       position: initial;
+    }
+  }
+  &__cards-emoji {
+    display: flex;
+    position: absolute;
+    left: -0.5rem;
+    top: -0.5rem;
+    width: 100%;
+    height: 100%;
+    animation: breathe 3s ease-in-out infinite;
+    @include tablet {
+      display: none;
     }
   }
 }
