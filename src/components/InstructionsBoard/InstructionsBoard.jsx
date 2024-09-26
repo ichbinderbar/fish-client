@@ -13,11 +13,12 @@ export default function InstructionsBoard({ theme }) {
           <div className="section">
             <h3>How to Play:</h3>
             <p>
-              On each turn you will "fish" cards from the table.
+              On each turn you will try to collect as many cards and coins as
+              possible.
               <br />
-              Select the cards you want to "fish" from the table first and then
-              from your hand select the "hook", the card you will use to capture
-              the combination selected from the table.
+              First select the cards you want to "fish" from the table, then
+              select the "hook"from your hand. The "hook" is the card you will
+              use to capture the combination selected from the table.
               <br />
               The order in which you select the cards on the table does not
               matter.
@@ -43,7 +44,7 @@ export default function InstructionsBoard({ theme }) {
               There are two types of cards in the game: blacks (or high cards)
               and colors (or low cards). If the played card is a black card, in
               order to capture or "fish" a card from the table it must match its
-              value.
+              value exactly.
               <br />
               If the played card is a color card it can "fish" like black cards
               or it can "fish" two cards by adding up their values (for example,
@@ -51,11 +52,15 @@ export default function InstructionsBoard({ theme }) {
               the following cards: 1, 2, and 3, the player can either capture
               the 3 alone with his 3 or the 1 and the 2 together).
               <br />
-              When cards are matched as explained before, all inmediatelly
-              consecutive cards after the card used to capture can also be
-              collected and counted into the players cards pile. If the player
-              cannot capture any cards, they must discard a card onto the table.
-              The turn then passes to the next player.
+              If you can "hook" a match as explained before all inmediatelly
+              consecutive cards after the "hook" can also be collected and
+              counted into the players cards pile (for example, if the player
+              has a card with a value of 3 and the table contains the following
+              cards: 1, 2, 3 and 4, the player is allowed to "fish" any of these
+              combinations off the table: [1, 2, 4], [3, 4], [1, 2] or [3]).
+              <br />
+              If a player cannot "fish" any cards, they must discard a card onto
+              the table. The turn then passes to the next player.
             </p>
           </div>
           <div className="section">
@@ -81,9 +86,17 @@ export default function InstructionsBoard({ theme }) {
               The round ends when a player runs out of cards in their hand and
               there are no more cards left to be dealt.
               <br />
-              At the end of each round each player captured cards get counted
+              At the end of each round each player's captured cards get counted
               and exchanged for coins, and the game continues to the next round
               if neither player has reached 20 points.
+            </p>
+            <br />
+            <h3>Game Over:</h3>
+            <p>
+              The game can end at the end of a round when the cards are counted
+              and exchanged for coins when one of the players reaches 20 coins,
+              or it can end by a player reaching 20 coins at any point during
+              the game.
             </p>
           </div>
         </div>
