@@ -1,6 +1,7 @@
 import axios from "axios";
+import { apiUrlOpenAi as apiUrl } from "../assets/data/Api";
 
-const apiUrl = "https://openai-experimental-server-eff701d4fdb7.herokuapp.com/";
+// const apiUrl = "https://openai-experimental-server-eff701d4fdb7.herokuapp.com/";
 // const apiUrl = "http://localhost:5000/";
 
 export default async function handleCommentary(
