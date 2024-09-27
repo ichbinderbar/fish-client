@@ -22,10 +22,10 @@ export default function handleHandCardSelectionMultiplayer({
     return;
   }
 
-  // if (!player.isActive) {
-  //   console.log("You cannot select a card. Wait for your turn.");
-  //   return;
-  // }
+  if (!player.isActive) {
+    console.log("You cannot select a card. Wait for your turn.");
+    return;
+  }
 
   if (selectedTableCards.length > 0) {
     const updatedSelectedCards = [...selectedTableCards, card];
@@ -99,5 +99,5 @@ export default function handleHandCardSelectionMultiplayer({
 
   setEmit(true);
   // console.log("--------------------Player played:", card.number);
-  switchActivePlayer({ setPlayer, setOpponent, player, opponent });
+  // switchActivePlayer({ setPlayer, setOpponent, player, opponent });
 }

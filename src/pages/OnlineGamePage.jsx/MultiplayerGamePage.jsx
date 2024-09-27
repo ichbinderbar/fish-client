@@ -16,12 +16,14 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
     hand: [],
     fishedCards: 0,
     coins: 0,
+    isActive: false,
   });
   const [opponent, setOpponent] = useState({
     id: null,
     hand: [],
     fishedCards: 0,
     coins: 0,
+    isActive: false,
   });
   const [table, setTable] = useState([]);
   const [selectedTableCards, setSelectedTableCards] = useState([]);
@@ -58,12 +60,14 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
           hand: Array.isArray(data.player1.hand) ? data.player1.hand : [],
           fishedCards: data.player1?.fishedCards,
           coins: data.player1?.coins,
+          isActive: data.player1?.isActive,
         });
         setOpponent({
           id: data.player2?.id,
           hand: Array.isArray(data.player2?.hand) ? data.player2?.hand : [],
           fishedCards: data.player2?.fishedCards,
           coins: data.player2?.coins,
+          isActive: data.player2?.isActive,
         });
       } else if (socket.id === data.player2.id) {
         setPlayer({
@@ -71,12 +75,14 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
           hand: Array.isArray(data.player2.hand) ? data.player2.hand : [],
           fishedCards: data.player2?.fishedCards,
           coins: data.player2?.coins,
+          isActive: data.player2?.isActive,
         });
         setOpponent({
           id: data.player1?.id,
           hand: Array.isArray(data.player1.hand) ? data.player1.hand : [],
           fishedCards: data.player1?.fishedCards,
           coins: data.player1?.coins,
+          isActive: data.player1?.isActive,
         });
       } else {
         console.warn("Player is not part of this game");
