@@ -5,17 +5,15 @@ import Hand from "../Hand/Hand";
 export default function PlayerAreaMultiplayer({
   player,
   handleHandCardSelection,
-  fishedCards,
-  coins,
   theme,
 }) {
   return (
     <div className={`player-area player-area--${theme}`}>
       <div className="player-area__stat-container">
         <CardsCollectedCounter
-          fishedCards={fishedCards}
+          fishedCards={player.fishedCards}
         ></CardsCollectedCounter>
-        <CoinsEarnedCounter coins={coins}></CoinsEarnedCounter>
+        <CoinsEarnedCounter coins={player.coins}></CoinsEarnedCounter>
       </div>
       <Hand player={player} handleHandCardSelection={handleHandCardSelection} />
     </div>

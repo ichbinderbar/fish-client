@@ -40,11 +40,15 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
         setPlayer({
           id: data.player1.id,
           hand: Array.isArray(data.player1.hand) ? data.player1.hand : [],
+          fishedCards: data.player1.fishedCards,
+          coins: data.player1.coins,
         });
       } else if (socket.id === data.player2.id) {
         setPlayer({
           id: data.player2.id,
           hand: Array.isArray(data.player2.hand) ? data.player2.hand : [],
+          fishedCards: data.player2.fishedCards,
+          coins: data.player2.coins,
         });
       } else {
         console.warn("Player is not part of this game");
@@ -72,7 +76,7 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
     };
   }, [socket]);
 
-  const playCard = (card) => {
+  const handleHandCardSelection = (card) => {
     socket.emit("playCard", { roomId, card });
   };
 
@@ -105,7 +109,7 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
       </div>
       <PlayerAreaMultiplayer
         player={player}
-        handleHandCardSelection={playCard}
+        handleHandCardSelection={handleHandCardSelection}
         handleThemeChange={handleThemeChange}
         theme={theme}
       />
