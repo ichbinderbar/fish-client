@@ -9,6 +9,7 @@ export default function MultiplayerGamePage() {
   const [playerId, setPlayerId] = useState(null);
   const [roomId, setRoomId] = useState(null);
   const [hand, setHand] = useState([]);
+  const [table, setTable] = useState([]);
 
   useEffect(() => {
     const newSocket = io(apiUrl);
@@ -24,14 +25,27 @@ export default function MultiplayerGamePage() {
 
     newSocket.on("startGame", (data) => {
       console.log("startGame event received:", data);
+
       setPlayerId(newSocket.id);
       setRoomId(data.roomId);
 
-      setHand(Array.isArray(data.hand) ? data.hand : []);
+      if (newSocket.id === data.player1.id) {
+        setHand(Array.isArray(data.player1.hand) ? data.player1.hand : []);
+      } else if (newSocket.id === data.player2.id) {
+        setHand(Array.isArray(data.player2.hand) ? data.player2.hand : []);
+      } else {
+        console.warn("Player is not part of this game");
+        setHand([]);
+      }
     });
 
     newSocket.on("updateGameState", (newGameState) => {
       console.log("updateGameState event received:", newGameState);
+      const { playerId: updatedPlayerId, hand, table } = newGameState;
+      if (updatedPlayerId === playerId) {
+        setHand(hand);
+      }
+      setTable(table);
       setGameState(newGameState);
     });
 
@@ -43,9 +57,13 @@ export default function MultiplayerGamePage() {
 
   const playCard = (card) => {
     if (socket && roomId) {
-      console.log("Playing card and emitting playCard event:", card);
-      socket.emit("playCard", { roomId, card });
-      setHand(hand.filter((c) => c !== card));
+      if (hand.includes(card)) {
+        console.log("Playing card and emitting playCard event:", card);
+
+        socket.emit("playCard", { roomId, card });
+      } else {
+        console.log("Card not available in hand.");
+      }
     } else {
       console.log("Socket not connected or roomId not available.");
     }
@@ -84,7 +102,7 @@ export default function MultiplayerGamePage() {
 
       <div>
         <h2>Game State</h2>
-        <pre>{JSON.stringify(gameState, null, 2)}</pre>
+        <pre>{JSON.stringify(table, null, 2)}</pre>
       </div>
     </div>
   );
