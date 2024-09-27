@@ -5,7 +5,7 @@ import { apiUrl } from "../../assets/data/Api";
 import TableMultiplayer from "../../components/TableMultiplayer/TableMultiplayer";
 import PlayerAreaMultiplayer from "../../components/PlayerAreaMultiplayer/PlayerAreaMultiplayer";
 
-export default function MultiplayerGamePage() {
+export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [socket, setSocket] = useState(null);
   const [roomId, setRoomId] = useState(null);
   const [player, setPlayer] = useState({ id: null, hand: [] });
@@ -56,7 +56,7 @@ export default function MultiplayerGamePage() {
 
       if (socket.id === playerId) {
         console.log("Updating hand for current player");
-        setPlayer((prevPlayer) => ({ ...prevPlayer, hand })); // Update hand within player object
+        setPlayer((prevPlayer) => ({ ...prevPlayer, hand }));
       } else {
         console.log("PlayerId mismatch: hand not updated");
       }
@@ -84,9 +84,12 @@ export default function MultiplayerGamePage() {
 
   return (
     <>
-      <TableMultiplayer cards={table} />
+      <TableMultiplayer
+        cards={table}
+        handleThemeChange={handleThemeChange}
+        theme={theme}
+      />
       <div className="game-page">
-        <h1>Multiplayer Card Game</h1>
         <h2>Your Player ID: {socket?.id}</h2>
         <h2>Room ID: {roomId}</h2>
         <input placeholder="Enter room ID" onKeyDown={handleRoomInput} />
@@ -94,6 +97,8 @@ export default function MultiplayerGamePage() {
       <PlayerAreaMultiplayer
         player={player}
         handleHandCardSelection={playCard}
+        handleThemeChange={handleThemeChange}
+        theme={theme}
       />
     </>
   );

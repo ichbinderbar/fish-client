@@ -159,7 +159,16 @@ function App() {
             />
           }
         />
-        <Route path="/multiplayergame" element={<MultiplayerGamePage />} />
+        <Route
+          path="/multiplayergame"
+          element={
+            <MultiplayerGamePage
+              setTheme={setTheme}
+              theme={theme}
+              handleThemeChange={handleThemeChange}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
