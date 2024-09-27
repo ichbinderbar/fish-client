@@ -30,6 +30,7 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [lastPlacedCard, setLastPlacedCard] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [emit, setEmit] = useState(false);
+  const [winner, setWinner] = useState(null);
 
   useEffect(() => {
     const newSocket = io(apiUrl);
@@ -108,6 +109,12 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
       setLastPlacedCard(lastPlacedCard);
     });
 
+    socket.on("gameOver", (data) => {
+      console.log("gameOver event received:", data);
+      setGameOver(true);
+      setWinner(data.winner);
+    });
+
     return () => {
       socket.off("startGame");
       socket.off("updateGameState");
@@ -134,6 +141,59 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
       setEmit(false);
     }
   }, [emit]);
+
+  useEffect(() => {
+    if (gameOver) {
+      console.log("Game Over! Winner:", winner);
+
+      socket.on("gameOver", (data) => {
+        const { gameState, winner } = data;
+        const { player1, player2, table, lastPlacedCard } = gameState;
+
+        if (socket.id === player1.id) {
+          setPlayer({
+            id: player1.id,
+            hand: player1.hand,
+            fishedCards: player1.fishedCards,
+            coins: player1.coins,
+            isActive: player1.isActive,
+          });
+          setOpponent({
+            id: player2.id,
+            hand: player2.hand,
+            fishedCards: player2.fishedCards,
+            coins: player2.coins,
+            isActive: player2.isActive,
+          });
+        } else {
+          setPlayer({
+            id: player2.id,
+            hand: player2.hand,
+            fishedCards: player2.fishedCards,
+            coins: player2.coins,
+            isActive: player2.isActive,
+          });
+          setOpponent({
+            id: player1.id,
+            hand: player1.hand,
+            fishedCards: player1.fishedCards,
+            coins: player1.coins,
+            isActive: player1.isActive,
+          });
+        }
+
+        setTable(table);
+        setLastPlacedCard(lastPlacedCard);
+
+        setWinner(winner);
+        setGameOver(true);
+      });
+
+      return () => {
+        socket.off("gameOver");
+      };
+    }
+  }, [gameOver, socket]);
 
   const handleRoomInput = (event) => {
     if (event.key === "Enter") {
