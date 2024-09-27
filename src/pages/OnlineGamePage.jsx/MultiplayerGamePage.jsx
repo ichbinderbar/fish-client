@@ -4,12 +4,14 @@ import io from "socket.io-client";
 import { apiUrl } from "../../assets/data/Api";
 import TableMultiplayer from "../../components/TableMultiplayer/TableMultiplayer";
 import PlayerAreaMultiplayer from "../../components/PlayerAreaMultiplayer/PlayerAreaMultiplayer";
+import handleTableCardSelection from "../../game/handleTableCardSelection";
 
 export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [socket, setSocket] = useState(null);
   const [roomId, setRoomId] = useState(null);
   const [player, setPlayer] = useState({ id: null, hand: [] });
   const [table, setTable] = useState([]);
+  const [selectedTableCards, setSelectedTableCards] = useState([]);
 
   useEffect(() => {
     const newSocket = io(apiUrl);
@@ -88,6 +90,13 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
         cards={table}
         handleThemeChange={handleThemeChange}
         theme={theme}
+        handleTableCardSelection={(card) =>
+          handleTableCardSelection({
+            card,
+            selectedTableCards,
+            setSelectedTableCards,
+          })
+        }
       />
       <div className="game-page">
         <h2>Your Player ID: {socket?.id}</h2>
