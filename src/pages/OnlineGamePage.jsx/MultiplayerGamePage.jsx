@@ -2,11 +2,13 @@ import "./MultiplayerGamePage.scss";
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { apiUrl } from "../../assets/data/Api";
+import TableMultiplayer from "../../components/TableMultiplayer/TableMultiplayer";
+import PlayerAreaMultiplayer from "../../components/PlayerAreaMultiplayer/PlayerAreaMultiplayer";
 
 export default function MultiplayerGamePage() {
   const [socket, setSocket] = useState(null);
   const [roomId, setRoomId] = useState(null);
-  const [hand, setHand] = useState([]);
+  const [player, setPlayer] = useState({ id: null, hand: [] });
   const [table, setTable] = useState([]);
 
   useEffect(() => {
@@ -33,12 +35,18 @@ export default function MultiplayerGamePage() {
       setRoomId(data.roomId);
 
       if (socket.id === data.player1.id) {
-        setHand(Array.isArray(data.player1.hand) ? data.player1.hand : []);
+        setPlayer({
+          id: data.player1.id,
+          hand: Array.isArray(data.player1.hand) ? data.player1.hand : [],
+        });
       } else if (socket.id === data.player2.id) {
-        setHand(Array.isArray(data.player2.hand) ? data.player2.hand : []);
+        setPlayer({
+          id: data.player2.id,
+          hand: Array.isArray(data.player2.hand) ? data.player2.hand : [],
+        });
       } else {
         console.warn("Player is not part of this game");
-        setHand([]);
+        setPlayer({ id: null, hand: [] });
       }
     });
 
@@ -48,7 +56,7 @@ export default function MultiplayerGamePage() {
 
       if (socket.id === playerId) {
         console.log("Updating hand for current player");
-        setHand(hand);
+        setPlayer((prevPlayer) => ({ ...prevPlayer, hand })); // Update hand within player object
       } else {
         console.log("PlayerId mismatch: hand not updated");
       }
@@ -75,39 +83,18 @@ export default function MultiplayerGamePage() {
   };
 
   return (
-    <div className="game-page">
-      <h1>Multiplayer Card Game</h1>
-      <h2>Your Player ID: {socket?.id}</h2>
-      <h2>Room ID: {roomId}</h2>
-      <input placeholder="Enter room ID" onKeyDown={handleRoomInput} />
-      <div>
-        <h2>Your Hand</h2>
-        {hand.length > 0 ? (
-          <ul>
-            {hand.map((card, index) => (
-              <li key={index}>
-                <button onClick={() => playCard(card)}>
-                  Play {card.number || `Card ${index + 1}`}
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No cards in hand yet.</p>
-        )}
+    <>
+      <TableMultiplayer cards={table} />
+      <div className="game-page">
+        <h1>Multiplayer Card Game</h1>
+        <h2>Your Player ID: {socket?.id}</h2>
+        <h2>Room ID: {roomId}</h2>
+        <input placeholder="Enter room ID" onKeyDown={handleRoomInput} />
       </div>
-      <div>
-        <h2>Table</h2>
-        {table.length > 0 ? (
-          <ul>
-            {table.map((card) => (
-              <p key={card.id}>{`${card.number} ${card.color}`}</p>
-            ))}
-          </ul>
-        ) : (
-          <p>No cards on the table yet.</p>
-        )}
-      </div>
-    </div>
+      <PlayerAreaMultiplayer
+        player={player}
+        handleHandCardSelection={playCard}
+      />
+    </>
   );
 }
