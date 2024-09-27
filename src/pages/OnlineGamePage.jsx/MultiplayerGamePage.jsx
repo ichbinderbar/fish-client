@@ -6,15 +6,28 @@ import TableMultiplayer from "../../components/TableMultiplayer/TableMultiplayer
 import PlayerAreaMultiplayer from "../../components/PlayerAreaMultiplayer/PlayerAreaMultiplayer";
 import handleTableCardSelection from "../../game/handleTableCardSelection";
 import OpponentAreaMultiplayer from "../../components/OpponentAreaMultiplayer/OpponentAreaMultiplayer";
-// import { opponent } from "../../game/PlayerObjects";
+import handleHandCardSelectionMultiplayer from "../../game/handleHandCardSelectionMultiplayer";
 
 export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [socket, setSocket] = useState(null);
   const [roomId, setRoomId] = useState(null);
-  const [player, setPlayer] = useState({ id: null, hand: [] });
-  const [opponent, setOpponent] = useState({ id: null, hand: [] });
+  const [player, setPlayer] = useState({
+    id: null,
+    hand: [],
+    fishedCards: 0,
+    coins: 0,
+  });
+  const [opponent, setOpponent] = useState({
+    id: null,
+    hand: [],
+    fishedCards: 0,
+    coins: 0,
+  });
   const [table, setTable] = useState([]);
   const [selectedTableCards, setSelectedTableCards] = useState([]);
+  const [lastPlacedCard, setLastPlacedCard] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
+  const [emit, setEmit] = useState(false);
 
   useEffect(() => {
     const newSocket = io(apiUrl);
@@ -41,51 +54,52 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
 
       if (socket.id === data.player1.id) {
         setPlayer({
-          id: data.player1.id,
+          id: data.player1?.id,
           hand: Array.isArray(data.player1.hand) ? data.player1.hand : [],
-          fishedCards: data.player1.fishedCards,
-          coins: data.player1.coins,
+          fishedCards: data.player1?.fishedCards,
+          coins: data.player1?.coins,
         });
         setOpponent({
-          id: data.player2.id,
-          hand: Array.isArray(data.player2.hand) ? data.player2.hand : [],
-          fishedCards: data.player2.fishedCards,
-          coins: data.player2.coins,
+          id: data.player2?.id,
+          hand: Array.isArray(data.player2?.hand) ? data.player2?.hand : [],
+          fishedCards: data.player2?.fishedCards,
+          coins: data.player2?.coins,
         });
       } else if (socket.id === data.player2.id) {
         setPlayer({
-          id: data.player2.id,
+          id: data.player2?.id,
           hand: Array.isArray(data.player2.hand) ? data.player2.hand : [],
-          fishedCards: data.player2.fishedCards,
-          coins: data.player2.coins,
+          fishedCards: data.player2?.fishedCards,
+          coins: data.player2?.coins,
         });
         setOpponent({
-          id: data.player1.id,
+          id: data.player1?.id,
           hand: Array.isArray(data.player1.hand) ? data.player1.hand : [],
-          fishedCards: data.player1.fishedCards,
-          coins: data.player1.coins,
+          fishedCards: data.player1?.fishedCards,
+          coins: data.player1?.coins,
         });
       } else {
         console.warn("Player is not part of this game");
-        setPlayer({ id: null, hand: [] });
-        setOpponent({ id: null, hand: [] });
       }
     });
 
-    socket.on("updateGameState", (newGameState) => {
-      console.log("updateGameState event received:", newGameState);
-      const { playerId, hand, table } = newGameState;
-      if (socket.id === playerId) {
-        // Update hand for the current player
-        console.log("Updating hand for current player");
-        setPlayer((prevPlayer) => ({ ...prevPlayer, hand }));
+    socket.on("gameStateUpdate", (newGameState) => {
+      console.log("gameStateUpdate event received:", newGameState);
+
+      const { player1, player2, table, selectedTableCards, lastPlacedCard } =
+        newGameState;
+
+      if (socket.id === player1.id) {
+        setPlayer({ ...player1 });
+        setOpponent({ ...player2 });
       } else {
-        // Update hand for the opponent
-        console.log("Updating hand for opponent");
-        setOpponent((prevOpponent) => ({ ...prevOpponent, hand }));
+        setPlayer({ ...player2 });
+        setOpponent({ ...player1 });
       }
 
       setTable(table);
+      setSelectedTableCards(selectedTableCards);
+      setLastPlacedCard(lastPlacedCard);
     });
 
     return () => {
@@ -94,9 +108,26 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
     };
   }, [socket]);
 
-  const handleHandCardSelection = (card) => {
-    socket.emit("playCard", { roomId, card });
-  };
+  useEffect(() => {
+    if (
+      emit &&
+      socket &&
+      roomId &&
+      table &&
+      player &&
+      lastPlacedCard &&
+      selectedTableCards
+    ) {
+      socket.emit("playCard", {
+        roomId,
+        table,
+        player,
+        lastPlacedCard,
+        selectedTableCards,
+      });
+      setEmit(false);
+    }
+  }, [emit]);
 
   const handleRoomInput = (event) => {
     if (event.key === "Enter") {
@@ -133,7 +164,25 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
       />
       <PlayerAreaMultiplayer
         player={player}
-        handleHandCardSelection={handleHandCardSelection}
+        handleHandCardSelection={(card) =>
+          handleHandCardSelectionMultiplayer({
+            setEmit,
+            socket,
+            roomId,
+            card,
+            player,
+            setPlayer,
+            table,
+            setTable,
+            setLastPlacedCard,
+            selectedTableCards,
+            setSelectedTableCards,
+            lastPlacedCard,
+            gameOver,
+            setOpponent,
+            opponent,
+          })
+        }
         handleThemeChange={handleThemeChange}
         theme={theme}
       />
