@@ -5,33 +5,36 @@ import { apiUrl } from "../../assets/data/Api";
 
 export default function MultiplayerGamePage() {
   const [socket, setSocket] = useState(null);
-  const [gameState, setGameState] = useState([]);
-  const [playerId, setPlayerId] = useState(null);
   const [roomId, setRoomId] = useState(null);
   const [hand, setHand] = useState([]);
   const [table, setTable] = useState([]);
 
   useEffect(() => {
     const newSocket = io(apiUrl);
-
     setSocket(newSocket);
-    // used in conjuction with handleStartGame and handleJoinRandomRoom server controllers
-    newSocket.emit("joinGame");
+
     console.log("joinGame event emitted");
+    newSocket.emit("joinGame");
 
     newSocket.on("connect", () => {
       console.log("Socket connected with ID:", newSocket.id);
     });
 
-    newSocket.on("startGame", (data) => {
-      console.log("startGame event received:", data);
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
 
-      setPlayerId(newSocket.id);
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("startGame", (data) => {
+      console.log("startGame event received:", data);
       setRoomId(data.roomId);
 
-      if (newSocket.id === data.player1.id) {
+      if (socket.id === data.player1.id) {
         setHand(Array.isArray(data.player1.hand) ? data.player1.hand : []);
-      } else if (newSocket.id === data.player2.id) {
+      } else if (socket.id === data.player2.id) {
         setHand(Array.isArray(data.player2.hand) ? data.player2.hand : []);
       } else {
         console.warn("Player is not part of this game");
@@ -39,34 +42,28 @@ export default function MultiplayerGamePage() {
       }
     });
 
-    newSocket.on("updateGameState", (newGameState) => {
+    socket.on("updateGameState", (newGameState) => {
       console.log("updateGameState event received:", newGameState);
-      const { playerId: updatedPlayerId, hand, table } = newGameState;
-      if (updatedPlayerId === playerId) {
+      const { playerId, hand, table } = newGameState;
+
+      if (socket.id === playerId) {
+        console.log("Updating hand for current player");
         setHand(hand);
+      } else {
+        console.log("PlayerId mismatch: hand not updated");
       }
+
       setTable(table);
-      setGameState(newGameState);
     });
 
     return () => {
-      console.log("Socket disconnecting:", newSocket.id);
-      newSocket.disconnect();
+      socket.off("startGame");
+      socket.off("updateGameState");
     };
-  }, []);
+  }, [socket]);
 
   const playCard = (card) => {
-    if (socket && roomId) {
-      if (hand.includes(card)) {
-        console.log("Playing card and emitting playCard event:", card);
-
-        socket.emit("playCard", { roomId, card });
-      } else {
-        console.log("Card not available in hand.");
-      }
-    } else {
-      console.log("Socket not connected or roomId not available.");
-    }
+    socket.emit("playCard", { roomId, card });
   };
 
   const handleRoomInput = (event) => {
@@ -80,7 +77,7 @@ export default function MultiplayerGamePage() {
   return (
     <div className="game-page">
       <h1>Multiplayer Card Game</h1>
-      <h2>Your Player ID: {playerId}</h2>
+      <h2>Your Player ID: {socket?.id}</h2>
       <h2>Room ID: {roomId}</h2>
       <input placeholder="Enter room ID" onKeyDown={handleRoomInput} />
       <div>
@@ -99,10 +96,17 @@ export default function MultiplayerGamePage() {
           <p>No cards in hand yet.</p>
         )}
       </div>
-
       <div>
-        <h2>Game State</h2>
-        <pre>{JSON.stringify(table, null, 2)}</pre>
+        <h2>Table</h2>
+        {table.length > 0 ? (
+          <ul>
+            {table.map((card) => (
+              <p key={card.id}>{`${card.number} ${card.color}`}</p>
+            ))}
+          </ul>
+        ) : (
+          <p>No cards on the table yet.</p>
+        )}
       </div>
     </div>
   );
