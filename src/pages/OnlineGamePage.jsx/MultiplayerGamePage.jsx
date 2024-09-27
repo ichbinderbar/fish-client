@@ -5,11 +5,14 @@ import { apiUrl } from "../../assets/data/Api";
 import TableMultiplayer from "../../components/TableMultiplayer/TableMultiplayer";
 import PlayerAreaMultiplayer from "../../components/PlayerAreaMultiplayer/PlayerAreaMultiplayer";
 import handleTableCardSelection from "../../game/handleTableCardSelection";
+import OpponentAreaMultiplayer from "../../components/OpponentAreaMultiplayer/OpponentAreaMultiplayer";
+// import { opponent } from "../../game/PlayerObjects";
 
 export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [socket, setSocket] = useState(null);
   const [roomId, setRoomId] = useState(null);
   const [player, setPlayer] = useState({ id: null, hand: [] });
+  const [opponent, setOpponent] = useState({ id: null, hand: [] });
   const [table, setTable] = useState([]);
   const [selectedTableCards, setSelectedTableCards] = useState([]);
 
@@ -43,6 +46,12 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
           fishedCards: data.player1.fishedCards,
           coins: data.player1.coins,
         });
+        setOpponent({
+          id: data.player2.id,
+          hand: Array.isArray(data.player2.hand) ? data.player2.hand : [],
+          fishedCards: data.player2.fishedCards,
+          coins: data.player2.coins,
+        });
       } else if (socket.id === data.player2.id) {
         setPlayer({
           id: data.player2.id,
@@ -50,21 +59,30 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
           fishedCards: data.player2.fishedCards,
           coins: data.player2.coins,
         });
+        setOpponent({
+          id: data.player1.id,
+          hand: Array.isArray(data.player1.hand) ? data.player1.hand : [],
+          fishedCards: data.player1.fishedCards,
+          coins: data.player1.coins,
+        });
       } else {
         console.warn("Player is not part of this game");
         setPlayer({ id: null, hand: [] });
+        setOpponent({ id: null, hand: [] });
       }
     });
 
     socket.on("updateGameState", (newGameState) => {
       console.log("updateGameState event received:", newGameState);
       const { playerId, hand, table } = newGameState;
-
       if (socket.id === playerId) {
+        // Update hand for the current player
         console.log("Updating hand for current player");
         setPlayer((prevPlayer) => ({ ...prevPlayer, hand }));
       } else {
-        console.log("PlayerId mismatch: hand not updated");
+        // Update hand for the opponent
+        console.log("Updating hand for opponent");
+        setOpponent((prevOpponent) => ({ ...prevOpponent, hand }));
       }
 
       setTable(table);
@@ -81,15 +99,26 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   };
 
   const handleRoomInput = (event) => {
-    const roomIdFromInput = event.target.value;
     if (event.key === "Enter") {
-      console.log(roomIdFromInput);
-      socket.emit("joinRoom", { roomId: roomIdFromInput });
+      socket.emit("joinRoom", { roomId: event.target.value });
     }
   };
 
   return (
     <>
+      <div className="multiplayer-game-page__finder">
+        <h2>Find table to play online</h2>
+        <input
+          className="multiplayer-game-page__input"
+          placeholder="Enter table ID"
+          onKeyDown={handleRoomInput}
+        />
+      </div>
+      <OpponentAreaMultiplayer
+        opponent={opponent}
+        handleThemeChange={handleThemeChange}
+        theme={theme}
+      />
       <TableMultiplayer
         cards={table}
         handleThemeChange={handleThemeChange}
@@ -102,11 +131,6 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
           })
         }
       />
-      <div className="game-page">
-        <h2>Your Player ID: {socket?.id}</h2>
-        <h2>Room ID: {roomId}</h2>
-        <input placeholder="Enter room ID" onKeyDown={handleRoomInput} />
-      </div>
       <PlayerAreaMultiplayer
         player={player}
         handleHandCardSelection={handleHandCardSelection}
