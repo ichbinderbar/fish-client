@@ -2,6 +2,7 @@ import "./MainMenu.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import StartNewGameModal from "../../components/StartNewGameModal/StartNewGameModal";
 
 export default function MainMenu({
   theme,
@@ -12,10 +13,16 @@ export default function MainMenu({
   const [isPersonalityModalVisible, setIsPersonalityModalVisible] =
     useState(false);
   const [isLevelModalVisible, setIsLevelModalVisible] = useState(false);
-
+  const [isStarNewGameModalVisible, setIsStartNewGameModalVisible] =
+    useState(false);
   const [inputValue, setInputValue] = useState("");
 
   const handleStartGame = () => {
+    setIsStartNewGameModalVisible(true);
+  };
+
+  const handleStartNewGameVsComputer = () => {
+    setIsStartNewGameModalVisible(true);
     setIsPersonalityModalVisible(true);
   };
 
@@ -28,6 +35,7 @@ export default function MainMenu({
   };
 
   const handleCancelNavigation = () => {
+    setIsStartNewGameModalVisible(false);
     setIsPersonalityModalVisible(false);
     setIsLevelModalVisible(false);
   };
@@ -41,6 +49,12 @@ export default function MainMenu({
           Scores
         </div>
       </Link>
+      <StartNewGameModal
+        isVisible={isStarNewGameModalVisible}
+        onCancel={handleCancelNavigation}
+        handleStartNewGameVsComputer={handleStartNewGameVsComputer}
+        message={<>Choose Game Mode</>}
+      />
       <Modal
         isVisible={isPersonalityModalVisible}
         onConfirm={handleConfirmPersonality}
@@ -52,7 +66,7 @@ export default function MainMenu({
             Or click continue to play against the default Opponent.
           </>
         }
-        placeholder={"e.g. Poet Yoda"}
+        placeholder={"e.g. Paul Atreides"}
         modifier={"start-game"}
         setInputValue={setInputValue}
       />
