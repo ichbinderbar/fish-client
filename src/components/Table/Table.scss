@@ -13,7 +13,7 @@
   padding: 3rem;
   align-items: center;
   display: flex;
-  height: 55vh;
+  height: 65dvh;
   width: 100%;
   overflow: hidden;
   flex-wrap: wrap;
@@ -70,7 +70,7 @@
     border: 0.5rem solid rgba(72, 29, 1, 0.912);
   }
   @include tablet {
-    height: 65vh;
+    // height: 65vh;
     padding: 4rem;
   }
 }
