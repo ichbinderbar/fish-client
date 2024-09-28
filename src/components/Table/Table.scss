@@ -70,31 +70,6 @@
     border: 0.5rem solid rgba(72, 29, 1, 0.912);
   }
   @include tablet {
-    // height: 65vh;
     padding: 4rem;
   }
 }
-
-// @keyframes bounce {
-//   0% {
-//     transform: translateY(0);
-//   }
-//   20% {
-//     transform: translateY(-50px);
-//   }
-//   40% {
-//     transform: translateY(0);
-//   }
-//   60% {
-//     transform: translateY(-35px);
-//   }
-//   80% {
-//     transform: translateY(0);
-//   }
-//   90% {
-//     transform: translateY(-15px);
-//   }
-//   100% {
-//     transform: translateY(0);
-//   }
-// }

@@ -10,13 +10,10 @@
     padding: 1rem;
     justify-content: center;
     width: 100%;
-    height: 55vh;
+    height: 65dvh;
     overflow: hidden;
     background-image: $wood;
     background-size: 85px;
-    @include tablet {
-      height: 65vh;
-    }
     &--dark {
       background-image: $dark-wood;
     }
