@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* Center vertically within the container */
+  align-items: center;
   width: 100%;
   height: 100%;
   color: white;
@@ -10,8 +10,8 @@
   &__auth-form {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    justify-content: center; /* Center content vertically */
+    align-items: center;
+    justify-content: center;
     position: relative;
     background: rgba(255, 255, 255, 0.05);
     padding: 0.5rem;
@@ -21,15 +21,15 @@
     border: 0.2px solid rgba(255, 255, 255, 0.05);
     max-width: 21rem;
     width: 100%;
-    height: auto; /* Ensure the form height adjusts to content */
+    height: auto;
   }
 
   &__form-group {
     margin-bottom: 0.5rem;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center each form group horizontally */
-    width: 100%; /* Full width to maintain alignment */
+    align-items: center;
+    width: 100%;
   }
 
   &__label {
@@ -43,7 +43,7 @@
   &__input {
     width: 100%;
     max-width: 20rem;
-    padding: 0.625rem;
+    padding: 0.4rem;
     border: 0.1rem solid rgba(255, 255, 255, 0.1);
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
@@ -63,15 +63,14 @@
   &__button {
     width: 100%;
     max-width: 20rem;
-    padding: 0.625rem;
+    padding: 0.4rem;
     border: none;
     background: rgba(255, 255, 255, 0.05);
     color: #fff;
     font-size: 1rem;
     font-family: "Modern Antiqua";
     cursor: pointer;
-    transition: background 0.3s ease;
-    margin-top: 0.5rem; /* Space between button and form fields */
+    margin-top: 0.5rem;
     &:hover {
       background: rgba(255, 255, 255, 0.1);
     }
