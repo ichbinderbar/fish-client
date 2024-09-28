@@ -204,10 +204,10 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   return (
     <>
       <div className="multiplayer-game-page__finder">
-        <h2>Find table to play online</h2>
+        <h2>Find Room</h2>
         <input
           className="multiplayer-game-page__input"
-          placeholder="Enter table ID"
+          placeholder="Enter Room ID"
           onKeyDown={handleRoomInput}
         />
       </div>
