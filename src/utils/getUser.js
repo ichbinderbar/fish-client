@@ -3,7 +3,7 @@ import { apiUrl } from "../assets/data/Api";
 
 export default async function getUser(accessToken, setUser) {
   try {
-    const response = await axios.get(`${apiUrl}/profile`, {
+    const response = await axios.get(`${apiUrl}/user/profile`, {
       headers: {
         authorization: `Bearer ${accessToken}`,
       },

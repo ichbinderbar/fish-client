@@ -3,6 +3,10 @@ import userDpPlaceholder from "../../assets/images/user-dp.svg";
 import LogoutButton from "../LogOutButton/LogOutButton";
 
 export default function Profile({ user, setIsAuthorized, setUser }) {
+  if (!user) {
+    return <></>;
+  }
+
   return (
     <div className="user-card__container">
       <div className="user-card__photo">

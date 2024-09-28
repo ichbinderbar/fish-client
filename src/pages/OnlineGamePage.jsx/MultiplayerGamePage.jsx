@@ -7,6 +7,7 @@ import PlayerAreaMultiplayer from "../../components/PlayerAreaMultiplayer/Player
 import handleTableCardSelection from "../../game/handleTableCardSelection";
 import OpponentAreaMultiplayer from "../../components/OpponentAreaMultiplayer/OpponentAreaMultiplayer";
 import handleHandCardSelectionMultiplayer from "../../game/handleHandCardSelectionMultiplayer";
+import JoinRoom from "../../components/JoinRoom/JoinRoom";
 
 export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [socket, setSocket] = useState(null);
@@ -31,13 +32,11 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [gameOver, setGameOver] = useState(false);
   const [emit, setEmit] = useState(false);
   const [winner, setWinner] = useState(null);
+  const [isJoinRoomVisible, setIsJoinRoomVisible] = useState(true);
 
   useEffect(() => {
     const newSocket = io(apiUrl);
     setSocket(newSocket);
-
-    console.log("joinGame event emitted");
-    newSocket.emit("joinGame");
 
     newSocket.on("connect", () => {
       console.log("Socket connected with ID:", newSocket.id);
@@ -198,18 +197,24 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const handleRoomInput = (event) => {
     if (event.key === "Enter") {
       socket.emit("joinRoom", { roomId: event.target.value });
+      setIsJoinRoomVisible(false);
     }
+  };
+
+  const handleJoinRandomRoom = () => {
+    socket.emit("joinRandomRoom");
+    setIsJoinRoomVisible(false);
   };
 
   return (
     <>
       <div className="multiplayer-game-page__finder">
-        <h2>Find Room</h2>
-        <input
-          className="multiplayer-game-page__input"
-          placeholder="Enter Room ID"
-          onKeyDown={handleRoomInput}
-        />
+        {isJoinRoomVisible ? (
+          <JoinRoom
+            handleRoomInput={handleRoomInput}
+            handleJoinRandomRoom={handleJoinRandomRoom}
+          />
+        ) : null}
       </div>
       <OpponentAreaMultiplayer
         opponent={opponent}

@@ -25,7 +25,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
     };
 
     try {
-      const response = await axios.post(`${apiUrl}/register`, newUser);
+      const response = await axios.post(`${apiUrl}/user/register`, newUser);
       console.log(response);
       toggleForm();
     } catch (error) {
@@ -40,7 +40,10 @@ export const SignInRegisterForm = ({ onSuccess }) => {
     };
 
     try {
-      const response = await axios.post(`${apiUrl}/login`, userCredentials);
+      const response = await axios.post(
+        `${apiUrl}/user/login`,
+        userCredentials
+      );
       const accessToken = response.data.accessToken;
       localStorage.setItem("jwt", accessToken);
 

@@ -21,7 +21,7 @@ export default function StartNewGameModal({
             className={`start-new-game-modal__button`}
             onClick={() => navigate("/multiplayergame")}
           >
-            Play a Friend
+            Play Online
           </button>
           <button
             className={`start-new-game-modal__button`}

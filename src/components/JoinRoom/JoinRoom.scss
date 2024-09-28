@@ -1,0 +1,49 @@
+.multiplayer-game-page {
+  &__finder {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(10px); // For Safari support
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 13rem;
+    z-index: 2;
+    color: white;
+    text-align: center;
+  }
+  &__input {
+    display: flex;
+    width: 100%;
+    max-width: 20rem;
+    padding: 0.4rem;
+    margin-top: 0.5rem;
+    border: 0.1rem solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0);
+    color: #fff;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-family: "Modern Antiqua";
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+    }
+  }
+  &__button {
+    margin-top: 0.5rem;
+    padding: 0.4rem;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    font-family: "Modern Antiqua", sans-serif;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
