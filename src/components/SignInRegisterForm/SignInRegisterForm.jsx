@@ -54,7 +54,8 @@ export const SignInRegisterForm = ({ onSuccess }) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault(); // prevent default form submission behavior
     if (isRegistered) {
       registerNewUser();
     } else {
@@ -66,7 +67,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
     <div className="sign-in-register-form">
       <form
         className="sign-in-register-form__auth-form"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={handleSubmit}
       >
         {isRegistered && (
           <div className="sign-in-register-form__form-group">
@@ -81,6 +82,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
               className="sign-in-register-form__input"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </div>
         )}
@@ -96,6 +98,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
             className="sign-in-register-form__input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div className="sign-in-register-form__form-group">
@@ -110,6 +113,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
             className="sign-in-register-form__input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         {isRegistered && (
@@ -128,14 +132,11 @@ export const SignInRegisterForm = ({ onSuccess }) => {
               className="sign-in-register-form__input"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
           </div>
         )}
-        <button
-          onClick={handleSubmit}
-          type="button"
-          className="sign-in-register-form__button"
-        >
+        <button type="submit" className="sign-in-register-form__button">
           {isRegistered ? "Register" : "Login"}
         </button>
       </form>
