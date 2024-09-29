@@ -7,9 +7,9 @@ export default function AudioPlayer() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
 
   const songs = [
+    "/Manana Tepotzlan.mp3",
     "/Cumbia Sobre el Mar.mp3",
     "/Cumbia Del Olvido.mp3",
-    "/Manana Tepotzlan.mp3",
   ];
 
   useEffect(() => {

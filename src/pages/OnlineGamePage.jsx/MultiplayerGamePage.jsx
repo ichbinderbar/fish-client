@@ -110,6 +110,24 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
 
     socket.on("gameOver", (data) => {
       console.log("gameOver event received:", data);
+
+      const newGameState = data.gameState;
+
+      const { player1, player2, table, selectedTableCards, lastPlacedCard } =
+        newGameState;
+
+      if (socket.id === player1.id) {
+        setPlayer({ ...player1 });
+        setOpponent({ ...player2 });
+      } else {
+        setPlayer({ ...player2 });
+        setOpponent({ ...player1 });
+      }
+
+      setTable(table);
+      setSelectedTableCards(selectedTableCards);
+      setLastPlacedCard(lastPlacedCard);
+
       setGameOver(true);
       setWinner(data.winner);
     });
@@ -232,6 +250,8 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
             setSelectedTableCards,
           })
         }
+        gameOver={gameOver}
+        player={player}
       />
       <PlayerAreaMultiplayer
         player={player}
