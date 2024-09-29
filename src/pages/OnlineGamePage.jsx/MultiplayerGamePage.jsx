@@ -51,7 +51,6 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
     if (!socket) return;
 
     socket.on("startGame", (data) => {
-      console.log("startGame event received:", data);
       setRoomId(data.roomId);
 
       if (socket.id === data.player1.id) {
@@ -90,8 +89,6 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
     });
 
     socket.on("gameStateUpdate", (newGameState) => {
-      console.log("gameStateUpdate event received:", newGameState);
-
       const { player1, player2, table, selectedTableCards, lastPlacedCard } =
         newGameState;
 
@@ -109,8 +106,6 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
     });
 
     socket.on("gameOver", (data) => {
-      console.log("gameOver event received:", data);
-
       const newGameState = data.gameState;
 
       const { player1, player2, table, selectedTableCards, lastPlacedCard } =
@@ -161,8 +156,6 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
 
   useEffect(() => {
     if (gameOver) {
-      console.log("Game Over! Winner:", winner);
-
       socket.on("gameOver", (data) => {
         const { gameState, winner } = data;
         const { player1, player2, table, lastPlacedCard } = gameState;

@@ -47,7 +47,6 @@ export const SignInRegisterForm = ({ onSuccess }) => {
       const accessToken = response.data.accessToken;
       localStorage.setItem("jwt", accessToken);
 
-      // notify parent component of successful login
       if (onSuccess) onSuccess();
     } catch (error) {
       console.error("Error logging in:", error);
@@ -55,7 +54,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // prevent default form submission behavior
+    e.preventDefault();
     if (isRegistered) {
       registerNewUser();
     } else {

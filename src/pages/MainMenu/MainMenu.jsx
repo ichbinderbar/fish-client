@@ -22,7 +22,7 @@ export default function MainMenu({
   };
 
   const handleStartNewGameVsComputer = () => {
-    setIsStartNewGameModalVisible(true);
+    setIsStartNewGameModalVisible(false);
     setIsPersonalityModalVisible(true);
   };
 
