@@ -1,5 +1,5 @@
 import "./MultiplayerGamePage.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import { apiUrl } from "../../assets/data/Api";
 import TableMultiplayer from "../../components/TableMultiplayer/TableMultiplayer";
@@ -10,6 +10,8 @@ import handleHandCardSelectionMultiplayer from "../../game/handleHandCardSelecti
 import JoinRoom from "../../components/JoinRoom/JoinRoom";
 
 export default function MultiplayerGamePage({ handleThemeChange, theme }) {
+  const audioRefCard = useRef(null);
+  const audioRefCoins = useRef(null);
   const [socket, setSocket] = useState(null);
   const [roomId, setRoomId] = useState(null);
   const [player, setPlayer] = useState({
@@ -33,6 +35,44 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [emit, setEmit] = useState(false);
   const [winner, setWinner] = useState(null);
   const [isJoinRoomVisible, setIsJoinRoomVisible] = useState(true);
+
+  const previousPlayerCoins = useRef(player.coins);
+  const previousOpponentCoins = useRef(opponent.coins);
+
+  useEffect(() => {
+    let cardSoundPlayed = false;
+
+    if (audioRefCard.current && table.length !== 0) {
+      audioRefCard.current.play().catch((error) => {
+        console.error("Failed to play card sound:", error);
+      });
+      cardSoundPlayed = true;
+    }
+
+    if (audioRefCoins.current) {
+      const coinsIncreasedOrDecreased =
+        (player.coins > 0 && player.coins !== previousPlayerCoins.current) ||
+        (opponent.coins > 0 &&
+          opponent.coins !== previousOpponentCoins.current);
+
+      if (coinsIncreasedOrDecreased) {
+        if (cardSoundPlayed) {
+          setTimeout(() => {
+            audioRefCoins.current.play().catch((error) => {
+              console.error("Failed to play coins sound:", error);
+            });
+          }, 500);
+        } else {
+          audioRefCoins.current.play().catch((error) => {
+            console.error("Failed to play coins sound:", error);
+          });
+        }
+      }
+    }
+
+    previousPlayerCoins.current = player.coins;
+    previousOpponentCoins.current = opponent.coins;
+  }, [table, player.coins, opponent.coins]);
 
   useEffect(() => {
     const newSocket = io(apiUrl);
@@ -219,6 +259,14 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
 
   return (
     <>
+      <audio ref={audioRefCoins} preload="auto" style={{ display: "none" }}>
+        <source src="/coins.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <audio ref={audioRefCard} preload="auto" style={{ display: "none" }}>
+        <source src="/card.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
       <div className="multiplayer-game-page__finder">
         {isJoinRoomVisible ? (
           <JoinRoom
