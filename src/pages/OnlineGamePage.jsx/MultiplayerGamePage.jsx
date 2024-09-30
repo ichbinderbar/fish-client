@@ -260,7 +260,6 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
 
   return (
     <>
-      <IsActiveAlert player={player} opponent={opponent} />
       <audio ref={audioRefCoins} preload="auto" style={{ display: "none" }}>
         <source src="/coins.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.

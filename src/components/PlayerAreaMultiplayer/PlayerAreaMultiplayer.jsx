@@ -1,6 +1,7 @@
 import CardsCollectedCounter from "../CardsCollected/CardsCollectedCounter";
 import CoinsEarnedCounter from "../CoinsEarned/CoinsEarnedCounter";
 import Hand from "../Hand/Hand";
+import IsActiveAlert from "../IsActiveAlert/IsActiveAlert";
 
 export default function PlayerAreaMultiplayer({
   player,
@@ -9,6 +10,7 @@ export default function PlayerAreaMultiplayer({
 }) {
   return (
     <div className={`player-area player-area--${theme}`}>
+      <IsActiveAlert player={player} />
       <div className="player-area__stat-container">
         <CardsCollectedCounter
           fishedCards={player.fishedCards}
