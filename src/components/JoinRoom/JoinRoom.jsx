@@ -3,18 +3,18 @@ import "./JoinRoom.scss";
 export default function JoinRoom({ handleRoomInput, handleJoinRandomRoom }) {
   return (
     <>
-      <h2>Find a Room</h2>
-      <input
-        className="multiplayer-game-page__input"
-        placeholder="Enter Room ID"
-        onKeyDown={handleRoomInput}
-      />
-      <button
-        className="multiplayer-game-page__button"
-        onClick={handleJoinRandomRoom}
-      >
-        Join Random Room
-      </button>
+      <div className={"join-room__finder"}>
+        <p>Find a Room</p>
+        <input
+          className="join-room__input"
+          placeholder="Enter Room ID"
+          onKeyDown={handleRoomInput}
+        />
+        <p className="join-room__or">or</p>
+        <button className="join-room__button" onClick={handleJoinRandomRoom}>
+          Join Random Room
+        </button>
+      </div>
     </>
   );
 }

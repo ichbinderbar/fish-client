@@ -5,13 +5,20 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.05);
   padding: 0.5rem;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(10px); // For Safari support
   border: 1px solid rgba(255, 255, 255, 0.1);
   max-width: 13rem;
+  background-color: purple;
+
+  &__confirm {
+    background: rgb(0, 211, 0);
+  }
+  &__cancel {
+    background-color: red;
+  }
 
   &__container {
     position: fixed;
@@ -43,13 +50,15 @@
       padding: 0.4rem;
       margin-top: 0.5rem;
       border: 0.1rem solid rgba(255, 255, 255, 0.1);
-      background: rgba(255, 255, 255, 0);
+      background: rgb(0, 211, 0);
       color: #fff;
       font-size: 1rem;
       box-sizing: border-box;
       font-family: "Modern Antiqua";
+      text-align: center;
+
       &::placeholder {
-        color: rgba(255, 255, 255, 0.6);
+        color: purple;
       }
     }
   }
@@ -60,7 +69,6 @@
     margin-top: 0.5rem;
     padding: 0.4rem;
     width: 100%;
-    background: rgba(255, 255, 255, 0.1);
     border: none;
     color: white;
     font-size: 1rem;
@@ -68,7 +76,7 @@
     cursor: pointer;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.2);
+      filter: brightness(150%);
     }
   }
 

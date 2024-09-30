@@ -13,9 +13,9 @@ export default function StartNewGameModal({
   const navigate = useNavigate();
 
   return (
-    <div className={`start-new-game-modal__container`}>
-      <div className={`modal`}>
-        <div className={`start-new-game-modal__content`}>
+    <div className={"start-new-game-modal__container"}>
+      <div className={"start-new-game-modal"}>
+        <div className={"start-new-game-modal__content"}>
           <p>{message}</p>
           <button
             className={`start-new-game-modal__button`}
@@ -24,12 +24,12 @@ export default function StartNewGameModal({
             Play Online
           </button>
           <button
-            className={`start-new-game-modal__button`}
+            className={"start-new-game-modal__button"}
             onClick={handleStartNewGameVsComputer}
           >
-            Play the Computer
+            Play an AI
           </button>
-          <button className={`start-new-game-modal__cancel`} onClick={onCancel}>
+          <button className={"start-new-game-modal__cancel"} onClick={onCancel}>
             Go back
           </button>
         </div>

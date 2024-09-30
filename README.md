@@ -68,9 +68,11 @@ Sprint 3 (30/09-04/10): Styling
 
 ## Future Implementations
 
-- Auto log out
-- Create room/join existing room feature
+- Sound effects for multiplayer page
 - Chat for online games
+- Your session has expired/auto log out feature
+- Create room/join existing room feature
 - Reconnection sync for online game
+- Guest UUID + temp account feature
 - Private leaderboard
 - Profile form
