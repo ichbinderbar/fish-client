@@ -92,6 +92,8 @@ export default function InstructionsBoard({ theme }) {
               At the end of each round each player's captured cards get counted
               and exchanged for coins, and the game continues to the next round
               if neither player has reached 20 points.
+              <br />
+              The player who plays last in one round starts the next.
             </p>
             <br />
             <h3>Game Over:</h3>
