@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./SignInRegisterForm.scss";
 import axios from "axios";
 import { apiUrl } from "../../assets/data/Api";
+import errorIcon from "../../assets/icons/error.svg";
 
 export const SignInRegisterForm = ({ onSuccess }) => {
   const [isRegistered, setIsRegistered] = useState(false);
@@ -9,12 +10,24 @@ export const SignInRegisterForm = ({ onSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [alert, setAlert] = useState("");
 
-  const toggleForm = () => setIsRegistered(!isRegistered);
+  const toggleForm = () => {
+    setIsRegistered(!isRegistered);
+    setAlert("");
+  };
 
   const registerNewUser = async () => {
+    if (username === "") {
+      setAlert("Username is required");
+      return;
+    }
+    if (email !== "") {
+      setAlert("Email is required");
+      return;
+    }
     if (password !== confirmPassword) {
-      console.error("Passwords do not match");
+      setAlert("Passwords do not match");
       return;
     }
 
@@ -29,7 +42,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
       console.log(response);
       toggleForm();
     } catch (error) {
-      console.error("Error registering new user:", error);
+      setAlert(error.response.data.message);
     }
   };
 
@@ -49,7 +62,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
 
       if (onSuccess) onSuccess();
     } catch (error) {
-      console.error("Error logging in:", error);
+      setAlert(error.response.data.message);
     }
   };
 
@@ -138,6 +151,18 @@ export const SignInRegisterForm = ({ onSuccess }) => {
         <button type="submit" className="sign-in-register-form__button">
           {isRegistered ? "Register" : "Login"}
         </button>
+        <p className="sign-in-register-form__alert">
+          {alert !== "" && (
+            <>
+              <img
+                className="sign-in-register-form__alert-icon"
+                src={errorIcon}
+                alt="Error icon"
+              />
+              {`${alert}`}
+            </>
+          )}
+        </p>
       </form>
       <p className="sign-in-register-form__toggle-link">
         {isRegistered ? (

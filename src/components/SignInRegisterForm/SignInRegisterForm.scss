@@ -6,6 +6,7 @@
   width: 100%;
   height: 100%;
   color: white;
+  text-shadow: none;
 
   &__auth-form {
     display: flex;
@@ -58,6 +59,22 @@
     &::placeholder {
       color: white;
     }
+  }
+
+  &__alert {
+    display: flex;
+    position: absolute;
+    top: -0.8rem;
+    color: red;
+    font-size: 0.8rem;
+    background-color: yellow;
+    padding: 0 0.5rem;
+    border-radius: 5px;
+  }
+
+  &__alert-icon {
+    width: 15px;
+    margin-right: 0.5rem;
   }
 
   &__button {
