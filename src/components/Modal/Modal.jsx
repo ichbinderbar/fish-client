@@ -13,9 +13,9 @@ export default function Modal({
   setOpponentLevel,
   placeholder,
 }) {
-  if (!isVisible) return null;
-
   const navigate = useNavigate();
+
+  if (!isVisible) return null;
 
   const handleLevelSelect = (bot) => {
     setOpponentLevel(bot);

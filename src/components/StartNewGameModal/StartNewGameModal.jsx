@@ -8,28 +8,28 @@ export default function StartNewGameModal({
   onCancel,
   message,
 }) {
-  if (!isVisible) return null;
-
   const navigate = useNavigate();
 
+  if (!isVisible) return null;
+
   return (
-    <div className={"start-new-game-modal__container"}>
-      <div className={"start-new-game-modal"}>
-        <div className={"start-new-game-modal__content"}>
+    <div className="start-new-game-modal__container">
+      <div className="start-new-game-modal">
+        <div className="start-new-game-modal__content">
           <p>{message}</p>
           <button
-            className={`start-new-game-modal__button`}
+            className="start-new-game-modal__button"
             onClick={() => navigate("/multiplayergame")}
           >
             Play Online
           </button>
           <button
-            className={"start-new-game-modal__button"}
+            className="start-new-game-modal__button"
             onClick={handleStartNewGameVsComputer}
           >
             Play an AI
           </button>
-          <button className={"start-new-game-modal__cancel"} onClick={onCancel}>
+          <button className="start-new-game-modal__cancel" onClick={onCancel}>
             Go back
           </button>
         </div>

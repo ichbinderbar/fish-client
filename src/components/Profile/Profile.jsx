@@ -1,15 +1,8 @@
 import "./Profile.scss";
 import userDpPlaceholder from "../../assets/images/user-dp.svg";
 import LogoutButton from "../LogOutButton/LogOutButton";
-import { useNavigate } from "react-router-dom";
 
 export default function Profile({ user, setIsAuthorized, setUser }) {
-  const navigate = useNavigate();
-
-  if (!user) {
-    navigate("/user#register");
-  }
-
   return (
     <>
       <div className="user-card__container">
