@@ -47,7 +47,7 @@ export default function Profile({ user, setIsAuthorized, setUser }) {
                 onChange={(e) => setUserRole(e.target.value)}
                 required
               >
-                <option value="" disabled>
+                <option value="" disabled selected>
                   Select your role
                 </option>
                 <option value="recruiter">Recruiter</option>
