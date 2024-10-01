@@ -68,7 +68,6 @@ Sprint 3 (30/09-04/10): Styling
 
 ## Future Implementations
 
-- Add favicon
 - Add timer and auto-play for turns
 - Chat for online games
 - Your session has expired/auto log out feature
