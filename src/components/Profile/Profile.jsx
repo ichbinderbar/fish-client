@@ -2,11 +2,31 @@ import "./Profile.scss";
 import userDpPlaceholder from "../../assets/images/user-dp.svg";
 import LogoutButton from "../LogOutButton/LogOutButton";
 import { useState } from "react";
+import axios from "axios";
+import { apiUrl } from "../../assets/data/Api";
 
 export default function Profile({ user, setIsAuthorized, setUser }) {
   const [feedback, setFeedback] = useState("");
+  const [userRole, setUserRole] = useState("");
 
-  console.log(feedback);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      username: user.username,
+      email: user.email,
+      feedback,
+      userRole,
+    };
+
+    try {
+      const response = await axios.post(`${apiUrl}/user/feedback`, formData);
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <>
@@ -30,7 +50,7 @@ export default function Profile({ user, setIsAuthorized, setUser }) {
           />
         </div>
       </div>
-      <form className="user-card__container">
+      <form className="user-card__container" onSubmit={handleSubmit}>
         <textarea
           className="user-card__feedback-box"
           placeholder="Please leave your feedback here"
@@ -59,11 +79,7 @@ export default function Profile({ user, setIsAuthorized, setUser }) {
             </label>
           </div>
           <div className="user-card__contact-checkbox">
-            <input
-              type="checkbox"
-              onChange={(e) => setContactPermission(e.target.checked)}
-              required
-            />
+            <input type="checkbox" required />
             I'd like to be contacted by the creator
           </div>
           <button className="user-card__feedback-button">Submit</button>
