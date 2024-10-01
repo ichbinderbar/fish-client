@@ -39,7 +39,6 @@ export const SignInRegisterForm = ({ onSuccess }) => {
 
     try {
       const response = await axios.post(`${apiUrl}/user/register`, newUser);
-      console.log("Response:", response);
       toggleForm();
     } catch (error) {
       setAlert(error.response.data.message);

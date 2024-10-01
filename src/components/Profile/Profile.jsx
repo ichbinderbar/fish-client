@@ -1,12 +1,17 @@
 import "./Profile.scss";
 import userDpPlaceholder from "../../assets/images/user-dp.svg";
 import LogoutButton from "../LogOutButton/LogOutButton";
+import { useState } from "react";
 
 export default function Profile({ user, setIsAuthorized, setUser }) {
+  const [feedback, setFeedback] = useState("");
+
+  console.log(feedback);
+
   return (
     <>
       <div className="user-card__container">
-        <div className="user-card__photo">
+        <div className="user-card__photo-container">
           <img
             src={user?.photo || userDpPlaceholder}
             alt="User"
@@ -25,13 +30,45 @@ export default function Profile({ user, setIsAuthorized, setUser }) {
           />
         </div>
       </div>
-      <div className="user-card__container">
+      <form className="user-card__container">
         <textarea
           className="user-card__feedback-box"
           placeholder="Please leave your feedback here"
+          onChange={(e) => setFeedback(e.target.value)}
+          required
         ></textarea>
-        <button className="user-card__feedback-button">Submit</button>
-      </div>
+
+        <div className="user-card__feedback-options">
+          <div className="user-card__dropdown">
+            <label>
+              Please select an option
+              <select
+                placeholder="Select your role"
+                onChange={(e) => setUserRole(e.target.value)}
+                required
+              >
+                <option value="" disabled>
+                  Select your role
+                </option>
+                <option value="recruiter">Recruiter</option>
+                <option value="educator">Educator</option>
+                <option value="student">Student</option>
+                <option value="alumni">Alumni</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+          </div>
+          <div className="user-card__contact-checkbox">
+            <input
+              type="checkbox"
+              onChange={(e) => setContactPermission(e.target.checked)}
+              required
+            />
+            I'd like to be contacted by the creator
+          </div>
+          <button className="user-card__feedback-button">Submit</button>
+        </div>
+      </form>
     </>
   );
 }
