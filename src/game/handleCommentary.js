@@ -1,9 +1,6 @@
 import axios from "axios";
 import { apiUrlOpenAi as apiUrl } from "../assets/data/Api";
 
-// const apiUrl = "https://openai-experimental-server-eff701d4fdb7.herokuapp.com/";
-// const apiUrl = "http://localhost:5000/";
-
 export default async function handleCommentary(
   commentaryContext,
   player,
@@ -37,15 +34,13 @@ export default async function handleCommentary(
     });
 
     const commentary = result.data.choices[0].message.content;
-    // const commentary =
-    //   "Disconnected";
-    // console.log("Commentary:", commentary);
+
     return commentary;
   } catch (error) {
     console.error(
-      "Error fetching commentary:",
+      "AI commentary is not available right now",
       error.response ? error.response.data : error.message
     );
-    return "Error fetching commentary";
+    return "AI commentary is not available right now";
   }
 }
