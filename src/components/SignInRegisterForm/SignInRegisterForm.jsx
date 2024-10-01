@@ -22,7 +22,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
       setAlert("Username is required");
       return;
     }
-    if (email !== "") {
+    if (email === "") {
       setAlert("Email is required");
       return;
     }
