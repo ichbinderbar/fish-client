@@ -1,5 +1,6 @@
 .user-card {
   &__container {
+    text-shadow: none;
     display: flex;
     padding: 0.5rem;
     background: rgba(255, 255, 255, 0.05);
@@ -176,7 +177,7 @@
   &__alert {
     display: flex;
     position: absolute;
-    bottom: -0.2rem;
+    bottom: -0.5rem;
     left: 50%;
     transform: translate(-50%);
     min-width: 13rem;
@@ -186,5 +187,6 @@
     background-color: yellow;
     padding: 0 0.5rem;
     border-radius: 5px;
+    text-shadow: none;
   }
 }
