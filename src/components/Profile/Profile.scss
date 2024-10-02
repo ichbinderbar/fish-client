@@ -1,3 +1,5 @@
+@use "../../styles/partials/mixins" as *;
+
 .user-card {
   &__container {
     text-shadow: none;
@@ -7,10 +9,13 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(1px);
     width: 100%;
-    max-width: 24rem;
-    min-width: 20rem;
+    max-width: 21rem;
     margin: 0.5rem auto 0;
     border: solid 1px rgba(255, 255, 255, 0.1);
+
+    @include tablet {
+      max-width: 41rem;
+    }
   }
 
   &__photo-container {
@@ -93,6 +98,11 @@
 
     &:hover {
       filter: brightness(150%);
+    }
+
+    @include tablet {
+      max-width: 14rem;
+      align-self: flex-end;
     }
   }
 
