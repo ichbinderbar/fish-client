@@ -13,11 +13,27 @@ export default function Profile({ user, setIsAuthorized, setUser }) {
     user?.photo || userDpPlaceholder
   );
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(file);
       setPreviewImage(URL.createObjectURL(file));
+
+      const formData = new FormData();
+      formData.append("photo", file);
+
+      try {
+        const response = await axios.patch(`${apiUrl}/user/profile`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        });
+
+        console.log("Photo uploaded successfully:", response.data);
+      } catch (error) {
+        console.error("Error uploading photo:", error);
+      }
     }
   };
 
@@ -32,7 +48,11 @@ export default function Profile({ user, setIsAuthorized, setUser }) {
     };
 
     try {
-      const response = await axios.post(`${apiUrl}/user/feedback`, formData);
+      const response = await axios.post(`${apiUrl}/user/feedback`, formData, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      });
 
       console.log(response.data);
     } catch (error) {
