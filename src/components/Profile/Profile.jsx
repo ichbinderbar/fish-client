@@ -8,6 +8,18 @@ import { apiUrl } from "../../assets/data/Api";
 export default function Profile({ user, setIsAuthorized, setUser }) {
   const [feedback, setFeedback] = useState("");
   const [userRole, setUserRole] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(
+    user?.photo || userDpPlaceholder
+  );
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreviewImage(URL.createObjectURL(file));
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,10 +45,26 @@ export default function Profile({ user, setIsAuthorized, setUser }) {
       <div className="user-card__container">
         <div className="user-card__photo-container">
           <img
-            src={user?.photo || userDpPlaceholder}
+            src={
+              selectedImage
+                ? URL.createObjectURL(selectedImage)
+                : user?.photo || userDpPlaceholder
+            }
             alt="User"
             className="user-card__photo-image"
           />
+          <div className="user-card__photo-upload">
+            <label htmlFor="fileInput" className="user-card__upload-icon">
+              <input
+                type="file"
+                accept="image/*"
+                id="fileInput"
+                className="user-card__file-input"
+                onChange={handleImageChange}
+              />
+              ✏️
+            </label>
+          </div>
         </div>
         <div className="user-card__details">
           <h2 className="user-card__details-username">

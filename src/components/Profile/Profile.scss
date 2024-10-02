@@ -14,19 +14,42 @@
   }
 
   &__photo-container {
+    position: relative;
     justify-content: center;
     align-items: center;
     margin: auto;
   }
 
   &__photo-image {
-    height: 5rem;
-    width: 5rem;
+    height: 8rem;
+    width: 8rem;
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: solid 1px rgba(255, 255, 255, 0.1);
     background: rgba(255, 255, 255, 0.1);
+  }
+
+  &__file-input {
+    display: none;
+  }
+
+  &__upload-icon {
+    display: flex;
+    position: absolute;
+    cursor: pointer;
+    right: 0rem;
+    top: 0rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0.4rem;
+    border: solid 1px rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    text-shadow: none;
+    line-height: 0%;
   }
 
   &__details {
