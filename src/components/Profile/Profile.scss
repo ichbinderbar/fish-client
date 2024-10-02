@@ -172,4 +172,19 @@
       color: rgb(0, 0, 0);
     }
   }
+
+  &__alert {
+    display: flex;
+    position: absolute;
+    bottom: -0.2rem;
+    left: 50%;
+    transform: translate(-50%);
+    min-width: 13rem;
+    justify-content: center;
+    color: red;
+    font-size: 0.8rem;
+    background-color: yellow;
+    padding: 0 0.5rem;
+    border-radius: 5px;
+  }
 }
