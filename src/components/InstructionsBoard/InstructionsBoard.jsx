@@ -1,11 +1,36 @@
+import { useState } from "react";
 import "./InstructionsBoard.scss";
 
 export default function InstructionsBoard({ theme }) {
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const toggleFullScreen = () => {
+    setIsFullScreen((prev) => !prev);
+  };
+
   return (
     <div
       className={`instructions-board__main-container instructions-board__main-container--${theme}`}
     >
-      <h1 className="instructions-board__title">How To Play:</h1>
+      <h1 className="instructions-board__title">
+        How To Play:
+        <div
+          className="instructions-board__icon-container"
+          onClick={toggleFullScreen}
+        >
+          <span className="instructions-board__icon">▶️</span>
+        </div>
+        {isFullScreen && (
+          <iframe
+            className="instructions-board__video"
+            src="https://www.loom.com/embed/147ee3349cf04b509f4f57a42329b9b2?sid=b2bae610-9f50-411c-966d-bb253da85f94"
+            frameborder="0"
+            webkitallowfullscreen
+            mozallowfullscreen
+            allowfullscreen
+          ></iframe>
+        )}
+      </h1>
       <div
         className={`instructions-board__subcontainer instructions-board__subcontainer--${theme}`}
       >

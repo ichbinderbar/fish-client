@@ -40,11 +40,30 @@
   }
   &__title {
     display: flex;
+    position: relative;
     margin-bottom: 1rem;
     color: rgb(255, 217, 0);
     text-shadow: 0 1px rgba(0, 0, 0, 0.797);
     text-transform: uppercase;
   }
+
+  &__video {
+    display: flex;
+    position: absolute;
+    top: 3rem;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 2;
+    height: 20rem;
+  }
+
+  &__icon {
+    display: flex;
+    position: absolute;
+    right: 0rem;
+    cursor: pointer;
+  }
+
   &__content {
     display: flex;
     color: antiquewhite;
