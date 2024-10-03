@@ -8,8 +8,8 @@ export default function AudioPlayer() {
 
   const songs = [
     "/Manana Tepotzlan.mp3",
-    "/Cumbia Sobre el Mar.mp3",
     "/Cumbia Del Olvido.mp3",
+    "/Cumbia Sobre el Mar.mp3",
   ];
 
   useEffect(() => {
