@@ -96,7 +96,7 @@ export default function GamePage({
       setAnimate(true);
       setTimeout(() => {
         setAnimate(false);
-      }, 8000);
+      }, 10000);
     }
   }, [commentary]);
 
@@ -291,7 +291,7 @@ export default function GamePage({
         setTurnCount((prevTurnCount) => {
           const turnCount = prevTurnCount + 1;
           // console.log("Updated table count:", TurnCount);
-          if (turnCount % 8 === 0) {
+          if (turnCount % 7 === 0) {
             if (!gameOver) {
               addToCommentaryContext(
                 `
@@ -313,7 +313,7 @@ export default function GamePage({
               );
             }
           }
-          if (turnCount % 20 === 0) {
+          if (turnCount % 19 === 0) {
             if (!gameOver) {
               addToCommentaryContext(
                 `

@@ -62,7 +62,7 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
             audioRefCoins.current.play().catch((error) => {
               console.error("Failed to play coins sound:", error);
             });
-          }, 500);
+          }, 300);
         } else {
           audioRefCoins.current.play().catch((error) => {
             console.error("Failed to play coins sound:", error);
