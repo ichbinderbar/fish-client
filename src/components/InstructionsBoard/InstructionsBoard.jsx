@@ -24,7 +24,7 @@ export default function InstructionsBoard({ theme }) {
           <iframe
             className="instructions-board__video"
             src="https://www.loom.com/embed/147ee3349cf04b509f4f57a42329b9b2?sid=b2bae610-9f50-411c-966d-bb253da85f94"
-            allowfullscreen
+            allowFullScreen
           ></iframe>
         )}
       </h1>
