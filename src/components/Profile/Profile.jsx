@@ -4,6 +4,7 @@ import LogoutButton from "../LogOutButton/LogOutButton";
 import { useState } from "react";
 import axios from "axios";
 import { apiUrl } from "../../assets/data/Api";
+import { Navigate } from "react-router-dom";
 
 export default function Profile({ user, setIsAuthorized, setUser }) {
   const [feedback, setFeedback] = useState("");
@@ -14,6 +15,11 @@ export default function Profile({ user, setIsAuthorized, setUser }) {
   );
   const [alert, setAlert] = useState("");
   const [isVisible, setIsVisible] = useState(true);
+
+  if (!user) {
+    localStorage.removeItem("jwt");
+    return <Navigate to="/user#login"></Navigate>;
+  }
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];

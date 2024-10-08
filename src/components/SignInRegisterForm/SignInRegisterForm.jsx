@@ -168,7 +168,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
           <>
             Already have an account?{" "}
             <a
-              href="#login"
+              href="#register"
               className="sign-in-register-form__link"
               onClick={toggleForm}
             >
@@ -179,7 +179,7 @@ export const SignInRegisterForm = ({ onSuccess }) => {
           <>
             Don't have an account?{" "}
             <a
-              href="#register"
+              href="#login"
               className="sign-in-register-form__link"
               onClick={toggleForm}
             >

@@ -7,7 +7,7 @@ import ProfileCard from "./components/ProfileCard/ProfileCard";
 import GamePage from "./pages/GamePage/GamePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MultiplayerGamePage from "./pages/OnlineGamePage.jsx/MultiplayerGamePage";
-import getUser from "./utils/getUser";
+import getUser from "./utils/authUtils";
 import { opponent } from "./game/PlayerObjects";
 
 function App() {
