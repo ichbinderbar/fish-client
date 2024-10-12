@@ -23,7 +23,7 @@ export default function InstructionsBoard({ theme }) {
         {isFullScreen && (
           <iframe
             className="instructions-board__video"
-            src="https://www.loom.com/embed/147ee3349cf04b509f4f57a42329b9b2?sid=b2bae610-9f50-411c-966d-bb253da85f94"
+            src="https://www.loom.com/embed/98b4029303254247a63ee29f9f62b69b?sid=126a96c3-ba4f-4d07-b14e-f61d1f65602e"
             allowFullScreen
           ></iframe>
         )}
