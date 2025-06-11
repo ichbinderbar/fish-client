@@ -29,7 +29,7 @@ export default async function handleCommentary(
   console.log(promptMessage);
 
   try {
-    const result = await axios.post(`${apiUrl}api/get-response`, {
+    const result = await axios.post(`${apiUrl}/api/get-response`, {
       prompt: promptMessage,
     });
 
