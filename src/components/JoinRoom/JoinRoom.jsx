@@ -4,13 +4,16 @@ export default function JoinRoom({
   handleRoomInput,
   handleJoinRandomRoom,
   isWaitingForPlayer,
+  joiningRoomId,
 }) {
   return (
     <>
       <div className={"join-room__finder"}>
         {isWaitingForPlayer ? (
           <div className="waiting-message">
-            Waiting for another player to join...
+            {joiningRoomId
+              ? `Waiting for opponent to join room ${joiningRoomId}...`
+              : "Waiting for another player to join..."}
           </div>
         ) : (
           <>

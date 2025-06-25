@@ -38,6 +38,7 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [isJoinRoomVisible, setIsJoinRoomVisible] = useState(true);
   const [cardsCollected, setCardsCollected] = useState(null);
   const [isWaitingForPlayer, setIsWaitingForPlayer] = useState(false);
+  const [joiningRoomId, setJoiningRoomId] = useState(null);
 
   const previousPlayerCoins = useRef(player.coins);
   const previousOpponentCoins = useRef(opponent.coins);
@@ -98,8 +99,6 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
 
     socket.on("startGame", (data) => {
       setRoomId(data.roomId);
-      setIsWaitingForPlayer(false);
-      setIsJoinRoomVisible(false);
 
       if (socket.id === data.player1.id) {
         setPlayer({
@@ -145,6 +144,18 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
         previousOpponentRef.current = { ...data.player2 };
       } else if (socket.id === data.player2.id) {
         previousOpponentRef.current = { ...data.player1 };
+      }
+
+      // Only hide waiting message and join room when both players have cards
+      const player1HasCards =
+        Array.isArray(data.player1?.hand) && data.player1.hand.length > 0;
+      const player2HasCards =
+        Array.isArray(data.player2?.hand) && data.player2.hand.length > 0;
+
+      if (player1HasCards && player2HasCards) {
+        setIsWaitingForPlayer(false);
+        setIsJoinRoomVisible(false);
+        setJoiningRoomId(null);
       }
     });
 
@@ -339,8 +350,10 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
 
   const handleRoomInput = (event) => {
     if (event.key === "Enter") {
-      socket.emit("joinRoom", { roomId: event.target.value });
-      setIsJoinRoomVisible(false);
+      const roomId = event.target.value;
+      socket.emit("joinRoom", { roomId });
+      setJoiningRoomId(roomId);
+      setIsWaitingForPlayer(true);
     }
   };
 
@@ -365,6 +378,7 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
             handleRoomInput={handleRoomInput}
             handleJoinRandomRoom={handleJoinRandomRoom}
             isWaitingForPlayer={isWaitingForPlayer}
+            joiningRoomId={joiningRoomId}
           />
         ) : null}
       </div>
