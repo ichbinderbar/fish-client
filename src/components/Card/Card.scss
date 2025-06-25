@@ -77,10 +77,6 @@
   &--selected {
     @include selected-card;
   }
-  &--net {
-    // animation: changeColors 5s infinite linear;
-    background-color: black;
-  }
 }
 
 // @keyframes changeColors {

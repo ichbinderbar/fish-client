@@ -118,6 +118,11 @@ export function lisaBot({
     const isMatchWithLastPlacedCard =
       lastPlacedCard && lastPlacedCard.number === longestCombination.hook;
 
+    // Get the actual card objects that were collected from the table
+    const collectedCards = currentTable.filter((card) =>
+      longestCombination.cardsArray.includes(card.number)
+    );
+
     // console.log("Updated hand:", updatedHand);
     // console.log("Updated table:", updatedTable);
     // console.log(
@@ -144,7 +149,11 @@ export function lisaBot({
     setTable(updatedTableWithoutCombination);
 
     setLastPlacedCard(fishingCard);
-    setCardsCollected(longestCombination);
+    setCardsCollected({
+      ...longestCombination,
+      collectedCards: collectedCards,
+      fishingCard: fishingCard,
+    });
   } else {
     console.log(`${opponent.id} could not play any card.`);
   }
@@ -205,6 +214,11 @@ export function juanBot({
     const isMatchWithLastPlacedCard =
       lastPlacedCard && lastPlacedCard.number === longestCombination.hook;
 
+    // Get the actual card objects that were collected from the table
+    const collectedCards = currentTable.filter((card) =>
+      longestCombination.cardsArray.includes(card.number)
+    );
+
     // console.log("Updated hand:", updatedHand);
     // console.log("Updated table:", updatedTable);
     // console.log(
@@ -231,7 +245,11 @@ export function juanBot({
     setTable(updatedTableWithoutCombination);
 
     setLastPlacedCard(fishingCard);
-    setCardsCollected(longestCombination);
+    setCardsCollected({
+      ...longestCombination,
+      collectedCards: collectedCards,
+      fishingCard: fishingCard,
+    });
   } else {
     console.log(`${opponent.id} could not play any card.`);
   }

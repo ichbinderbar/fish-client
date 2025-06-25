@@ -60,9 +60,9 @@ export default function Table({
       {!gameOver &&
         cards.map((card, index) => (
           <Card
-            className={`card card__${card.color} card--${
-              [1, 8, 9, 10].includes(card.number) ? "net" : card.number
-            } ${card.selected ? `card__${card.color}--selected` : ""}`}
+            className={`card card__${card.color} card--${card.number} ${
+              card.selected ? `card__${card.color}--selected` : ""
+            }`}
             onClick={() => handleTableCardSelection(card)}
             key={index}
             color={card.color}

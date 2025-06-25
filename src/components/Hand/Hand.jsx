@@ -8,9 +8,7 @@ export default function Hand({ player, handleHandCardSelection }) {
     <div className="hand">
       {playerCards.map((card, index) => (
         <Card
-          className={`card card__${card.color} card--${
-            [1, 8, 9, 10].includes(card.number) ? "net" : card.number
-          }`}
+          className={`card card__${card.color} card--${card.number}`}
           onClick={() => handleHandCardSelection(card)}
           key={index}
           color={card.color}

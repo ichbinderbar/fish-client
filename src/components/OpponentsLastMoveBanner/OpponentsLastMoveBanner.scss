@@ -1,0 +1,41 @@
+.opponent-area {
+  &__cards-collected {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.opponents-last-move {
+  &-card {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 30px;
+    margin-right: 6px;
+    margin-bottom: 2px;
+    border: 1px solid yellow;
+    border-radius: 3px;
+    color: white;
+    font-weight: normal;
+    font-size: 15px;
+    text-align: center;
+    box-shadow: 0 0 4px #0008;
+    vertical-align: middle;
+  }
+
+  &-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+
+    .opponents-last-move-card {
+      margin-left: 8px;
+    }
+  }
+
+  &-label {
+    margin-bottom: 2px;
+  }
+}
