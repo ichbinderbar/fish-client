@@ -36,9 +36,13 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [emit, setEmit] = useState(false);
   const [winner, setWinner] = useState(null);
   const [isJoinRoomVisible, setIsJoinRoomVisible] = useState(true);
+  const [cardsCollected, setCardsCollected] = useState(null);
 
   const previousPlayerCoins = useRef(player.coins);
   const previousOpponentCoins = useRef(opponent.coins);
+  const previousOpponentFishedCardsRef = useRef(0);
+  const previousTableRef = useRef([]);
+  const previousOpponentRef = useRef(null);
 
   useEffect(() => {
     let cardSoundPlayed = false;
@@ -127,23 +131,105 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
       } else {
         console.warn("Player is not part of this game");
       }
+
+      // Initialize previous values
+      previousOpponentFishedCardsRef.current =
+        data.player1?.fishedCards || data.player2?.fishedCards || 0;
+      previousTableRef.current = [];
+
+      // Set initial opponent state
+      if (socket.id === data.player1.id) {
+        previousOpponentRef.current = { ...data.player2 };
+      } else if (socket.id === data.player2.id) {
+        previousOpponentRef.current = { ...data.player1 };
+      }
     });
 
     socket.on("gameStateUpdate", (newGameState) => {
       const { player1, player2, table, selectedTableCards, lastPlacedCard } =
         newGameState;
 
+      let currentPlayer, currentOpponent;
       if (socket.id === player1.id) {
-        setPlayer({ ...player1 });
-        setOpponent({ ...player2 });
+        currentPlayer = { ...player1 };
+        currentOpponent = { ...player2 };
       } else {
-        setPlayer({ ...player2 });
-        setOpponent({ ...player1 });
+        currentPlayer = { ...player2 };
+        currentOpponent = { ...player1 };
       }
 
+      // Check if opponent collected cards (their fishedCards increased)
+      if (
+        currentOpponent.fishedCards > previousOpponentFishedCardsRef.current
+      ) {
+        const cardsCollectedCount =
+          currentOpponent.fishedCards - previousOpponentFishedCardsRef.current;
+
+        // Find cards that were removed from the table (collected by opponent)
+        const collectedCards = previousTableRef.current.filter(
+          (prevCard) =>
+            !table.some(
+              (currentCard) =>
+                currentCard.number === prevCard.number &&
+                currentCard.color === prevCard.color
+            )
+        );
+
+        // Find the fishing card by looking at what was removed from opponent's hand
+        let fishingCard = null;
+        if (previousOpponentRef.current) {
+          fishingCard = previousOpponentRef.current.hand.find(
+            (prevCard) =>
+              !currentOpponent.hand.some(
+                (currentCard) =>
+                  currentCard.number === prevCard.number &&
+                  currentCard.color === prevCard.color
+              )
+          );
+        }
+
+        if (collectedCards.length > 0 && fishingCard) {
+          setCardsCollected({
+            totalCards: cardsCollectedCount,
+            collectedCards: collectedCards,
+            fishingCard: fishingCard,
+            hook: fishingCard.number,
+          });
+        }
+      } else if (
+        previousOpponentRef.current &&
+        currentOpponent.hand.length < previousOpponentRef.current.hand.length
+      ) {
+        // Opponent placed a card without collecting - still show the fishing card
+        const fishingCard = previousOpponentRef.current.hand.find(
+          (prevCard) =>
+            !currentOpponent.hand.some(
+              (currentCard) =>
+                currentCard.number === prevCard.number &&
+                currentCard.color === prevCard.color
+            )
+        );
+
+        if (fishingCard) {
+          setCardsCollected({
+            totalCards: 0,
+            collectedCards: [],
+            fishingCard: fishingCard,
+            hook: fishingCard.number,
+          });
+        }
+      }
+
+      setPlayer(currentPlayer);
+      setOpponent(currentOpponent);
       setTable(table);
       setSelectedTableCards(selectedTableCards);
       setLastPlacedCard(lastPlacedCard);
+
+      // Update previous values
+      previousOpponentFishedCardsRef.current = currentOpponent.fishedCards;
+      previousTableRef.current = [...table];
+      previousOpponentRef.current = { ...currentOpponent };
     });
 
     socket.on("gameOver", (data) => {
@@ -192,6 +278,8 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
         selectedTableCards,
       });
       setEmit(false);
+      // Clear cardsCollected when player makes a move
+      setCardsCollected(null);
     }
   }, [emit]);
 
@@ -280,6 +368,7 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
         opponent={opponent}
         handleThemeChange={handleThemeChange}
         theme={theme}
+        cardsCollected={cardsCollected}
       />
       <TableMultiplayer
         cards={table}
