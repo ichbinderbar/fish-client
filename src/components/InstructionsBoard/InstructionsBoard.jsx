@@ -47,7 +47,10 @@ export default function InstructionsBoard({ theme }) {
               matter. Just make sure you select from the table before you choose
               the hook card in order to capture the combination.
               <br />
-              Tap or click any selected card to deselect it.
+              If the combination selected is not valid no cards will be
+              captured.
+              <br />
+              To deselect tap or click any selected card.
             </p>
           </div>
           <div className="section">
