@@ -44,11 +44,6 @@ export default function MainMenu({
     <div
       className={`main-menu__main-container main-menu__main-container--${theme}`}
     >
-      <Link to={"/scores"}>
-        <div className="main-menu__button main-menu__button--scores">
-          Scores
-        </div>
-      </Link>
       <StartNewGameModal
         isVisible={isStarNewGameModalVisible}
         onCancel={handleCancelNavigation}
@@ -90,6 +85,11 @@ export default function MainMenu({
       <Link to={"/user"}>
         <div className="main-menu__button main-menu__button--profile">
           My Profile
+        </div>
+      </Link>
+      <Link to={"/scores"}>
+        <div className="main-menu__button main-menu__button--scores">
+          Scores
         </div>
       </Link>
       <div className="table__theme-button" onClick={handleThemeChange}>
