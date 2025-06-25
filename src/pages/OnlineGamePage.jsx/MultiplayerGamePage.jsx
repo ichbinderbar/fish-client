@@ -37,6 +37,7 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
   const [winner, setWinner] = useState(null);
   const [isJoinRoomVisible, setIsJoinRoomVisible] = useState(true);
   const [cardsCollected, setCardsCollected] = useState(null);
+  const [isWaitingForPlayer, setIsWaitingForPlayer] = useState(false);
 
   const previousPlayerCoins = useRef(player.coins);
   const previousOpponentCoins = useRef(opponent.coins);
@@ -97,6 +98,8 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
 
     socket.on("startGame", (data) => {
       setRoomId(data.roomId);
+      setIsWaitingForPlayer(false);
+      setIsJoinRoomVisible(false);
 
       if (socket.id === data.player1.id) {
         setPlayer({
@@ -343,7 +346,7 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
 
   const handleJoinRandomRoom = () => {
     socket.emit("joinRandomRoom");
-    setIsJoinRoomVisible(false);
+    setIsWaitingForPlayer(true);
   };
 
   return (
@@ -361,6 +364,7 @@ export default function MultiplayerGamePage({ handleThemeChange, theme }) {
           <JoinRoom
             handleRoomInput={handleRoomInput}
             handleJoinRandomRoom={handleJoinRandomRoom}
+            isWaitingForPlayer={isWaitingForPlayer}
           />
         ) : null}
       </div>
