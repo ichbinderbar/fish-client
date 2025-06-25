@@ -40,6 +40,11 @@ export default function MainMenu({
     setIsLevelModalVisible(false);
   };
 
+  const handleBackToGameMode = () => {
+    setIsPersonalityModalVisible(false);
+    setIsStartNewGameModalVisible(true);
+  };
+
   return (
     <div
       className={`main-menu__main-container main-menu__main-container--${theme}`}
@@ -53,14 +58,8 @@ export default function MainMenu({
       <Modal
         isVisible={isPersonalityModalVisible}
         onConfirm={handleConfirmPersonality}
-        onCancel={handleCancelNavigation}
-        message={
-          <>
-            Give personality to your opponent.
-            <br />
-            Or click continue to play against the default Opponent.
-          </>
-        }
+        onCancel={handleBackToGameMode}
+        message={<>Choose a personality for your opponent and click continue</>}
         placeholder={"e.g. Paul Atreides"}
         modifier={"start-game"}
         setInputValue={setInputValue}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Modal.scss";
 import { useNavigate } from "react-router-dom";
 import { lisaBot, juanBot, dumbBot } from "../../game/PlayerObjects";
@@ -14,6 +14,7 @@ export default function Modal({
   placeholder,
 }) {
   const navigate = useNavigate();
+  const [inputValue, setLocalInputValue] = useState("");
 
   if (!isVisible) return null;
 
@@ -22,6 +23,16 @@ export default function Modal({
     navigate("/game");
   };
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setLocalInputValue(value);
+    if (setInputValue) {
+      setInputValue(value);
+    }
+  };
+
+  const isContinueDisabled = modifier === "start-game" && !inputValue.trim();
+
   return (
     <div className={`modal__container modal__container--${modifier}`}>
       <div className={`modal modal--${modifier}`}>
@@ -29,7 +40,8 @@ export default function Modal({
           <p>{message}</p>
           <input
             className={`modal__input modal__input--${modifier}`}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={handleInputChange}
+            value={inputValue}
             placeholder={placeholder}
           />
           <button
@@ -53,14 +65,17 @@ export default function Modal({
           <button
             className={`modal__confirm modal__confirm--${modifier}`}
             onClick={onConfirm}
+            disabled={isContinueDisabled}
           >
-            Quit Game
+            {modifier === "start-game" ? "Continue" : "Quit Game"}
           </button>
           <button
             className={`modal__cancel modal__cancel--${modifier}`}
             onClick={onCancel}
           >
-            Continue Playing
+            {modifier === "start-game" || modifier === "level"
+              ? "Go back"
+              : "Continue Playing"}
           </button>
         </div>
       </div>
