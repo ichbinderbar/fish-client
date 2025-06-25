@@ -33,22 +33,34 @@ export default function InstructionsBoard({ theme }) {
       >
         <div className="instructions-board__content">
           <div className="section">
-            <h3>How to Play:</h3>
+            <h3>Controls:</h3>
             <p>
               On each turn you will try to collect as many cards and coins as
               possible.
               <br />
-              First select the cards you want to "fish" from the table, then
-              select the "hook" from your hand. The "hook" is the card you will
-              use to capture the combination selected from the table.
+              First select (tap or click) the cards you want to "fish" from the
+              table, then select (tap or click) the "hook" from your hand. The
+              "hook" is the card you will use to capture the combination
+              selected from the table.
               <br />
               The order in which you select the cards on the table does not
-              matter. Just make sure you do it before you choose the hook card.
+              matter. Just make sure you select from the table before you choose
+              the hook card in order to capture the combination.
+              <br />
+              Tap or click any selected card to deselect it.
             </p>
           </div>
           <div className="section">
             <h3>Goal:</h3>
             <p>Earn 40 coins before your opponent to win the game.</p>
+            <br />
+            <h3>Game Over:</h3>
+            <p>
+              The game can end at the end of a round when the cards are counted
+              and exchanged for coins once one of the players reaches 40 coins,
+              or it can end by a player reaching 40 coins at any point during
+              the game.
+            </p>
             <br />
             <h3>Tip:</h3>
             <p>
@@ -122,14 +134,6 @@ export default function InstructionsBoard({ theme }) {
               if neither player has reached 20 points.
               <br />
               The player who plays last in one round starts the next.
-            </p>
-            <br />
-            <h3>Game Over:</h3>
-            <p>
-              The game can end at the end of a round when the cards are counted
-              and exchanged for coins once one of the players reaches 40 coins,
-              or it can end by a player reaching 40 coins at any point during
-              the game.
             </p>
           </div>
         </div>
