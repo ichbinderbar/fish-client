@@ -14,10 +14,10 @@
   background-color: rgba(247, 0, 255, 0.3);
 
   &__confirm {
-    background: rgb(0, 211, 0);
+    background: red;
   }
   &__cancel {
-    background-color: red;
+    background-color: rgb(0, 211, 0);
   }
 
   &__container {

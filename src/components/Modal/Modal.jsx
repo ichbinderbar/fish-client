@@ -54,13 +54,13 @@ export default function Modal({
             className={`modal__confirm modal__confirm--${modifier}`}
             onClick={onConfirm}
           >
-            Continue
+            Quit Game
           </button>
           <button
             className={`modal__cancel modal__cancel--${modifier}`}
             onClick={onCancel}
           >
-            Go back
+            Continue Playing
           </button>
         </div>
       </div>
