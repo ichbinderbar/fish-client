@@ -82,9 +82,9 @@ export default function InstructionsBoard({ theme }) {
               table as possible using a card from your hand, the hook.
               <br />
               There are two types of cards in the game: royals (or high cards:
-              J, Q, K) and colors (or low cards: A - 7). If the played card is a
-              royal card, in order to capture or "fish" a card from the table it
-              must match its value exactly.
+              J, Q, K) and colors (or low cards: A - 7). 8s, 9s, and 10s do not
+              play. If the played card is a royal card, in order to capture or
+              "fish" a card from the table it must match its value exactly.
               <br />
               If the played card is a low card (A - 7) it can "fish" like royals
               or it can capture up to two cards at once by adding up their
@@ -94,9 +94,10 @@ export default function InstructionsBoard({ theme }) {
               2 together because 1 + 2 = 3.
               <br />
               If you capture as explained before all inmediatelly consecutive
-              cards after the hook's card value can also be collected. For
-              example, if you have a 3 in your hand and the table contains the
-              following cards: 1, 2, 3 and 4, you could "fish" any of these
+              cards after the hook's card value can also be collected. Since 8s,
+              9s, and 10s, do not play, the next consecute card after 7 is J.
+              For example, if you have a 3 in your hand and the table contains
+              the following cards: 1, 2, 3 and 4, you could "fish" any of these
               combinations off the table: [1, 2, 4] because 1 + 2 = 3 and 4
               comes inmediatelly after 3, [3, 4] because 4 comes inmediatelly
               after 3, [1, 2] because 1 + 2 = 3, or you could simply pick up the
