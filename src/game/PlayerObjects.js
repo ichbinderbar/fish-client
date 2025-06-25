@@ -138,8 +138,8 @@ export function lisaBot({
       fishedCards: prevOpponent.fishedCards + longestCombination.totalCards,
       coins:
         prevOpponent.coins +
-        (isTableEmpty ? 1 : 0) +
-        (isMatchWithLastPlacedCard ? 1 : 0),
+        (isTableEmpty ? 2 : 0) +
+        (isMatchWithLastPlacedCard ? 2 : 0),
     }));
     setTable(updatedTableWithoutCombination);
 
@@ -225,8 +225,8 @@ export function juanBot({
       fishedCards: prevOpponent.fishedCards + longestCombination.totalCards,
       coins:
         prevOpponent.coins +
-        (isTableEmpty ? 1 : 0) +
-        (isMatchWithLastPlacedCard ? 1 : 0),
+        (isTableEmpty ? 2 : 0) +
+        (isMatchWithLastPlacedCard ? 2 : 0),
     }));
     setTable(updatedTableWithoutCombination);
 

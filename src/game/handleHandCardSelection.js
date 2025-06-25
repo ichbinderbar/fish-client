@@ -45,9 +45,9 @@ const handleHandCardSelection = ({
       if (lastPlacedCard && lastPlacedCard.number === card.number) {
         setPlayer((prevPlayer) => ({
           ...prevPlayer,
-          coins: prevPlayer.coins + 1,
+          coins: prevPlayer.coins + 2,
         }));
-        // console.log("Match with the last placed card! Awarded 1 coin.");
+        // console.log("Match with the last placed card! Awarded 2 coins.");
       }
 
       setTable(updatedTable);
@@ -62,9 +62,9 @@ const handleHandCardSelection = ({
       if (updatedTable.length === 0) {
         setPlayer((prevPlayer) => ({
           ...prevPlayer,
-          coins: prevPlayer.coins + 1,
+          coins: prevPlayer.coins + 2,
         }));
-        // console.log("Emptied table! Awarded 1 coin.");
+        // console.log("Emptied table! Awarded 2 coins.");
       }
     } else {
       //   console.log("Invalid combination selected:", selectedNumbers);
