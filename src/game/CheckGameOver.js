@@ -1,5 +1,3 @@
-const WINNING_SCORE = 40;
-
 export const checkGameOver = (
   player,
   setPlayer,
@@ -9,14 +7,8 @@ export const checkGameOver = (
   setGameOver,
   setWinner
 ) => {
-  // Check if either player has met the winning condition
-  const playerWins = player.coins >= WINNING_SCORE;
-  const opponentWins = opponent.coins >= WINNING_SCORE;
-
-  if (playerWins || opponentWins) {
-    // Determine the winner based on our check above
-    const winner = playerWins ? player : opponent;
-
+  if (player.coins >= 40 || opponent.coins >= 40) {
+    const winner = player.coins >= 40 ? player : opponent;
     setWinner(winner);
     console.log(`Game Over: ${winner.id} wins with ${winner.coins} coins!`);
 
@@ -24,9 +16,7 @@ export const checkGameOver = (
     setOpponent((prevOpponent) => ({ ...prevOpponent, hand: [] }));
     setTable([]);
     setGameOver(true);
-
     return true;
   }
-
   return false;
 };
