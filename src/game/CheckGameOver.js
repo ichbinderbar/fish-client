@@ -1,4 +1,4 @@
-const WINNING_SCORE = 10;
+const WINNING_SCORE = 40;
 
 export const checkGameOver = (
   player,
